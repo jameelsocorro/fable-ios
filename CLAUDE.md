@@ -72,3 +72,15 @@ A few PRD principles are easy to violate without realizing it:
 ## What's Out of Scope (per PRD)
 
 XP system, badges, public profiles, social feed, auto-posting, AI writing, calendar scheduling, team features, deep platform integrations, daily lessons/mindset library, Apple Watch app, widgets, and web dashboard are all explicitly post-MVP. Don't accidentally start building them.
+
+## Tool & Git Workflow (Superpowers Override)
+
+When using the `superpowers` tool or any other filesystem/Git tool to create design files, write code, or modify the project, you MUST adhere to the following strict rules:
+
+- **No Branching:** DO NOT create new Git worktrees or branches. Always stay on the current active branch.
+- **No Committing:** DO NOT run `git commit`.
+- **No Pushing:** DO NOT push changes to remote repositories.
+- **Direct File Writing:** ALWAYS write or modify files directly in the current working directory.
+- **Manual Review:** Leave all modifications uncommitted in the working tree so I can review, test, and commit them manually.
+- **Manual Verification:** Do NOT run project build or test commands by default. Leave build and test verification to the user unless they explicitly ask you to run it.
+- **Design & Implementation Docs:** ALWAYS read and follow the `swiftui-pro` skill when creating design docs or implementation plans.
