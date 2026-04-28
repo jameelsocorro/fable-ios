@@ -7,14 +7,14 @@
 > Fable is **pre-launch**. No users, no beta testers, no validated metrics yet.
 >
 > **What is verified:**
-> - Founder's own story and lived experience (multiple app launches, distribution lessons)
-> - Product design and PRD (the build itself)
+> - Founder's own story and lived experience (multiple app launches, distribution lessons, the silence-on-launch pattern)
+> - Product design and PRD (the build itself — though the PRD's quest-category model is now out of sync; see "Roadmap Vision" and "Differentiation" for the updated MVP framing)
 > - Brand voice and tone (founder-confirmed)
-> - Competitive observation (no direct competitors found — only generic habit trackers)
+> - Competitive observation (no direct competitors found — only generic habit trackers and unrelated content schedulers)
 >
 > **What is hypothesized (validate before using as marketing claims):**
-> - Personas
-> - Customer language / verbatim quotes
+> - Personas beyond the founder himself
+> - Customer language beyond founder-verbatim quotes
 > - Objections
 > - Switching dynamics (JTBD forces)
 > - All metrics and proof-of-results claims
@@ -25,321 +25,350 @@
 
 ## Founder Story
 
-**Why it exists:**
-I've built a lot of apps. Most of them launched to crickets. A few made some money. One is making real money. The pattern? I loved *building* every single one. But after launch, the excitement died and I had no idea how to market it. Then I learned the hard truth: distribution is everything. Product matters less than the audience that knows about it.
+**Why it exists (founder's own words, lightly tightened):**
 
-So I decided to build something I'd have to talk about constantly while building it. Something that keeps me accountable and makes creating content fun instead of a chore. That's Fable. I'm building it publicly, using it daily, and turning the journey into content for the product itself. If it works for me (someone who's built and launched multiple times), it'll work for anyone building in public.
+I've built multiple apps over the years. Most of them failed — not because they were bad products, but because they had no audience. A few made some money. One is truly making money.
+
+The pattern was always the same: I'd get excited building, then never share the app until it was finished. By the time it was done, the excitement was gone — making content for it felt hard, I didn't know where to start with marketing, and the momentum I had while building had already died.
+
+So I'm building Fable for myself first. It's the app I wish I'd had during every previous launch: something that nudges me to post about what I'm building, *while* I'm building it. No content strategy, no overthinking — just "here's a quest, post on the platform you said you'd grow on, keep your streak alive."
+
+If it works for me — someone who's launched and learned this lesson the hard way — it'll work for other indie founders like me.
 
 ---
 
 ## Product Overview
 
 **One-liner:**
-Stop launching in silence. Fable keeps you visible while you build—daily quests that turn building into content, content into audience, and audience into momentum.
+A gamified habit tracker for indie founders to stay visible while they build. Pick the platforms you want to grow on, get fixed daily quests, tap-and-hold to complete, build a streak.
 
 **What it does:**
-Fable is a gamified build-in-public companion that solves the #1 problem indie builders face: launching something great that nobody knows about. You get 3-6 daily quests that tell you exactly what to share. Complete one a day to keep your streak alive. Stay consistent, stay visible, stay accountable. Think of it as: Duolingo for staying visible while you build.
+
+During onboarding, the user picks the social platforms they want to grow on (e.g., Threads, Instagram, TikTok). Fable then surfaces a fixed set of platform-specific quests every day — concrete actions like:
+
+- "Post on Threads"
+- "Post a Reel on Instagram"
+- "Post a Story on Instagram"
+- "Post a Reel on TikTok"
+
+Complete at least one quest per day with the **tap-and-hold** gesture to keep the streak alive. The streak + grace day mechanic ("don't miss twice") removes shame from off days. Over time the user accidentally builds an audience — because they're consistently showing up about their build, on the platforms they committed to.
+
+It's not a content tool. It's not a scheduler. It's an **accountability layer** — the part most founders are missing.
 
 **Product category:**
-Founder tools / Build-in-public tools / Accountability + visibility apps
+Founder accountability tool / gamified habit tracker for visibility / build-in-public companion app.
 
 **Product type:**
-Mobile app (iOS, expanding to watchOS, web, widgets post-MVP)
+Mobile app (iOS — MVP). Apple Watch, widgets, web dashboard are all post-MVP.
 
 **Business model:**
-Freemium: Free tier with 1-2 quests/day and basic streak tracking. Pro tier ($X/month) with full quest variety (3-6/day), daily lessons, mindset library, deeper analytics, Apple Watch, and widgets.
+Freemium (intent — exact tier split TBD). Free covers the core loop (platform selection, daily quests, streak, tap-and-hold, heatmap). Pro unlocks post-MVP features as they ship: Founder XP, Founder Notes, AI content reframing, watch + widgets, deeper analytics.
 
 ---
 
 ## Target Audience
 
-**Target companies/founders:**
-Anyone actively building something in public—indie app builders, no-code founders, solo SaaS builders, creators, digital product makers, students with side projects. They've either launched before (and learned distribution matters) or they're building now and want to avoid the "silence on launch" problem.
+**Who Fable is for:**
+Indie founders / solo app builders who are great at building and bad at being visible while they build. They've usually launched something before and learned the hard way that distribution beats product. They want to grow on a small number of social platforms (typically 1–3) but lack the discipline, structure, or daily push to actually post.
 
-**Decision-makers:**
-Single person—the builder/founder. No procurement cycle. Impulse download.
+**Decision-maker:**
+The founder themselves. Single user, no procurement cycle, impulse download.
 
 **Primary use case:**
-Staying visible and consistent while building, so that when you launch, you already have an audience and momentum. The core problem: you can build great things in private, but great things nobody knows about don't matter.
+Staying visible on chosen platforms *while* building, so an audience exists by the time they launch.
 
 **Jobs to be done:**
-1. Stay visible while building (not after launch)
-2. Build an audience *before* launch (not scrambling after)
-3. Stay consistent without willpower (quests + streaks remove decision fatigue)
-4. Make content creation fun, not a chore (so it sticks long-term)
-5. Keep momentum alive (so your excitement doesn't die between shipping features and launching)
+1. Show up daily on the platforms I've committed to growing on
+2. Stop doing the "I'll start sharing once it's done" thing (the pattern that killed every previous launch)
+3. Build a streak so showing up becomes the default, not a daily decision
+4. Make visibility feel rewarding, not like another marketing chore
+5. Build an audience as a side-effect of consistency — without realizing it's happening
 
 **Use cases:**
-- App developer who's launched before, knows silence hurts, wants to do it right next time
-- SaaS founder building now but wants to grow audience alongside product
-- No-code builder shipping regularly but struggling to tell people about it
-- Creator/digital product maker wanting to document the journey publicly
-- Student or side-project builder wanting feedback and accountability while building
+- Indie iOS / Mac developer who's launched apps before and watched them ship to silence
+- SaaS / no-code founder who knows distribution matters but can't keep posting consistent past week 2
+- Founder in public who picked Threads + Instagram + TikTok and posts on none of them
+- Side-project builder who feels weird about self-promotion and needs a quest as the excuse to do it
 
 ---
 
 ## Personas
 
-> ⚠️ **Hypothesized — not yet validated.** These archetypes are derived from the founder's own experience and PRD assumptions. Validate by talking to real builders before treating these as confirmed personas.
+> ⚠️ **Beyond the founder himself, all personas are hypothesized.** Validate by talking to real builders before treating as confirmed.
 
 | Persona | Cares about | Challenge | Value we promise |
 |---------|-------------|-----------|------------------|
-| **The Shipping Builder** (hypothesized) | Shipping fast, getting feedback, staying accountable | Builds constantly but never posts; audience stays at zero | Daily quests remove decision paralysis—just follow the prompt |
-| **The Audience-First Founder** (hypothesized) | Distribution, visibility, differentiation | Knows marketing matters but consistency breaks after week 2 | Streak mechanic keeps them showing up, haptic reward makes it fun |
-| **The Identity Seeker** (hypothesized) | Becoming known for something; building in public with purpose | Posts randomly, no narrative arc; feels like shouting into void | Quests connected to identity ("become a visible builder") give posts meaning |
+| **The Founder Himself (verified)** | Shipping apps, having distribution this time | Excited while building, never shares until done, then loses the momentum | Daily quests force visibility *while* building, before momentum dies |
+| **The Repeat-Launcher (hypothesized)** | Avoiding launch-to-silence again | Has shipped audience-less products before; knows it's the problem; can't fix the discipline gap alone | Streak + fixed quests removes the daily "what do I post?" decision |
+| **The First-Time Builder (hypothesized)** | Building right from day one | Doesn't know what to post or where; intimidated by "marketing" | Fixed platform-specific quests give a paved path: just do this thing today |
 
 ---
 
 ## Problems & Pain Points
 
-**Core problem:**
-Builders are great at making things. They're terrible at getting people to know about them. The result: launching great products to silence. It's not a product problem—it's a distribution problem. And it kills momentum right when you need it most.
+**Core problem (founder verbatim):**
+Building great apps but launching them to silence — because you didn't share *while* building. By the time you finish, the excitement is gone, content is hard, and you don't know where to start with marketing. So momentum dies and the launch dies with it.
 
-**Root causes:**
-- Building in private feels productive. Talking about it feels like showing off
-- After launch, the excitement dies and suddenly "marketing" is a chore
-- No daily structure = inconsistent posting = audience doesn't grow = momentum dies
-- Decision paralysis: "What do I even share?"
-- Momentum is fragile. Miss a week of posting and the audience assumes you quit
+**Why this happens (root causes — founder verbatim):**
+- "I'm very excited building something but I really don't share that app until I finish it"
+- "After I finish it I'm not really excited to share about it"
+- "It's hard to make content around it"
+- "I really don't know how to start marketing it"
+- "I lost the momentum of sharing"
+- Sharing-while-building feels like showing off
+- No daily structure → posting is a fresh decision every day → most days the answer is "later"
 
 **Why current solutions fall short:**
-- Generic task managers: feel like work, don't solve "what do I post?"
-- Twitter/social media apps: infinite feed, no structure, no accountability
-- Notion templates: require discipline; most people abandon them after week 2
-- Marketing courses: expensive, time-consuming, assume you have time to learn
-- Generic habit trackers (Streaks, Done): not founder-specific, templates are generic, not connected to your progress
-- Going solo: you just... hope you remember to post (you don't)
+- **Generic habit trackers** (Streaks, Done, Habitica): closest mechanic, but generic — they don't know you're a founder trying to grow on Instagram. The quest list is whatever you type in. No founder framing, no platform specificity.
+- **Social schedulers** (Buffer, Later, Plann): solve the "schedule a post I already wrote" problem. Don't solve the "did I post today?" problem.
+- **Notion build-in-public templates**: DIY, require self-discipline, abandoned by week 2.
+- **Twitter / IG / Threads / TikTok directly**: infinite feed, no structure, no streak — easy to scroll instead of post.
+- **Marketing courses**: passive, expensive, assume you have time to learn.
+- **Going solo on willpower**: what most founders try; what most founders fail at.
 
 **What it costs them:**
-- **Opportunity cost**: Product that could've had 10K users launches to 100 because nobody knew
-- **Time wasted**: Hours spent wondering "what should I share?" instead of building
-- **Momentum loss**: Excitement dies between "finishing feature" and "launch day"
-- **Confidence hit**: Inconsistent posting makes you feel like you're failing
-- **No feedback**: Small audience = no early feedback = miss chance to improve before big launch
+- Apps shipping to 100 downloads when they could've had 10K
+- Hours wondering "what do I post?" when the answer is just "post something on the platform you chose, today"
+- Momentum dying between feature ship and launch day
+- Inconsistency → audience assumes you quit → you basically did
 
 **Emotional tension:**
-- Dread: "I should be posting but it feels like showing off"
-- Guilt: "I'm not doing marketing and it's going to hurt my launch"
+- Dread: "I should be posting but I don't know what to say"
+- Guilt: "I'm avoiding marketing and it's going to hurt my launch"
 - Anxiety: "Will anyone care about what I built?"
-- Frustration: "I'm good at building but I suck at visibility"
+- Frustration: "I'm great at building, terrible at being visible"
 - Fear: "If I miss a week, my audience will forget about me"
 
 ---
 
 ## Competitive Landscape
 
-**Direct competitors:**
-- **Streaks / Habitica**: Habit trackers with gamification, but generic (not founder-specific) and streak mechanics aren't as satisfying
-- **Twitter/social media apps**: Free, built-in audience, but no structure for "what to post?" and you're competing in infinite feed
-- **Notion templates** (Build in Public tracker): DIY, requires discipline, no reward loop
+**Direct competitors (same mechanic, similar user):**
+- **Generic habit trackers** (Streaks, Done, Habitica): closest mechanic, but generic and not founder-specific. No platform-aware quests, no founder framing.
+- **Notion / Airtable build-in-public templates**: closest in spirit, but DIY and abandoned after week 2.
 
-**Why they fall short:**
-- Not designed for founder mindset—generic habits feel hollow
-- No satisfying completion mechanic (tap-hold expanding circle is Fable's differentiator)
-- No templates/prompts for what to share—user has to invent the content
-- Streaks in competitors feel like work, not play
+**Secondary competitors (different mechanic, same job):**
+- **Buffer / Later / Plann / Hootsuite**: scheduling tools — they help once you've decided to write the post. They don't tell you to post today, and they don't reward consistency the way a streak does.
+- **The platforms themselves** (Twitter, Threads, IG, TikTok) used as "I'll just remember to post" solutions: no structure, no streak, no daily nudge.
 
-**Secondary competitors:**
-- **Indie Hackers**: Community + community feedback, but passive, not a daily habit driver
-- **Product Hunt**: Launch platform, but doesn't help you *before* launch
-- **Newsletter tools** (Substack, Beehiiv): Great for long-form, but doesn't solve daily consistency
+**Indirect competitors (alternative approach):**
+- **Indie Hackers / Product Hunt**: community + launch platforms. Don't help you stay visible *before* launch.
+- **Marketing courses, "build in public" Twitter advice**: education, not action.
+- **Just willpower**: free, ubiquitous, mostly fails.
+
+**Why they all fall short for our user:**
+- None combine **platform-specific fixed quests** + **streak gamification** + **founder framing**
+- Habit trackers are too generic; schedulers solve the wrong stage; courses are passive
+- Nothing is built BY a founder FOR founders who've already lived the silence-on-launch lesson
 
 ---
 
 ## Differentiation
 
-**The core insight that matters:**
-Everything that's a "generic habit tracker" for visibility is... generic. Fable is built BY a founder FOR founders who've already learned that distribution beats product. That's why it works.
+**The core insight:**
+Most "build in public" tools are content tools. Fable isn't a content tool — it's an **accountability tool**. The hard part isn't writing the post; it's *deciding to post today*, on the platform you chose, when you'd rather just keep building. Fable handles that decision for you.
 
 **Key differentiators:**
 
-1. **Founder-built for founder problems**: Not a generic habit tracker or productivity app. Built by someone who's launched multiple apps and learned the hard way that staying visible wins. The app reflects real founder pain, not generic "motivation" assumptions.
+1. **Platform-specific quests, not generic prompts.** "Post a Reel on Instagram" is a different quest than "Post on Threads" — because the work is different. The quest list is curated to the platforms the user actually committed to during onboarding.
 
-2. **Tap-and-hold expanding circle mechanic**: Only way to complete quests. Inner circle expands as you hold, fills outer circle, haptic feedback + animation burst. Makes visibility feel *rewarding*, not obligatory. Pavlovian—your brain learns "staying visible = feels good."
+2. **You commit to platforms; the streak rewards consistency on them.** Not "post anywhere today" — "post on the platforms you picked." Forces focus instead of spraying across 7 networks badly.
 
-3. **Quests are about visibility, not generic tasks**: Each quest is designed to keep you visible while building. Not "did you exercise?" but "what shipped today?" or "what question do you have?" or "what did you learn?" These are *visibility* prompts tied to your actual building.
+3. **Tap-and-hold completion mechanic.** Inner circle expands, fills outer ring, haptic feedback + animation burst. The only way to mark a quest complete. Visibility becomes pavlovian: showing up *feels good*.
 
-4. **Built-in templates remove decision paralysis**: You never have to stare at a blank screen wondering "what do I share?" Each quest comes with a fallback prompt + suggested platform. This is the unlock—it's not about discipline, it's about removing friction.
+4. **Streaks with grace ("don't miss twice").** One missed day doesn't reset the streak — only two consecutive misses do. Built around the reality that founders are human, but consistency is the unlock.
 
-5. **Streaks as accountability**: The streak is the main mechanic because founders know: consistency beats intensity. One great post = ignored. 30 posts in a row = audience. Fable keeps you showing up.
+5. **Built BY a founder FOR founders.** Not a productivity company chasing a market — an app the founder himself uses daily on his own apps, dogfooding it through Fable's own launch.
 
-6. **"Don't miss twice" grace day philosophy**: One missed day doesn't break the streak. Only two consecutive misses reset. This respects reality: you're human, you'll have bad days, but if you bounce back quick, the streak lives.
+6. **Accountability over content help (in MVP).** No AI writing, no auto-posting, no calendars. Just: did you post today on the platform you said you'd grow? Yes / no. Streak / no streak. Post-MVP layers on Founder Notes + AI content reframing once the core habit is validated.
 
-7. **GitHub-style heatmap shows *visibility consistency***: Not just "did you work out today?" but "how many days this month did you stay visible?" Darker = more quests that day. Gives founders a visual proof that they're actually staying consistent. Makes it pride-inducing to screenshot and share.
-
-8. **Design quality that respects founders**: Atoms-inspired minimal design. Breathing room, clean typography, haptic feedback. Feels like a tool made for you, not a corporate productivity app. 5-minute quests because you're building, not because you have time for another app.
-
-**How we solve it differently:**
-Competing "solutions": Twitter (infinite feed, no structure), Notion templates (require discipline, abandoned after week 2), generic habit trackers (solved for fitness, not visibility), marketing courses (expensive, assume you have time).
-
-Fable solves the specific founder problem: "I'm shipping great things but nobody knows. I need to stay visible while building, and I need help remembering what to share because I'm focused on building, not marketing."
-
-**Why this is different:**
-- Built by a founder who's launched to silence before = we understand the real pain
-- Templates remove "what do I even say?" (the #1 blocker)
-- Streaks solve "consistency wins over brilliance" (the #1 insight)
-- Heatmap makes consistency *visible* (pride, not shame)
-- Founder-first design language (visibility, staying alive, momentum) not generic motivation language
+7. **Atoms-quality design.** Calm, minimal, haptic-rich. Doesn't feel like a corporate productivity app. Respects the 5-minute rule for completing a quest including the post.
 
 **Why founders choose it:**
-You get one thing: a daily reminder of what to share, designed specifically for builders, that keeps you visible while you build. Not "be more productive." Not "build a personal brand." Just: "Stay visible. Here's what to share today."
+You get one thing: a daily nudge to post on the platforms you committed to growing on, gamified enough that you actually do it. Not "be more productive." Not "build a personal brand." Just: "Pick Threads. Pick Instagram. Pick TikTok. Now post today. Streak's on the line."
+
+---
+
+## Roadmap Vision (Post-MVP)
+
+> ⚠️ Captured here because it shapes long-term positioning. **Don't market features that don't exist yet** — but the trajectory is part of the story when talking about Fable's depth.
+
+The MVP is intentionally narrow: pick platforms → daily fixed quests → tap-and-hold → streak. Once that habit loop is validated, Fable layers on:
+
+- **Founder XP** — XP tied not to "quests as a game" but to *you-as-a-founder* leveling up. Streak depth, platforms grown, days shown up. Treats the founder identity as the protagonist, not the app.
+- **Founder Notes** — short daily journal of what you did on your build today. A second habit, anchored to the same streak.
+- **AI content reframing** — the AI reads your Founder Notes and reframes them into draft posts, articles, or threads that are actually content-worthy. So journaling itself becomes raw material for what you share next.
+- **Academy / Learn tab** — a learning hub for novice indie founders who want to learn how to build apps. Tutorials, fundamentals, founder stories. Widens Fable's audience funnel from "experienced builders who already ship" to "people just starting the indie founder journey" — with Fable's habit loop waiting for them when they begin building.
+- **Apple Watch app, widgets, web dashboard** — visibility for the streak across surfaces.
+
+Together, this turns Fable from "habit tracker for posting" into a full-funnel founder companion — **learning** for novices, **accountability** for builders, and *what you did today → what becomes content tomorrow* for those shipping in public. That's the long-term vision. The MVP doesn't promise any of it.
 
 ---
 
 ## Objections & Anti-Personas
 
-> ⚠️ **Hypothesized objections — not yet heard from real users.** These are anticipated based on the founder's own intuition and the PRD's "Key Risks" section. Update with real objections once you talk to founders or run beta tests.
+> ⚠️ **Hypothesized — not yet heard from real users.** Update once you talk to founders or run beta tests.
 
 | Objection (hypothesized) | Response |
 |-----------|----------|
-| "Isn't build-in-public just performative?" | True. But Fable only works if you're actually building something. It's for people who build and forget to tweet, not people who tweet about building and don't ship. |
-| "I don't have time to post daily." | Quests are designed for 5 minutes or less, including the post. Shorter than a coffee break. And you only need 1 quest completed per day—the other 2-5 are optional. |
-| "What if I miss a day?" | You get one grace day. Two in a row breaks the streak. You're human. Fable gets that. |
-| "I'm not good at writing/content." | Fable gives you templates and prompts. You fill in the blanks. No blank page syndrome. |
-| "Will this actually grow my audience?" | Yes, if you're actually building something worth following. Fable removes friction (what to post) and builds consistency (the streak). Consistency = visibility = growth. |
+| "Isn't this just performative build-in-public?" | Fable only works if you're actually building. The quest is "post about your build," not "post anything." Fakes break the loop fast. |
+| "I don't have time to post daily." | Quests are 5 minutes or less, including the post. You only need one quest per day to keep the streak alive. |
+| "What if I miss a day?" | One grace day. Two consecutive misses break it. Built for humans. |
+| "I don't know what to actually post." | The quest tells you the *action* ("Post a Reel on Instagram") — the content comes from what you're already building. Post-MVP, AI will reframe your daily Founder Notes into draft posts. |
+| "Will this actually grow my audience?" | If you're building something real and you show up consistently on the platforms you committed to, the math works. Fable removes the friction of *whether* to post today. |
+| "Why not just use Buffer or Later?" | Different problem. Schedulers help when you've already decided to write a post. Fable's job is making sure you decide to in the first place. |
 
 **Anti-persona:**
-**NOT a good fit:** Founders who aren't actually building anything. Fable requires real progress to make quests feel authentic. If you're posting fake progress, it breaks. Also not for founders who already have strong marketing discipline—Fable is for the builder who forgets to market, not the marketer.
+**NOT a good fit:**
+- Founders who aren't actually building anything (the quest loop has nothing real to feed on)
+- Marketers / content creators already posting daily without help (the accountability layer has no leverage on them)
+- People who want auto-posting / AI-written content for them in V1 (that's post-MVP, not MVP)
 
 ---
 
 ## Switching Dynamics (JTBD Four Forces)
 
-> ⚠️ **Hypothesized — not yet validated.** Based on the founder's own pain and PRD assumptions. Validate by interviewing real builders.
+> ⚠️ **Hypothesized — not yet validated.** Validate by interviewing real builders.
 
-**Push (what frustrates them about status quo):**
-- "I build great things but nobody knows I exist"
-- "I know I should post but I don't know what to say"
-- "I post inconsistently and my audience stays flat"
-- "I'm doing marketing 'wrong' and feel guilty"
-- "I hate generic task managers—they feel like homework"
+**Push (frustrations with status quo):**
+- "I built another thing nobody knows about"
+- "I'm great at shipping, terrible at sharing"
+- "Every habit tracker I've tried feels like homework"
+- "I keep telling myself I'll start posting tomorrow"
+- "I picked Threads / IG / TikTok — and I post on none of them"
 
 **Pull (what attracts them to Fable):**
-- "I get a quest every day that tells me exactly what to share"
-- "The tap-hold circle feels so satisfying"
-- "My streak keeps me accountable without shaming me"
-- "I'm actually building an audience while I build"
-- "This is designed for founders, not generic habit people"
+- "It just tells me to post on Instagram today. I can do that."
+- "The tap-and-hold actually feels good"
+- "The streak makes me show up without thinking about it"
+- "It's not a marketing app. It's a 'don't forget to post' app"
+- "Built by someone who's lived through this. Not corporate."
 
-**Habit (what keeps them stuck with status quo):**
-- "I've tried posting before and it didn't work"
-- "Twitter/social media is where I already spend time"
-- "I don't want to download *another* app"
-- "Building is my priority, marketing feels secondary"
+**Habit (what keeps them stuck):**
+- "I've tried posting before and it didn't stick"
+- "I already spend time on the platforms — why download another app?"
+- "Marketing feels secondary to building"
+- "Generic habit apps I've tried before all got abandoned"
 
-**Anxiety (what worries them about switching):**
-- "Will this streak feel like pressure if I miss a day?"
-- "What if it doesn't actually help my audience grow?"
+**Anxiety (about switching):**
+- "Will the streak feel like pressure if I miss?"
 - "Is this just another empty gamification gimmick?"
 - "Will I still be using this in 3 months?"
+- "Will my audience actually grow?"
 
 ---
 
 ## Customer Language
 
-> ⚠️ **Hypothesized language — not yet collected from real users.** Below is a mix of (a) phrases the founder has used to describe their own experience, and (b) plausible language that real builders may use. Replace with verbatim quotes from real founder interviews as you collect them.
+> ⚠️ **Founder verbatim is verified — strongest copy source.** Other phrasing is hypothesized; replace with real interview quotes as you collect them.
 
-**How they describe the problem (hypothesized — anchored in founder's own words):**
-- "I built something amazing. Launched it. Zero downloads."
-- "I spend 6 months building in private, then wonder why nobody cares."
-- "Distribution is everything. I learned this the hard way."
-- "I'm great at shipping. Terrible at talking about shipping."
-- "I don't know what to post and by the time I figure it out, the moment's passed."
-- "I start strong with sharing updates, then miss a week and just... give up."
-- "My excitement dies after launch because suddenly marketing feels like a job."
-- "I want to build in public but I don't want to be that spammy guy."
+**How the founder describes the problem (verbatim):**
+- "I'm very excited building something but I really don't share that app until I finish it"
+- "After I finish it I'm not really excited to share about it"
+- "It's hard to make content around it"
+- "I really don't know how to start marketing it"
+- "I lost the momentum of sharing"
+- "Most of [my apps] failed because they don't have any audience"
+- "I see a pattern" (the silence-on-launch pattern)
+- "Build momentum"
+- "Visibility while building"
+- "Keep [founders] accountable"
+- "Gain followers without noticing because you are sharing something"
+- "It's much fun to build that way"
 
-**How they describe the solution (hypothesized — what we believe will resonate):**
-- "Just tell me what to share every day."
-- "I need accountability. A streak that makes me show up."
-- "Make it fun so it doesn't feel like marketing."
-- "I want visibility while I build, not after I launch."
-- "I need to see the momentum. Give me a heatmap so I know I'm actually staying consistent."
+**How users (hypothesized) describe what they want:**
+- "Just tell me to post on [platform] today"
+- "I need a streak to keep me showing up"
+- "Make it feel like a game, not marketing"
+- "Pick my platforms once, get my quests forever"
 
-**Words to use:**
-- "Visibility" (not "marketing" or "growth")
-- "Distribution" (the real problem they've learned about)
-- "Momentum" (what dies if you go silent)
-- "Audience" (what they're actually building)
-- "Staying visible" / "Showing up" (daily action language)
-- "Building in public" (not "build-in-public the concept" but the actual practice)
-- "Consistency" / "Keeping it alive" (the barrier to entry)
-- "While building" (not after)
+**Words to use (founder-tested):**
+- "Visibility while building" / "Stay visible"
+- "Momentum"
+- "Accountable" / "Accountability"
+- "Build a streak" / "Keep the streak alive"
+- "Post on [platform]" (specific actions, never abstract "share")
+- "Show up"
+- "While you build" (not "before launch" — too late)
+- "Indie founder" (audience marker)
 
 **Words to avoid:**
-- "Marketing" (sounds like overhead and sales-y)
-- "Content creation" (sounds like a chore)
-- "Growth hacks" (sounds shallow)
+- "Marketing" (sounds like overhead and sales-y — except in honest founder-language about the problem)
+- "Content creation" (chore framing)
+- "Growth hacks" (shallow)
 - "Personal branding" (off-putting)
-- "Engage your audience" (corporate speak)
-- "Content strategy" (too formal for builders)
+- "Engage your audience" (corporate)
+- "Content strategy" (too formal)
+- Generic "habit tracker" framing (Fable is about visibility, not habits in the abstract)
 
 **Glossary:**
 
 | Term | Meaning (in Fable context) |
 |------|---------------------------|
-| **Quest** | A daily prompt/task that tells you exactly what to share. Not homework; a helpful structure. |
-| **Streak** | Consecutive days with at least one completed quest. The main motivator. One grace day before reset. |
-| **Build-in-public** | Sharing your journey as you build, not in silence until launch. |
-| **Visible builder** / **Trusted voice** / **Community leader** | Identity archetypes that quests reinforce. |
-| **Tap-and-hold** | The gesture to complete a quest (inner circle expands, haptic feedback). |
-| **Heatmap** | GitHub-style contribution grid showing daily quest completions over time. |
+| **Quest** | A platform-specific daily action ("Post a Reel on Instagram", "Post on Threads"). Fixed list per platform. |
+| **Platform** | A social network the user committed to growing on during onboarding (e.g., Threads, Instagram, TikTok). Quests filter to selected platforms. |
+| **Streak** | Consecutive days with at least one completed quest across the user's chosen platforms. One grace day before reset. |
+| **Tap-and-hold** | The completion gesture (inner circle expands, fills outer ring, haptic feedback). Only way to mark a quest complete. |
+| **Grace day** | The "don't miss twice" rule — one missed day forgiven, two in a row resets. |
+| **Heatmap** | GitHub-style contribution grid showing daily completions over time. |
+| **Founder Notes** *(post-MVP)* | Daily journal of what you did on your build. Becomes raw material for AI content reframing. |
+| **Founder XP** *(post-MVP)* | XP tied to leveling up *as a founder*, not as a game character. |
 
 ---
 
 ## Brand Voice
 
 **Tone:**
-Encouraging, playful, respectful of time, never condescending. Like a supportive coach, not a nagging boss.
+Encouraging, playful, respectful of time, never condescending. Founder-to-founder, not coach-to-student.
 
 **Style:**
-Short, punchy, direct. No corporate fluff. Founder-to-founder conversation. Empathetic (acknowledging the hard parts) but optimistic (you can do this).
+Short, punchy, direct. No corporate fluff. Empathetic about the hard parts (silent launches, lost momentum) but optimistic about the fix (just show up today).
 
 **Personality:**
 - **Pragmatic** — solves a real problem, not a fantasy
-- **Playful** — design and language feel fun, not like work
-- **Respectful** — honors founder's time and autonomy
+- **Playful** — gamified, haptic, satisfying
+- **Respectful** — honors the founder's time and autonomy
 - **Empowering** — "you can do this" energy
-- **Clear** — no jargon, direct communication
+- **Clear** — no jargon
 
 ---
 
 ## Proof Points
 
-> ⚠️ **No proof points yet — pre-launch.** Fable has no users, beta testers, or validated metrics. Below is a list of what to gather, not what exists. Do not use any "results" claims in marketing copy until they're real.
+> ⚠️ **No proof points yet — pre-launch.** Below is a list of what to gather, not what exists. Do not put any "results" claims into marketing copy until they're real.
 
 **Strongest available proof point right now:**
-The founder's own story. "I've launched multiple apps. Most went to crickets. A few made some money. One is making real money. I built Fable because I learned distribution beats product." This authenticity is the marketing asset until real user data exists.
+The founder's own story. Multiple apps shipped, mostly to silence, one truly making money — and the lesson learned about distribution. The dogfooding case study (Fable used on Fable's own launch) becomes the second proof point as soon as it's running.
 
 **Metrics to collect post-launch:**
 - Daily quest completion rate
-- Streak retention (% of users hitting 7-day, 30-day, 100-day streaks)
-- Audience growth of beta users (their follower counts before/after)
+- Streak retention (% of users hitting 7-day, 30-day, 100-day)
+- Audience growth of beta users on chosen platforms (follower counts before/after)
 - Day-1, Day-7, Day-30 return rate
-- Session length and DAU/MAU ratio
-- Platform breakdown (where users share most)
-- The founder's own audience growth from dogfooding (this is your best early case study)
+- Session length and DAU/MAU
+- Platform mix (which platforms users pick most often)
+- Founder's own audience growth from dogfooding (best early case study)
 
-**Beta target audiences (to recruit):**
+**Beta target audiences to recruit:**
 - Indie Hackers community founders
 - Product Hunt makers
-- Twitter #buildinpublic community
-- Students in startup accelerators (YC, Techstars)
-- The founder's own existing audience (whoever they have today)
+- Twitter/Threads #buildinpublic community
+- Founders in startup accelerators (YC, Techstars)
+- The founder's own existing audience
 
 **Testimonials to gather (none exist yet):**
-- Target: "I went from X to Y followers in N months using Fable" — quantified outcome
-- Target: "This is the only streak app that actually keeps me showing up" — emotional hook
-- Target: "Fable made me realize consistency is the unlock" — insight-based
+- "Posted on [platform] N days in a row. Audience went from X to Y." — quantified outcome
+- "First app I'm launching with people actually watching." — outcome reframe
+- "This is the only streak app I'm still using after a month." — retention proof
 
 **Value themes (with proof status flagged):**
 
 | Theme | Status | Plan to validate |
 |-------|--------|------------------|
-| **Removes decision paralysis** | Hypothesis | Track time-to-first-post in beta vs. self-reported "blank page" time |
-| **Builds consistency** | Hypothesis | Measure 7-day, 30-day streak retention vs. generic habit app benchmarks |
-| **Grows audience** | Hypothesis | Track beta users' follower delta over 30/60/90 days |
-| **Makes marketing fun** | Hypothesis | Survey beta users; measure session frequency and voluntary returns |
+| **Removes the "do I post today?" decision** | Hypothesis | Compare time-to-post in beta vs. baseline |
+| **Builds consistency** | Hypothesis | 7-day, 30-day streak retention vs. generic habit app benchmarks |
+| **Grows audience** | Hypothesis | Track follower delta on chosen platforms over 30/60/90 days |
+| **Makes visibility fun** | Hypothesis | Survey beta users; track voluntary returns |
 | **Respects time** | Design intent | Track average quest completion time |
 
 ---
@@ -347,20 +376,20 @@ The founder's own story. "I've launched multiple apps. Most went to crickets. A 
 ## Goals
 
 **Primary business goal:**
-Make Fable the essential tool for builders to stay visible and consistent while building. "The app I open every morning before shipping features."
+Make Fable the default app indie founders open every morning before they start building. "If you're shipping in public, you have Fable open."
 
 **Dual-purpose secondary goal:**
-Use building Fable as a case study + content engine. Document the journey publicly, stay accountable, grow an audience for the product while proving it works.
+Use building Fable as the founder's own case study + content engine. Document the journey. Stay accountable. Grow Fable's audience using Fable.
 
 **Conversion actions:**
-1. **For users:** Download → complete first quest → feel the reward → come back tomorrow
-2. **For yourself:** Use Fable daily while building it → create content about building Fable → grow audience for Fable using Fable
+1. **For users:** Download → pick platforms → complete first quest → feel the haptic reward → come back tomorrow.
+2. **For the founder:** Use Fable daily on Fable's own launch → produce content about the journey → grow Fable's audience using Fable.
 
 **Key metrics to track:**
-- **Day-1 return rate** (install → next day open) — this is #1 metric
-- **Streak retention** (% hitting 7-day, 30-day, 100-day)
+- **Day-1 return rate** (install → next day open) — #1 metric
+- **Streak retention** (7-day, 30-day, 100-day)
 - **Daily quest completion rate**
 - **Average session length**
-- **Your own audience growth** (as case study/proof point)
-- **User feedback on "solved my problem?"** vs. generic NPS
+- **Founder's own audience growth** (case study / proof point)
+- **User feedback on "did this help you stay visible?"** vs. generic NPS
 - **Heatmap consistency** (visual proof of "staying alive")

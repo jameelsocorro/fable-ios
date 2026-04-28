@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Fable is a **pre-launch, very early-stage iOS app**. The Xcode project currently contains only the default SwiftUI + SwiftData template scaffolding (`Item` model, list-based `ContentView`). None of the actual product features (quests, streaks, tap-and-hold completion, heatmap, etc.) have been built yet. When implementing features, expect to replace template code rather than extend it.
 
-The PRD (`docs/prd.md`) is the source of truth for what gets built. Read it before designing features — the product has strong opinions (tap-and-hold mechanic as the only completion gesture, "don't miss twice" grace day for streaks, identity-first onboarding, color-coded quest types) that should not be silently dropped or generalized.
+The PRD (`docs/prd.md`) is the source of truth for what gets built. Read it before designing features — the product has strong opinions (tap-and-hold as the only completion gesture, "don't miss twice" grace day for streaks, platform-first onboarding, platform-specific fixed quests color-coded by social platform) that should not be silently dropped or generalized.
 
 ## Tech Stack
 
@@ -54,7 +54,7 @@ For day-to-day work, opening `Fable/Fable.xcodeproj` in Xcode and using ⌘R / �
 
 These are the load-bearing docs for understanding the product. Read them before making design or product decisions:
 
-- **`docs/prd.md`** — Product requirements. Defines MVP scope, the 14 design principles (tap-and-hold mechanic, color-coded quests, grace-day streaks, identity-first onboarding, etc.), the build order, and what is explicitly out of scope. Treat the design principles as constraints, not suggestions.
+- **`docs/prd.md`** — Product requirements. Defines MVP scope, the 14 design principles (tap-and-hold mechanic, platform-first onboarding, platform-specific fixed quests, grace-day streaks, etc.), the build order, and what is explicitly out of scope. Treat the design principles as constraints, not suggestions.
 - **`DESIGN.md`** — Design system tokens (colors, typography, spacing, radii, components, motion). Uses a "Unified Glass Design System" with warm sage / sand / earthy brown brand colors and dual-theme (light/dark) support. Brand colors are constant across themes; only environmental tokens (backgrounds, surfaces, text, borders) adapt.
 - **`docs/references/atoms/`** — Screenshots of the Atoms app, which is the primary UX inspiration for Fable (per the PRD). When unsure how an interaction should feel, consult these.
 - **`.agents/product-marketing-context.md`** — Positioning, target audience, brand voice, customer language. Used by marketing skills (`/copywriting`, `/launch-strategy`, etc.). Note: it is explicitly marked pre-launch and most sections are hypothesized — do not treat its testimonials, metrics, or persona quotes as validated facts.
@@ -71,7 +71,7 @@ A few PRD principles are easy to violate without realizing it:
 
 ## What's Out of Scope (per PRD)
 
-XP system, badges, public profiles, social feed, auto-posting, AI writing, calendar scheduling, team features, deep platform integrations, daily lessons/mindset library, Apple Watch app, widgets, and web dashboard are all explicitly post-MVP. Don't accidentally start building them.
+The following are explicit post-MVP features (do not accidentally start building them in MVP work): Founder XP, Founder Notes (daily journaling), AI content reframing, draft helper / templates, identity-first onboarding question, Academy / Learn tab, Apple Watch app, widgets, web dashboard, Pro / freemium tier. Also out of roadmap entirely: badges, boss battles, public profiles, social feed, auto-posting, calendar scheduling, markdown vault, team features, deep platform integrations.
 
 ## Tool & Git Workflow (Superpowers Override)
 
