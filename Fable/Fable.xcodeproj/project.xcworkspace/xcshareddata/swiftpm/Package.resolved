@@ -1,0 +1,24 @@
+{
+  "originHash" : "efc2e2ec8bdd59b673646e03abbf5acfe9a8e0b316e53922fa14fa7adc82bb7a",
+  "pins" : [
+    {
+      "identity" : "colortokenskit-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/metasidd/ColorTokensKit-Swift.git",
+      "state" : {
+        "revision" : "83cd0f322a797991e5eea1d999b08baccd1c1ae4",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swiftuix",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftUIX/SwiftUIX.git",
+      "state" : {
+        "revision" : "1a320308dd3b630e12ab1e4f13e1897e65a5414d",
+        "version" : "0.3.0"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -1,55 +1,22 @@
-//
-//  ContentView.swift
-//  Fable
-//
-//  Created by Jameel Socorro on 4/28/26.
-//
-
 import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var profiles: [FounderProfile]
+
+    private var activeProfile: FounderProfile? {
+        AppRoute.preferredProfile(from: profiles)
+    }
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+        switch AppRoute.route(for: activeProfile) {
+        case .onboarding:
+            OnboardingFlowView(existingProfile: activeProfile)
+        case .today:
+            if let activeProfile {
+                TodayView(profile: activeProfile)
+            } else {
+                OnboardingFlowView(existingProfile: nil)
             }
         }
     }
@@ -57,5 +24,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
 }

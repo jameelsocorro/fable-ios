@@ -10,9 +10,12 @@ import SwiftData
 
 @main
 struct FableApp: App {
+    @AppStorage(FableTheme.storageKey) private var selectedThemeRawValue = FableTheme.system.rawValue
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            FounderProfile.self,
+            QuestCompletion.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -26,7 +29,12 @@ struct FableApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.theme, FableAppTheme(selection: selectedTheme))
         }
         .modelContainer(sharedModelContainer)
+    }
+
+    private var selectedTheme: FableTheme {
+        FableTheme(storedValue: selectedThemeRawValue)
     }
 }
