@@ -1,5 +1,4 @@
 import SwiftUI
-import ColorTokensKit
 
 enum FableTheme: String, CaseIterable, Identifiable {
     case system
@@ -34,18 +33,7 @@ enum FableTheme: String, CaseIterable, Identifiable {
         }
     }
 
-    var palette: ProColor {
-        switch self {
-        case .system, .sage:
-            Color.proOlive
-        case .sand:
-            Color.proGold
-        case .earth:
-            Color.proBrown
-        case .sky:
-            Color.proSky
-        case .ruby:
-            Color.proRuby
-        }
+    var accentColor: Color {
+        .accentColor
     }
 }

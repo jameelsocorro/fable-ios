@@ -31,10 +31,13 @@ struct ProjectNameStepView: View {
             .padding(.horizontal, theme.spacing.lg)
             .padding(.vertical, theme.spacing.md)
             .frame(minHeight: 58, alignment: .center)
-            .background(theme.colors.surfaceRaised, in: RoundedRectangle(cornerRadius: FableRadius.sm))
-            .overlay {
-                RoundedRectangle(cornerRadius: FableRadius.sm)
-                    .stroke(theme.colors.border, lineWidth: 1)
+            .background {
+                RoundedRectangle(cornerRadius: FableRadius.sm, style: .continuous)
+                    .fill(.thinMaterial)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: FableRadius.sm, style: .continuous)
+                            .strokeBorder(theme.colors.border.opacity(0.6), lineWidth: 1)
+                    }
             }
             .tint(theme.colors.primary)
             .accessibilityIdentifier("onboarding.projectName")

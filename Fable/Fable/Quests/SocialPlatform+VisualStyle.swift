@@ -1,33 +1,32 @@
 import SwiftUI
-import ColorTokensKit
 
 extension SocialPlatform {
     var accentColor: Color {
         switch self {
         case .threads:
-            Color.proGray._800.toColor()
+            .primary
         case .x:
-            Color.proGray._900.toColor()
+            .primary
         case .linkedin:
-            Color.proBlue.fableAccent
+            .blue
         case .instagram:
-            Color.proRuby.fableAccent
+            .pink
         case .tiktok:
-            Color.proCyan.fableAccent
+            .cyan
         case .youtube:
-            Color.proRed.fableAccent
+            .red
         case .reddit:
-            Color.proOrange.fableAccent
+            .orange
         case .facebook:
-            Color.proBlue.fableAccent
+            .blue
         case .bluesky:
-            Color.proSky.fableAccent
+            .cyan
         case .pinterest:
-            Color.proRuby.fableAccent
+            .red
         case .snapchat:
-            Color.proYellow.fableAccent
+            .yellow
         case .mastodon:
-            Color.proPurple.fableAccent
+            .purple
         }
     }
 

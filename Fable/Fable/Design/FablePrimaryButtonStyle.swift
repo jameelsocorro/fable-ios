@@ -16,8 +16,8 @@ struct FablePrimaryButtonStyle: ButtonStyle {
                 Capsule()
                     .stroke(theme.colors.primaryForeground.opacity(isEnabled ? 0.16 : 0.08), lineWidth: 1)
             }
-            .scaleEffect(reduceMotion ? 1 : (configuration.isPressed ? 0.98 : 1))
-            .animation(reduceMotion ? nil : .easeOut(duration: 0.15), value: configuration.isPressed)
+            .scaleEffect(reduceMotion ? 1 : (configuration.isPressed ? 0.97 : 1))
+            .animation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.80), value: configuration.isPressed)
     }
 
     private func backgroundColor(isPressed: Bool) -> Color {

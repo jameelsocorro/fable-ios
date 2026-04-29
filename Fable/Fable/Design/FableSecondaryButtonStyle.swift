@@ -10,6 +10,6 @@ struct FableSecondaryButtonStyle: ButtonStyle {
             .foregroundStyle(theme.colors.textSecondary)
             .frame(maxWidth: .infinity, minHeight: 48)
             .opacity(configuration.isPressed ? 0.68 : 1)
-            .animation(reduceMotion ? nil : .easeOut(duration: 0.15), value: configuration.isPressed)
+            .animation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85), value: configuration.isPressed)
     }
 }
