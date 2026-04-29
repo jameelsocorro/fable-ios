@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project State
 
-Fable is a **pre-launch, very early-stage iOS app**. The Xcode project currently contains only the default SwiftUI + SwiftData template scaffolding (`Item` model, list-based `ContentView`). None of the actual product features (quests, streaks, tap-and-hold completion, heatmap, etc.) have been built yet. When implementing features, expect to replace template code rather than extend it.
+Levi is a **pre-launch, very early-stage iOS app**. The Xcode project currently contains only the default SwiftUI + SwiftData template scaffolding (`Item` model, list-based `ContentView`). None of the actual product features (quests, streaks, tap-and-hold completion, heatmap, etc.) have been built yet. When implementing features, expect to replace template code rather than extend it.
 
 The PRD (`docs/prd.md`) is the source of truth for what gets built. Read it before designing features — the product has strong opinions (tap-and-hold as the only completion gesture, "don't miss twice" grace day for streaks, platform-first onboarding, platform-specific fixed quests color-coded by social platform) that should not be silently dropped or generalized.
 
@@ -12,43 +12,43 @@ The PRD (`docs/prd.md`) is the source of truth for what gets built. Read it befo
 
 - **Language:** Swift 5
 - **UI:** SwiftUI
-- **Persistence:** SwiftData (single `ModelContainer` set up in `FableApp.swift`, injected via `.modelContainer` modifier)
+- **Persistence:** SwiftData (single `ModelContainer` set up in `LeviApp.swift`, injected via `.modelContainer` modifier)
 - **Deployment target:** iOS 26.4
-- **Test frameworks:** Swift Testing (`FableTests`) for unit tests, XCTest (`FableUITests`) for UI tests
+- **Test frameworks:** Swift Testing (`LeviTests`) for unit tests, XCTest (`LeviUITests`) for UI tests
 - **Device family:** Universal in the project file, but the PRD scopes MVP to iPhone only — design and test for iPhone first
 
 ## Build, Run, and Test
 
-The project lives at `Fable/Fable.xcodeproj`. There is no Swift Package Manager manifest, no fastlane, no CI config — Xcode is the build system.
+The project lives at `Levi/Levi.xcodeproj`. There is no Swift Package Manager manifest, no fastlane, no CI config — Xcode is the build system.
 
 ```bash
 # Build for iOS Simulator (replace destination as needed)
-xcodebuild -project Fable/Fable.xcodeproj -scheme Fable \
+xcodebuild -project Levi/Levi.xcodeproj -scheme Levi \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build
 
 # Run unit tests (Swift Testing framework)
-xcodebuild -project Fable/Fable.xcodeproj -scheme Fable \
+xcodebuild -project Levi/Levi.xcodeproj -scheme Levi \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test \
-  -only-testing:FableTests
+  -only-testing:LeviTests
 
 # Run UI tests (XCTest)
-xcodebuild -project Fable/Fable.xcodeproj -scheme Fable \
+xcodebuild -project Levi/Levi.xcodeproj -scheme Levi \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test \
-  -only-testing:FableUITests
+  -only-testing:LeviUITests
 
 # Run a single Swift Testing test
-xcodebuild ... -only-testing:FableTests/FableTests/example
+xcodebuild ... -only-testing:LeviTests/LeviTests/example
 ```
 
-For day-to-day work, opening `Fable/Fable.xcodeproj` in Xcode and using ⌘R / ⌘U is the expected workflow.
+For day-to-day work, opening `Levi/Levi.xcodeproj` in Xcode and using ⌘R / ⌘U is the expected workflow.
 
 ## Architecture
 
-**Entry point:** `Fable/Fable/FableApp.swift` constructs a `ModelContainer` with the app's SwiftData schema (currently just `Item`) and injects it into the SwiftUI environment. As the data model grows (quests, streaks, completions, identity), add new `@Model` types to the `Schema([...])` array there.
+**Entry point:** `Levi/Levi/LeviApp.swift` constructs a `ModelContainer` with the app's SwiftData schema (currently just `Item`) and injects it into the SwiftUI environment. As the data model grows (quests, streaks, completions, identity), add new `@Model` types to the `Schema([...])` array there.
 
 **Data flow pattern:** Views read SwiftData via `@Environment(\.modelContext)` + `@Query` (see `ContentView.swift` for the canonical pattern). Mutations go through `modelContext.insert` / `modelContext.delete`. Stick to this pattern — do not introduce a separate ViewModel/store layer unless something in the PRD genuinely requires it.
 
-**Where new code goes:** Source files live flat under `Fable/Fable/`. No feature-folder structure exists yet. When the codebase grows beyond a handful of files, organize by feature (e.g., `Quests/`, `Streak/`, `Onboarding/`) rather than by type (`Views/`, `Models/`).
+**Where new code goes:** Source files live flat under `Levi/Levi/`. No feature-folder structure exists yet. When the codebase grows beyond a handful of files, organize by feature (e.g., `Quests/`, `Streak/`, `Onboarding/`) rather than by type (`Views/`, `Models/`).
 
 ## Reference Documents
 
@@ -56,7 +56,7 @@ These are the load-bearing docs for understanding the product. Read them before 
 
 - **`docs/prd.md`** — Product requirements. Defines MVP scope, the 14 design principles (tap-and-hold mechanic, platform-first onboarding, platform-specific fixed quests, grace-day streaks, etc.), the build order, and what is explicitly out of scope. Treat the design principles as constraints, not suggestions.
 - **`DESIGN.md`** — Design system tokens (colors, typography, spacing, radii, components, motion). Uses a "Unified Glass Design System" with warm sage / sand / earthy brown brand colors and dual-theme (light/dark) support. Brand colors are constant across themes; only environmental tokens (backgrounds, surfaces, text, borders) adapt.
-- **`docs/references/atoms/`** — Screenshots of the Atoms app, which is the primary UX inspiration for Fable (per the PRD). When unsure how an interaction should feel, consult these.
+- **`docs/references/atoms/`** — Screenshots of the Atoms app, which is the primary UX inspiration for Levi (per the PRD). When unsure how an interaction should feel, consult these.
 - **`.agents/product-marketing-context.md`** — Positioning, target audience, brand voice, customer language. Used by marketing skills (`/copywriting`, `/launch-strategy`, etc.). Note: it is explicitly marked pre-launch and most sections are hypothesized — do not treat its testimonials, metrics, or persona quotes as validated facts.
 
 ## Product Principles That Shape Implementation

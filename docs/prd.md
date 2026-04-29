@@ -1,8 +1,8 @@
-# Fable
+# Levi
 
 ## What It Is
 
-Fable is a gamified accountability companion for indie founders building in public. During onboarding, you pick the social platforms you want to grow on (e.g., Instagram, Threads, TikTok). Fable then surfaces a fixed set of platform-specific daily quests — actions like "Post a Reel on Instagram" or "Post on Threads" — and rewards you for showing up. Tap-and-hold the colored quest circle to complete it. One completed quest per day keeps the streak alive. Think Duolingo for staying visible while you build.
+Levi is a gamified accountability companion for indie founders building in public. During onboarding, you pick the social platforms you want to grow on (e.g., Instagram, Threads, TikTok). Levi then surfaces a fixed set of platform-specific daily quests — actions like "Post a Reel on Instagram" or "Post on Threads" — and rewards you for showing up. Tap-and-hold the colored quest circle to complete it. One completed quest per day keeps the streak alive. Think Duolingo for staying visible while you build.
 
 ## The Problem
 
@@ -26,7 +26,7 @@ One line: from nobody to noteworthy.
 
 ## UI/UX Foundation: Atoms-Inspired Design
 
-Fable adopts Atoms' best-in-class UX principles, adapted for a founder's build-in-public journey. Both apps turn what could feel like homework into something rewarding and game-like.
+Levi adopts Atoms' best-in-class UX principles, adapted for a founder's build-in-public journey. Both apps turn what could feel like homework into something rewarding and game-like.
 
 ### Core Interaction: Quest Completion Circle
 
@@ -45,17 +45,17 @@ Exact color values are defined in `DESIGN.md` and should be visually distinct wh
 4. Once full → haptic vibration + satisfying animation burst
 5. Quest marked complete, streak increases
 
-**Why this works for Fable:**
+**Why this works for Levi:**
 - **Tactile satisfaction** — completing a quest feels rewarding, not obligatory
 - **Visual clarity** — colors instantly differentiate which platform a quest is for (no reading needed)
 - **Progressive feedback** — the growing circle creates momentum and anticipation
 - **Play, not drudgery** — it feels like a game, not a task tracker
 - **Haptic reward** — vibration trains the brain to come back (Pavlovian design)
-- **Differentiation** — separates Fable from generic quest/habit trackers
+- **Differentiation** — separates Levi from generic quest/habit trackers
 
 ### Design Principle #1: Platform-First Onboarding
 
-Onboarding leads with **platform commitment**, not identity. The user picks 1–3 social platforms they want to grow on. Fable then filters all daily quests to those platforms.
+Onboarding leads with **platform commitment**, not identity. The user picks 1–3 social platforms they want to grow on. Levi then filters all daily quests to those platforms.
 
 During onboarding (part of MVP):
 - Ask **"What are you building?"** — short project name, used to make quest copy feel personal
@@ -92,7 +92,7 @@ This is Pavlovian design: your brain learns "completing a quest = reward." Found
 
 ### Design Principle #4: "Five Good Minutes" Philosophy
 
-Adapted for Fable:
+Adapted for Levi:
 - **Quests should be completable in 5 minutes or less** (including writing and posting on the platform)
 - **Onboarding under 60 seconds** — don't make people answer 20 questions
 - **Post-MVP: daily lessons and Founder Notes follow the same rule** — short, actionable, never more than 5 minutes
@@ -158,12 +158,12 @@ Atoms learned: too many reward mechanics dilute impact. One strong mechanic (str
 
 ### Design Principle #10: No Draft Helper in MVP (Post-MVP: AI Content Reframing)
 
-The MVP is intentionally an **accountability layer, not a content tool**. The user supplies the post content from what they're already building; Fable's job is to make sure they post.
+The MVP is intentionally an **accountability layer, not a content tool**. The user supplies the post content from what they're already building; Levi's job is to make sure they post.
 
 - **MVP:** No templates. No fill-in-the-blank. No copy-to-clipboard helper. The quest tells you the action ("Post a Reel on Instagram") — you write and post the content yourself, in the platform's own app.
 - **Post-MVP:** Founder Notes (daily journaling) + AI content reframing turn what you actually did each day into draft post copy. This is a content tool, but it's *earned* — built on top of the validated habit loop.
 
-Don't force auto-posting at any stage. The MVP does not even open the platform app for you. Tap-and-hold to complete is the only thing the user does inside Fable.
+Don't force auto-posting at any stage. The MVP does not even open the platform app for you. Tap-and-hold to complete is the only thing the user does inside Levi.
 
 ### Design Principle #11: Daily Lessons + Academy (Post-MVP)
 
@@ -180,9 +180,9 @@ Don't force auto-posting at any stage. The MVP does not even open the platform a
 - **Founder stories** — long-form, less ephemeral than daily lessons
 - **Library** — deeper dives on build-in-public, audience, distribution, platform-specific growth
 
-Together these widen Fable from "habit tracker for posting" into "place where the indie founder journey starts and continues."
+Together these widen Levi from "habit tracker for posting" into "place where the indie founder journey starts and continues."
 
-Atoms does Daily Lessons brilliantly. Fable adapts the format once the core quest loop is validated.
+Atoms does Daily Lessons brilliantly. Levi adapts the format once the core quest loop is validated.
 
 ### Design Principle #12: Intentional Limits (3-6 Quests Available, Only 1 Needed)
 
@@ -196,7 +196,7 @@ This forces prioritization. Founders won't feel like they have to do everything.
 
 ### Design Principle #13: Multi-Surface Consistency (Post-MVP)
 
-> Note on terminology: "Platform" in Fable's product vocabulary refers to **social platforms** (Instagram, Threads, TikTok). This principle is about **device surfaces** — iPhone, watchOS, widgets, web. Use the term "surface" here to avoid ambiguity.
+> Note on terminology: "Platform" in Levi's product vocabulary refers to **social platforms** (Instagram, Threads, TikTok). This principle is about **device surfaces** — iPhone, watchOS, widgets, web. Use the term "surface" here to avoid ambiguity.
 
 **MVP is iPhone only.** Future phases expand like Atoms does:
 - **iPhone app** (MVP — primary, full experience)
@@ -303,13 +303,13 @@ Not in roadmap: badges, boss battles, public profiles, social feed, auto-posting
 
 Biggest criticism of build-in-public: it's performative, people post fake progress for clout.
 
-Acknowledgment: "Build-in-public is broken. Most of it is fake. Fable only works if you're actually building something."
+Acknowledgment: "Build-in-public is broken. Most of it is fake. Levi only works if you're actually building something."
 
 Activation line: "This isn't for people who tweet about building. It's for people who build and forget to tweet."
 
 ### Content Angles
 
-1. **"I did X for 30 days" format** — document using Fable for 30 days and show what happened to your audience. Dogfood the product.
+1. **"I did X for 30 days" format** — document using Levi for 30 days and show what happened to your audience. Dogfood the product.
 2. **"Duolingo for ___" analogy** — short-form content that uses the comparison to instantly communicate the value.
 3. **"I built the app I wished existed" founder story** — "I finished my app. Nobody knew it existed. So I built something to make sure that never happens again."
 
@@ -318,7 +318,7 @@ Activation line: "This isn't for people who tweet about building. It's for peopl
 1. Hook (0-3s): "I spent months building my app. I launched it. Nobody cared."
 2. Pain (3-10s): Built the whole thing in private. No posts, no audience, no momentum. Launched into silence.
 3. Turning point (10-18s): What if something told you exactly what to share every day while you were building?
-4. Reveal (18-30s): I built Fable. Duolingo for marketing your app. Pick the platforms you want to grow on. Get a quest a day. Post a Reel on Instagram. Post on Threads. Tap-and-hold to complete. Keep the streak alive.
+4. Reveal (18-30s): I built Levi. Duolingo for marketing your app. Pick the platforms you want to grow on. Get a quest a day. Post a Reel on Instagram. Post on Threads. Tap-and-hold to complete. Keep the streak alive.
 5. Proof (30-45s): Show the app — today screen with platform-colored quest circles, tap-and-hold a circle (inner circle expands), haptic feedback, streak goes up. Visual satisfaction.
 6. Close (45-55s): Your next app doesn't need better features. It needs people who watched you build it.
 7. CTA (55-60s): Link in bio. First quest is free.
@@ -336,4 +336,4 @@ Activation line: "This isn't for people who tweet about building. It's for peopl
 
 ## Name Note
 
-Fable means "story" — directly maps to the core tagline "turn your progress into a story" without needing to explain it. Short, memorable, clean.
+Levi means "story" — directly maps to the core tagline "turn your progress into a story" without needing to explain it. Short, memorable, clean.
