@@ -6,7 +6,6 @@ struct WelcomeStepView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    // hero transition: false = launch-screen state, true = settled
     @State private var heroPhase = false
     @State private var bubbleVisible = false
     @State private var contentVisible = false
@@ -15,10 +14,9 @@ struct WelcomeStepView: View {
     @State private var typedText = ""
     @State private var typingDone = false
 
-    private let companionText = "I'll keep you on your quests. 🐾"
+    private let companionText = "I'll be your companion on \nyour journey!"
+    private let oreoCompositionWidth: CGFloat = 320
 
-    // Launch screen has Oreo at 200pt; welcome screen renders it at 160pt → scale 1.25.
-    // Y offset places Oreo at the same screen position as the launch screen centerY+40.
     private let launchScale: CGFloat = 1.25
     private let launchOffsetY: CGFloat = 130
 
@@ -61,37 +59,40 @@ struct WelcomeStepView: View {
     // MARK: – Companion stage
 
     private var companionStage: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            oreoComposition
-                .scaleEffect(heroPhase ? 1.0 : launchScale, anchor: .center)
-                .offset(y: heroPhase ? floatOffset : launchOffsetY)
-
-            glassTextContainer
-                .opacity(bubbleVisible ? 1 : 0)
-                .offset(y: bubbleVisible ? 0 : 12)
-        }
-        .padding(.leading, theme.spacing.xl)
+        oreoComposition
+            .scaleEffect(heroPhase ? 1.0 : launchScale, anchor: .center)
+            .offset(y: heroPhase ? floatOffset : launchOffsetY)
+            .frame(maxWidth: .infinity)
     }
 
-    // Oreo + speech bubble composed together, bubble upper-right of dog
+    // Oreo + speech bubble + glass text pill, all composed in one unit
     private var oreoComposition: some View {
         ZStack {
             oreoImage
-                .offset(x: -10, y: 30)
 
             speechBubble
                 .opacity(bubbleVisible ? 1 : 0)
-                .offset(x: 55, y: -30)
+                .offset(x: 55, y: -60)
                 .offset(y: bubbleFloatOffset + (bubbleVisible ? 0 : 12))
+
+            // Glass text overlays the body of Oreo
+            VStack(spacing: 0) {
+                Spacer()
+                glassTextContainer
+                    .opacity(bubbleVisible ? 1 : 0)
+                    .offset(y: bubbleVisible ? 0 : 12)
+            }
+            .padding(.horizontal, theme.spacing.lg)
+            .offset(y: -5)
         }
-        .frame(width: 290, height: 220, alignment: .center)
+        .frame(width: oreoCompositionWidth, height: 280)
     }
 
     private var oreoImage: some View {
         Image("OreoWaving")
             .resizable()
             .scaledToFit()
-            .frame(height: 160)
+            .frame(height: 230)
             .accessibilityLabel("Oreo, your quest companion")
     }
 
@@ -110,7 +111,7 @@ struct WelcomeStepView: View {
         Text(typedText + (typingDone ? "" : "▌"))
             .font(.subheadline)
             .foregroundStyle(theme.colors.textPrimary)
-            .multilineTextAlignment(.leading)
+            .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, theme.spacing.lg)
             .padding(.vertical, theme.spacing.md)
@@ -122,11 +123,11 @@ struct WelcomeStepView: View {
     private var heroText: some View {
         VStack(alignment: .leading, spacing: theme.spacing.md) {
             Text("Stop launching\nin silence.")
-                .font(.largeTitle.bold())
+                .font(.system(.largeTitle, design: .serif).weight(.bold))
                 .foregroundStyle(theme.colors.textPrimary)
                 .lineSpacing(2)
 
-            Text("Pick where you want to show up. Levi gives you daily quests so your build becomes visible before launch.")
+            Text("Build in public before you launch, \none daily quest at a time.")
                 .font(.body)
                 .foregroundStyle(theme.colors.textSecondary)
                 .lineSpacing(2)
@@ -160,35 +161,29 @@ struct WelcomeStepView: View {
             return
         }
 
-        // Small delay so the initial layout is settled before any animation fires
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
 
-            // 1. Oreo shrinks from launch-screen size and rises to its layout position
             withAnimation(.spring(response: 0.52, dampingFraction: 0.82)) {
                 heroPhase = true
             }
 
-            // 2. Floating starts once Oreo is settled (~85% of spring at 0.45s)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
                 withAnimation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true)) {
                     floatOffset = -10
                 }
             }
 
-            // 2b. Bubble float starts after it appears; slightly longer period → natural desync
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.80) {
                 withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
                     bubbleFloatOffset = -8
                 }
             }
 
-            // 3. Speech bubble rises in while Oreo is landing
             withAnimation(.spring(response: 0.44, dampingFraction: 0.76).delay(0.32)) {
                 bubbleVisible = true
             }
             startTyping(after: 0.46)
 
-            // 4. Hero text + button after Oreo and bubble are in place
             withAnimation(.spring(response: 0.60, dampingFraction: 0.82).delay(0.54)) {
                 contentVisible = true
             }
