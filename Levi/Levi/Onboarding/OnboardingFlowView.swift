@@ -6,14 +6,12 @@ struct OnboardingFlowView: View {
 
     @State private var activeProfile: FounderProfile?
     @State private var step: OnboardingStep
-    @State private var projectName: String
     @State private var selectedPlatforms: Set<SocialPlatform>
     @State private var selectedQuest: QuestDefinition?
 
     init(existingProfile: FounderProfile?) {
         _activeProfile = State(initialValue: existingProfile)
         _step = State(initialValue: existingProfile?.onboardingStep ?? .welcome)
-        _projectName = State(initialValue: existingProfile?.projectName ?? "")
         _selectedPlatforms = State(initialValue: existingProfile?.selectedPlatforms ?? [])
 
         let firstQuest = existingProfile?.firstQuestID.flatMap(QuestCatalog.quest(id:))
@@ -25,8 +23,6 @@ struct OnboardingFlowView: View {
             switch step {
             case .welcome:
                 WelcomeStepView(start: start)
-            case .projectName:
-                ProjectNameStepView(projectName: $projectName, continueAction: saveProjectName, skipAction: skipProjectName)
             case .platformPicker:
                 PlatformPickerStepView(selectedPlatforms: $selectedPlatforms, continueAction: savePlatforms)
             case .firstQuestPicker:
@@ -67,18 +63,6 @@ struct OnboardingFlowView: View {
     }
 
     private func start() {
-        setStep(.projectName)
-    }
-
-    private func saveProjectName() {
-        let trimmedName = projectName.trimmingCharacters(in: .whitespacesAndNewlines)
-        ensureProfile().projectName = trimmedName.isEmpty ? nil : trimmedName
-        setStep(.platformPicker)
-    }
-
-    private func skipProjectName() {
-        projectName = ""
-        ensureProfile().projectName = nil
         setStep(.platformPicker)
     }
 

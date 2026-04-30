@@ -51,18 +51,16 @@ enum AppRoute: Equatable {
         switch step {
         case .welcome:
             0
-        case .projectName:
-            1
         case .platformPicker:
-            2
+            1
         case .firstQuestPicker:
-            3
+            2
         case .holdToCommit:
-            4
+            3
         case .dayOneCelebration:
-            5
+            4
         case .complete:
-            6
+            5
         }
     }
 }
