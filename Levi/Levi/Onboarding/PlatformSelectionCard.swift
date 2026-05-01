@@ -27,11 +27,20 @@ struct PlatformSelectionCard: View {
                             .frame(width: 44, height: 44)
                             .animation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.8), value: isSelected)
 
-                        Image(systemName: platform.symbolName)
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundStyle(platform.accentColor)
-                            .scaleEffect(isSelected ? 1.08 : 1.0)
-                            .animation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.7), value: isSelected)
+                        if let customImage = platform.customImageName {
+                            Image(customImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                                .scaleEffect(isSelected ? 1.08 : 1.0)
+                                .animation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.7), value: isSelected)
+                        } else {
+                            Image(systemName: platform.symbolName)
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundStyle(platform.accentColor)
+                                .scaleEffect(isSelected ? 1.08 : 1.0)
+                                .animation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.7), value: isSelected)
+                        }
                     }
                     .accessibilityHidden(true)
 

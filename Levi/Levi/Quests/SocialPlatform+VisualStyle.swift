@@ -58,4 +58,19 @@ extension SocialPlatform {
             "megaphone"
         }
     }
+
+    var customImageName: String? {
+        switch self {
+        case .instagram: "Social.Insta"
+        case .x:         "Social.X"
+        case .tiktok:    "Social.Tiktok"
+        case .youtube:   "Social.Youtube"
+        case .linkedin:  "Social.LinkedIn"
+        case .threads:   "Social.Threads"
+        case .reddit:    "Social.Reddit"
+        case .bluesky:   "Social.Bluesky"
+        case .facebook:  "Social.Facebook"
+        default:         nil
+        }
+    }
 }
