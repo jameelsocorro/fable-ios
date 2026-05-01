@@ -10,21 +10,23 @@ private struct PlatformOrb: View {
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
 
     private var backgroundFill: AnyShapeStyle {
-        reduceTransparency
-            ? AnyShapeStyle(Color(.secondarySystemBackground))
-            : AnyShapeStyle(.regularMaterial)
+        if reduceTransparency || colorScheme == .light {
+            return AnyShapeStyle(Color.white)
+        }
+        return AnyShapeStyle(.regularMaterial)
     }
 
     var body: some View {
         ZStack {
             Circle()
                 .fill(backgroundFill)
+                .shadow(color: .black.opacity(colorScheme == .dark ? 0.30 : 0.13), radius: 10, x: 0, y: 4)
                 .overlay {
                     Circle().strokeBorder(
                         LinearGradient(
                             colors: [
-                                .white.opacity(colorScheme == .dark ? 0.32 : 0.82),
-                                .white.opacity(colorScheme == .dark ? 0.04 : 0.12)
+                                .white.opacity(colorScheme == .dark ? 0.32 : 0.90),
+                                .white.opacity(colorScheme == .dark ? 0.04 : 0.30)
                             ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
@@ -134,8 +136,11 @@ struct PlatformPickerStepView: View {
             Spacer(minLength: 0)
         }
         .background {
-            Color(.secondarySystemGroupedBackground)
-                .ignoresSafeArea()
+            ZStack {
+                theme.colors.background
+                    .ignoresSafeArea()
+                PageGradientBackground(center: UnitPoint(x: 0.5, y: 0.0))
+            }
         }
         .safeAreaInset(edge: .bottom) {
             if !selectedPlatforms.isEmpty {
@@ -160,7 +165,7 @@ struct PlatformPickerStepView: View {
         ZStack {
             CompanionBubbleView(
                 imageName: "OreoCurious",
-                message: "Where do you want to grow?",
+                message: "Where do you want to build audience?",
                 animateTyping: true,
                 showSpeechBubble: false,
                 floatDelay: 0.15,
@@ -265,14 +270,14 @@ struct PlatformPickerStepView: View {
         .background {
             let shape = RoundedRectangle(cornerRadius: 28, style: .continuous)
             shape
-                .fill(reduceTransparency
-                      ? AnyShapeStyle(Color(.secondarySystemGroupedBackground))
+                .fill(reduceTransparency || colorScheme == .light
+                      ? AnyShapeStyle(Color.white)
                       : AnyShapeStyle(.regularMaterial))
                 .overlay {
                     shape.fill(LinearGradient(
                         colors: [
-                            .white.opacity(colorScheme == .dark ? 0.08 : 0.55),
-                            .white.opacity(colorScheme == .dark ? 0.03 : 0.22)
+                            .white.opacity(colorScheme == .dark ? 0.08 : 0.70),
+                            .white.opacity(colorScheme == .dark ? 0.03 : 0.35)
                         ],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
@@ -282,8 +287,8 @@ struct PlatformPickerStepView: View {
                     shape.strokeBorder(
                         LinearGradient(
                             colors: [
-                                .white.opacity(colorScheme == .dark ? 0.18 : 0.60),
-                                .white.opacity(colorScheme == .dark ? 0.04 : 0.14)
+                                .white.opacity(colorScheme == .dark ? 0.18 : 0.80),
+                                .white.opacity(colorScheme == .dark ? 0.04 : 0.30)
                             ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
@@ -292,7 +297,7 @@ struct PlatformPickerStepView: View {
                     )
                 }
         }
-        .shadow(color: .black.opacity(colorScheme == .dark ? 0.24 : 0.10), radius: 18, x: 0, y: 7)
+        .shadow(color: .black.opacity(colorScheme == .dark ? 0.24 : 0.14), radius: 20, x: 0, y: 8)
         .animation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.72), value: selectedPlatforms)
     }
 

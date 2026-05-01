@@ -28,7 +28,7 @@ struct LeviPalette {
     // MARK: - Background
 
     var backgroundPrimary: Color {
-        .adaptive(light: "#F9F4EE", dark: "#111110")
+        .adaptive(light: "#F1EBE4", dark: "#111110")
     }
 
     var backgroundSecondary: Color {

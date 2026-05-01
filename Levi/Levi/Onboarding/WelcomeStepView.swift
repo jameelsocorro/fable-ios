@@ -3,7 +3,6 @@ import SwiftUI
 struct WelcomeStepView: View {
     let start: () -> Void
     @Environment(\.theme) private var theme
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var heroPhase = false
@@ -17,17 +16,7 @@ struct WelcomeStepView: View {
         ZStack {
             theme.colors.background.ignoresSafeArea()
 
-            RadialGradient(
-                colors: [
-                    theme.colors.primary.opacity(colorScheme == .dark ? 0.20 : 0.12),
-                    Color.clear
-                ],
-                center: UnitPoint(x: 0.30, y: 0.65),
-                startRadius: 10,
-                endRadius: 300
-            )
-            .ignoresSafeArea()
-            .allowsHitTesting(false)
+            PageGradientBackground(center: UnitPoint(x: 0.30, y: 0.65))
 
             VStack(spacing: 0) {
                 Spacer()

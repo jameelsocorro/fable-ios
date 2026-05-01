@@ -20,8 +20,8 @@ struct GlassCardModifier: ViewModifier {
     let cornerRadius: CGFloat
 
     private var backgroundFill: AnyShapeStyle {
-        if reduceTransparency {
-            AnyShapeStyle(Color(uiColor: UIColor.secondarySystemGroupedBackground))
+        if colorScheme == .light || reduceTransparency {
+            AnyShapeStyle(Color.white)
         } else {
             AnyShapeStyle(.regularMaterial)
         }
@@ -30,8 +30,8 @@ struct GlassCardModifier: ViewModifier {
     private var gradientOverlay: LinearGradient {
         LinearGradient(
             colors: [
-                Color.white.opacity(colorScheme == .dark ? 0.08 : 0.55),
-                Color.white.opacity(colorScheme == .dark ? 0.03 : 0.22)
+                Color.white.opacity(colorScheme == .dark ? 0.08 : 0.70),
+                Color.white.opacity(colorScheme == .dark ? 0.03 : 0.35)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -41,8 +41,8 @@ struct GlassCardModifier: ViewModifier {
     private var borderGradient: LinearGradient {
         LinearGradient(
             colors: [
-                Color.white.opacity(colorScheme == .dark ? 0.18 : 0.65),
-                Color.white.opacity(colorScheme == .dark ? 0.04 : 0.18)
+                Color.white.opacity(colorScheme == .dark ? 0.18 : 0.85),
+                Color.white.opacity(colorScheme == .dark ? 0.04 : 0.30)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -60,10 +60,10 @@ struct GlassCardModifier: ViewModifier {
                     .overlay { shape.strokeBorder(borderGradient, lineWidth: 1) }
             }
             .shadow(
-                color: Color.black.opacity(colorScheme == .dark ? 0.28 : 0.07),
-                radius: 14,
+                color: Color.black.opacity(colorScheme == .dark ? 0.28 : 0.10),
+                radius: 16,
                 x: 0,
-                y: 5
+                y: 6
             )
     }
 }
@@ -76,8 +76,8 @@ struct GlassPlatformCardModifier: ViewModifier {
     let cornerRadius: CGFloat
 
     private var backgroundFill: AnyShapeStyle {
-        if reduceTransparency {
-            AnyShapeStyle(Color(uiColor: UIColor.secondarySystemGroupedBackground))
+        if colorScheme == .light || reduceTransparency {
+            AnyShapeStyle(Color.white)
         } else {
             AnyShapeStyle(.regularMaterial)
         }
