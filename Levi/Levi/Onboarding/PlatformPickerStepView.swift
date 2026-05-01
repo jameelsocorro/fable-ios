@@ -263,26 +263,36 @@ struct PlatformPickerStepView: View {
         .padding(.vertical, 18)
         .frame(maxWidth: .infinity)
         .background {
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
+            let shape = RoundedRectangle(cornerRadius: 28, style: .continuous)
+            shape
                 .fill(reduceTransparency
                       ? AnyShapeStyle(Color(.secondarySystemGroupedBackground))
                       : AnyShapeStyle(.regularMaterial))
                 .overlay {
-                    RoundedRectangle(cornerRadius: 28, style: .continuous)
-                        .strokeBorder(
-                            LinearGradient(
-                                colors: [
-                                    .white.opacity(colorScheme == .dark ? 0.18 : 0.60),
-                                    .white.opacity(colorScheme == .dark ? 0.04 : 0.14)
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1
-                        )
+                    shape.fill(LinearGradient(
+                        colors: [
+                            .white.opacity(colorScheme == .dark ? 0.08 : 0.55),
+                            .white.opacity(colorScheme == .dark ? 0.03 : 0.22)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ))
+                }
+                .overlay {
+                    shape.strokeBorder(
+                        LinearGradient(
+                            colors: [
+                                .white.opacity(colorScheme == .dark ? 0.18 : 0.60),
+                                .white.opacity(colorScheme == .dark ? 0.04 : 0.14)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
                 }
         }
-        .shadow(color: .black.opacity(colorScheme == .dark ? 0.24 : 0.07), radius: 18, x: 0, y: 7)
+        .shadow(color: .black.opacity(colorScheme == .dark ? 0.24 : 0.10), radius: 18, x: 0, y: 7)
         .animation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.72), value: selectedPlatforms)
     }
 

@@ -34,6 +34,6 @@ enum LeviTheme: String, CaseIterable, Identifiable {
     }
 
     var accentColor: Color {
-        .accentColor
+        Color(hex: "#F07820")
     }
 }

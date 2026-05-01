@@ -3,61 +3,71 @@ import SwiftUI
 struct LeviPalette {
     let selection: LeviTheme
 
+    // MARK: - Foreground
+
     var foregroundPrimary: Color {
-        .primary
+        .adaptive(light: "#1A1210", dark: "#FFFFFF")
     }
 
     var foregroundSecondary: Color {
-        .secondary
+        .adaptive(light: "#6B5244", dark: "#A09080")
     }
 
     var foregroundTertiary: Color {
-        Color(uiColor: .tertiaryLabel)
+        .adaptive(light: "#9B8B7E", dark: "#5C4E44")
     }
 
     var invertedForegroundPrimary: Color {
-        Color(uiColor: .systemBackground)
+        .adaptive(light: "#FFFFFF", dark: "#1A1210")
     }
 
     var invertedForegroundSecondary: Color {
-        Color(uiColor: .secondarySystemBackground)
+        .adaptive(light: "#F5EDE2", dark: "#252118")
     }
 
+    // MARK: - Background
+
     var backgroundPrimary: Color {
-        Color(uiColor: .systemGroupedBackground)
+        .adaptive(light: "#F9F4EE", dark: "#111110")
     }
 
     var backgroundSecondary: Color {
-        Color(uiColor: .secondarySystemGroupedBackground)
+        .adaptive(light: "#F0E8DC", dark: "#1A1614")
     }
 
     var backgroundTertiary: Color {
-        Color(uiColor: .tertiarySystemGroupedBackground)
+        .adaptive(light: "#E8DDD0", dark: "#221E1B")
     }
 
+    // MARK: - Surface
+
     var surfacePrimary: Color {
-        Color(uiColor: .secondarySystemGroupedBackground)
+        .adaptive(light: "#FFFFFF", dark: "#1E1A17")
     }
 
     var surfaceSecondary: Color {
-        Color(uiColor: .tertiarySystemGroupedBackground)
+        .adaptive(light: "#F5EDE2", dark: "#252118")
     }
 
     var surfaceTertiary: Color {
-        Color(uiColor: .systemFill)
+        .adaptive(light: "#EDE2D4", dark: "#2C2620")
     }
 
+    // MARK: - Outline
+
     var outlinePrimary: Color {
-        Color(uiColor: .separator)
+        .adaptive(light: "#E2D4C4", dark: "#302A24")
     }
 
     var outlineSecondary: Color {
-        Color(uiColor: .opaqueSeparator)
+        .adaptive(light: "#C8B5A4", dark: "#3D3530")
     }
 
     var outlineTertiary: Color {
-        Color(uiColor: .quaternaryLabel)
+        .adaptive(light: "#D4C4B4", dark: "#2A2420")
     }
+
+    // MARK: - Actions
 
     var actionPrimaryBackground: Color {
         selection.accentColor
@@ -68,29 +78,33 @@ struct LeviPalette {
     }
 
     var actionSecondaryBackground: Color {
-        Color(uiColor: .secondarySystemFill)
+        .adaptive(light: "#EDE2D4", dark: "#2A2420")
     }
 
     var actionSecondaryForeground: Color {
-        foregroundSecondary
+        .adaptive(light: "#3D2A1E", dark: "#FFFFFF")
     }
+
+    // MARK: - Semantic
 
     var warning: Color {
-        .orange
+        .adaptive(light: "#D96010", dark: "#F07820")
     }
 
-    var primary: Color { actionPrimaryBackground }
+    // MARK: - Aliases
+
+    var primary: Color           { actionPrimaryBackground }
     var primaryForeground: Color { actionPrimaryForeground }
     var secondaryBackground: Color { actionSecondaryBackground }
     var secondaryForeground: Color { actionSecondaryForeground }
-    var background: Color { backgroundPrimary }
-    var surface: Color { surfacePrimary }
-    var surfaceOverlay: Color { surfaceTertiary }
-    var surfaceRaised: Color { backgroundSecondary }
-    var textPrimary: Color { foregroundPrimary }
-    var textSecondary: Color { foregroundSecondary }
-    var textTertiary: Color { foregroundTertiary }
-    var textInverse: Color { invertedForegroundPrimary }
-    var border: Color { outlinePrimary }
-    var borderStrong: Color { outlineSecondary }
+    var background: Color        { backgroundPrimary }
+    var surface: Color           { surfacePrimary }
+    var surfaceOverlay: Color    { surfaceTertiary }
+    var surfaceRaised: Color     { backgroundSecondary }
+    var textPrimary: Color       { foregroundPrimary }
+    var textSecondary: Color     { foregroundSecondary }
+    var textTertiary: Color      { foregroundTertiary }
+    var textInverse: Color       { invertedForegroundPrimary }
+    var border: Color            { outlinePrimary }
+    var borderStrong: Color      { outlineSecondary }
 }
