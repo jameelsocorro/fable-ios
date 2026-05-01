@@ -3,81 +3,89 @@ import SwiftData
 
 struct TodayView: View {
     let profile: FounderProfile
-    @Query private var completions: [QuestCompletion]
+
+    @Query(sort: \QuestCompletion.completedAt, order: .reverse) private var completions: [QuestCompletion]
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.theme) private var theme
-    @Environment(\.colorScheme) private var colorScheme
+    @State private var selectedTab: TodayTab = .home
+    @State private var completionContext: QuestCompletionContext?
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: theme.spacing.xl) {
-                // Glass streak header card
-                HStack(alignment: .center, spacing: theme.spacing.md) {
-                    ZStack {
-                        Circle()
-                            .fill(theme.colors.primary.opacity(0.08))
-                            .frame(width: 56, height: 56)
+        ZStack(alignment: .bottom) {
+            theme.colors.background
+                .ignoresSafeArea()
 
-                        Circle()
-                            .fill(theme.colors.primary.opacity(0.14))
-                            .frame(width: 42, height: 42)
+            PageGradientBackground(center: UnitPoint(x: 0.25, y: 0.15))
 
-                        Image(systemName: "flame.fill")
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundStyle(theme.colors.primary)
-                            .accessibilityHidden(true)
-                    }
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Day 1")
-                            .font(.title2.bold())
+            ScrollView {
+                VStack(alignment: .leading, spacing: theme.spacing.xl) {
+                    VStack(alignment: .leading, spacing: theme.spacing.sm) {
+                        Text("Today")
+                            .font(.system(.largeTitle, design: .serif, weight: .bold))
                             .foregroundStyle(theme.colors.textPrimary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                        Text("Keep \(profile.displayProjectName) visible.")
-                            .font(.subheadline)
-                            .foregroundStyle(theme.colors.textSecondary)
+                        TodayWeekStrip(days: recentDays)
+
+                        Rectangle()
+                            .fill(theme.colors.border)
+                            .frame(height: 1)
+                            .padding(.horizontal, -theme.spacing.xl)
                     }
 
-                    Spacer()
-                }
-                .padding(theme.spacing.lg)
-                .glassCard(cornerRadius: LeviRadius.md)
-
-                // Hint callout with glass treatment
-                HStack(spacing: theme.spacing.sm) {
-                    Image(systemName: "bolt.fill")
-                        .font(.caption.bold())
-                        .foregroundStyle(theme.colors.primary)
-                        .accessibilityHidden(true)
-
-                    Text("One quest keeps today alive. More is extra momentum.")
-                        .font(.callout)
+                    if todayQuests.isEmpty {
+                        ContentUnavailableView(
+                            "No quests today",
+                            systemImage: "sparkles",
+                            description: Text("Your selected platforms do not have quests available yet.")
+                        )
                         .foregroundStyle(theme.colors.textSecondary)
-                }
-                .padding(theme.spacing.md)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background {
-                    RoundedRectangle(cornerRadius: LeviRadius.sm, style: .continuous)
-                        .fill(theme.colors.primary.opacity(colorScheme == .dark ? 0.12 : 0.07))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: LeviRadius.sm, style: .continuous)
-                                .strokeBorder(theme.colors.primary.opacity(0.18), lineWidth: 1)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, theme.spacing.xxl)
+                    } else {
+                        let committed = committedQuestIDsToday
+                        VStack(spacing: theme.spacing.xl) {
+                            ForEach(todayQuests) { quest in
+                                TodayQuestCard(
+                                    quest: quest,
+                                    isCompleted: committed.contains(quest.id),
+                                    streakCount: currentStreak,
+                                    onComplete: complete
+                                )
+                            }
                         }
-                }
-
-                VStack(spacing: theme.spacing.md) {
-                    ForEach(todayQuests) { quest in
-                        TodayQuestRow(quest: quest, isCommitted: isCommitted(quest))
                     }
                 }
+                .padding(.horizontal, theme.spacing.xl)
+                .padding(.top, theme.spacing.xl)
+                .padding(.bottom, 120)
             }
-            .padding(theme.spacing.xl)
-            .frame(maxWidth: .infinity, alignment: .leading)
+
+            TodayFloatingTabBar(selectedTab: $selectedTab)
+                .padding(.bottom, theme.spacing.lg)
         }
-        .background(theme.colors.background)
+        .fullScreenCover(item: $completionContext) { context in
+            QuestCompletionCelebrationView(context: context) {
+                completionContext = nil
+            }
+            .environment(\.theme, theme)
+        }
     }
 
     private var todayQuests: [QuestDefinition] {
         QuestCatalog.quests(for: profile.selectedPlatforms)
+    }
+
+    private var completionDates: [Date] {
+        completions.map(\.completedAt)
+    }
+
+    private var recentDays: [StreakDayState] {
+        StreakCalculator.recentDays(completionDates: completionDates)
+    }
+
+    private var currentStreak: Int {
+        StreakCalculator.currentStreak(completionDates: completionDates)
     }
 
     private var committedQuestIDsToday: Set<String> {
@@ -92,11 +100,46 @@ struct TodayView: View {
     private func isCommitted(_ quest: QuestDefinition) -> Bool {
         committedQuestIDsToday.contains(quest.id)
     }
+
+    private func complete(_ quest: QuestDefinition) {
+        guard !isCommitted(quest) else { return }
+
+        let completedAt = Date()
+        let previousCompletionDates = completionDates
+        let completion = QuestCompletion(
+            questID: quest.id,
+            platform: quest.platform,
+            completedAt: completedAt
+        )
+
+        modelContext.insert(completion)
+
+        do {
+            try modelContext.save()
+
+            let projectedDates = previousCompletionDates + [completedAt]
+            completionContext = QuestCompletionContext(
+                quest: quest,
+                projectName: profile.displayProjectName,
+                completedAt: completedAt,
+                streakCount: StreakCalculator.currentStreak(completionDates: projectedDates, now: completedAt),
+                recentDays: StreakCalculator.recentDays(completionDates: projectedDates, now: completedAt)
+            )
+        } catch {
+            modelContext.delete(completion)
+        }
+    }
 }
 
 #Preview {
-    let profile = FounderProfile(projectName: "Levi", selectedPlatformIDs: ["threads", "instagram"], hasCompletedOnboarding: true, onboardingStep: .complete)
+    let profile = FounderProfile(
+        projectName: "Levi",
+        selectedPlatformIDs: ["threads", "instagram", "tiktok"],
+        hasCompletedOnboarding: true,
+        onboardingStep: .complete
+    )
 
     TodayView(profile: profile)
         .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
+        .environment(\.theme, LeviAppTheme(selection: .system))
 }
