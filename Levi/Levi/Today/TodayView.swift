@@ -7,64 +7,58 @@ struct TodayView: View {
     @Query(sort: \QuestCompletion.completedAt, order: .reverse) private var completions: [QuestCompletion]
     @Environment(\.modelContext) private var modelContext
     @Environment(\.theme) private var theme
-    @State private var selectedTab: TodayTab = .home
     @State private var saveError: Error?
     @State private var isShowingSaveError = false
+    @State private var selectedDayStart: Date?
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack {
             theme.colors.background
                 .ignoresSafeArea()
 
             PageGradientBackground(center: UnitPoint(x: 0.25, y: 0.15))
 
             ScrollView {
-                VStack(alignment: .leading, spacing: theme.spacing.xl) {
-                    VStack(alignment: .leading, spacing: theme.spacing.sm) {
-                        Text("Today")
-                            .font(.system(.largeTitle, design: .serif, weight: .bold))
-                            .foregroundStyle(theme.colors.textPrimary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-
-                        TodayWeekStrip(days: recentDays)
-
-                        Rectangle()
-                            .fill(theme.colors.border)
-                            .frame(height: 1)
-                            .padding(.horizontal, -theme.spacing.xl)
-                    }
-
-                    if todayQuests.isEmpty {
-                        ContentUnavailableView(
-                            "No quests today",
-                            systemImage: "sparkles",
-                            description: Text("Your selected platforms do not have quests available yet.")
-                        )
-                        .foregroundStyle(theme.colors.textSecondary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, theme.spacing.xxl)
-                    } else {
-                        let committed = committedQuestIDsToday
-                        VStack(spacing: theme.spacing.xl) {
-                            ForEach(todayQuests) { quest in
-                                TodayQuestCard(
-                                    quest: quest,
-                                    isCompleted: committed.contains(quest.id),
-                                    streakCount: streaksByQuestID[quest.id] ?? 0,
-                                    onComplete: complete,
-                                    onUndo: undoCompletion
+                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
+                    Section {
+                        VStack(alignment: .leading, spacing: theme.spacing.xl) {
+                            if todayQuests.isEmpty {
+                                ContentUnavailableView(
+                                    "No quests today",
+                                    systemImage: "sparkles",
+                                    description: Text("Your selected platforms do not have quests available yet.")
                                 )
+                                .foregroundStyle(theme.colors.textSecondary)
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, theme.spacing.xxl)
+                            } else {
+                                let committed = committedQuestIDsForSelectedDay
+                                VStack(spacing: theme.spacing.xl) {
+                                    ForEach(todayQuests) { quest in
+                                        TodayQuestCard(
+                                            quest: quest,
+                                            isCompleted: committed.contains(quest.id),
+                                            streakCount: selectedDayStreaksByQuestID[quest.id] ?? 0,
+                                            onComplete: complete,
+                                            onUndo: undoCompletion
+                                        )
+                                        .id("\(quest.id)-\(selectedQuestDayStart.timeIntervalSinceReferenceDate)")
+                                    }
+                                }
                             }
                         }
+                        .padding(.horizontal, theme.spacing.xl)
+                        .padding(.top, theme.spacing.xl)
+                        .padding(.bottom, theme.spacing.xl)
+                    } header: {
+                        TodayStickyHeader(
+                            days: recentDays,
+                            selectedDayStart: selectedDayStart,
+                            onSelectDay: selectDay
+                        )
                     }
                 }
-                .padding(.horizontal, theme.spacing.xl)
-                .padding(.top, theme.spacing.xl)
-                .padding(.bottom, 120)
             }
-
-            TodayFloatingTabBar(selectedTab: $selectedTab)
-                .padding(.bottom, theme.spacing.lg)
         }
         .alert("Unable to Save", isPresented: $isShowingSaveError) {
             Button("OK") { saveError = nil }
@@ -85,29 +79,43 @@ struct TodayView: View {
         StreakCalculator.recentDays(completionDates: completionDates)
     }
 
-    private var streaksByQuestID: [String: Int] {
-        let grouped = Dictionary(grouping: completions, by: \.questID)
-        return grouped.mapValues { StreakCalculator.currentStreak(completionDates: $0.map(\.completedAt)) }
+    private var selectedQuestDayStart: Date {
+        let calendar = Calendar.current
+        return selectedDayStart ?? calendar.startOfDay(for: .now)
     }
 
-    private var committedQuestIDsToday: Set<String> {
+    private func selectDay(_ day: StreakDayState) {
+        selectedDayStart = day.dayStart
+    }
+
+    private var selectedDayStreaksByQuestID: [String: Int] {
+        let grouped = Dictionary(grouping: completions, by: \.questID)
+        return grouped.mapValues {
+            StreakCalculator.currentStreak(
+                completionDates: $0.map(\.completedAt),
+                now: selectedQuestDayStart
+            )
+        }
+    }
+
+    private var committedQuestIDsForSelectedDay: Set<String> {
         let calendar = Calendar.current
         return Set(
             completions
-                .filter { calendar.isDateInToday($0.completedAt) }
+                .filter { calendar.isDate($0.completedAt, inSameDayAs: selectedQuestDayStart) }
                 .map(\.questID)
         )
     }
 
     private func isCommitted(_ quest: QuestDefinition) -> Bool {
-        committedQuestIDsToday.contains(quest.id)
+        committedQuestIDsForSelectedDay.contains(quest.id)
     }
 
-    private func completionForToday(_ quest: QuestDefinition) -> QuestCompletion? {
+    private func completionForSelectedDay(_ quest: QuestDefinition) -> QuestCompletion? {
         let calendar = Calendar.current
 
         return completions.first { completion in
-            completion.questID == quest.id && calendar.isDateInToday(completion.completedAt)
+            completion.questID == quest.id && calendar.isDate(completion.completedAt, inSameDayAs: selectedQuestDayStart)
         }
     }
 
@@ -117,7 +125,7 @@ struct TodayView: View {
         let completion = QuestCompletion(
             questID: quest.id,
             platform: quest.platform,
-            completedAt: Date()
+            completedAt: completionDateForSelectedDay
         )
 
         modelContext.insert(completion)
@@ -132,7 +140,7 @@ struct TodayView: View {
     }
 
     private func undoCompletion(_ quest: QuestDefinition) {
-        guard let completion = completionForToday(quest) else { return }
+        guard let completion = completionForSelectedDay(quest) else { return }
 
         modelContext.delete(completion)
 
@@ -150,6 +158,16 @@ struct TodayView: View {
             saveError = error
             isShowingSaveError = true
         }
+    }
+
+    private var completionDateForSelectedDay: Date {
+        let calendar = Calendar.current
+
+        if calendar.isDateInToday(selectedQuestDayStart) {
+            return .now
+        }
+
+        return selectedQuestDayStart
     }
 }
 

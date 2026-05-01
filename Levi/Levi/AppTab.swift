@@ -1,7 +1,7 @@
 import Foundation
 
-nonisolated enum TodayTab: String, CaseIterable, Identifiable {
-    case home
+nonisolated enum AppTab: String, CaseIterable, Hashable, Identifiable {
+    case today
     case streaks
     case settings
 
@@ -9,8 +9,8 @@ nonisolated enum TodayTab: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .home:
-            "Home"
+        case .today:
+            "Today"
         case .streaks:
             "Streaks"
         case .settings:
@@ -20,8 +20,8 @@ nonisolated enum TodayTab: String, CaseIterable, Identifiable {
 
     var symbolName: String {
         switch self {
-        case .home:
-            "square.fill"
+        case .today:
+            "checkmark.circle.fill"
         case .streaks:
             "flame.fill"
         case .settings:

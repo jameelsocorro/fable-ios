@@ -14,7 +14,7 @@ struct ContentView: View {
             OnboardingFlowView(existingProfile: activeProfile)
         case .today:
             if let activeProfile {
-                TodayView(profile: activeProfile)
+                MainTabView(profile: activeProfile)
             } else {
                 OnboardingFlowView(existingProfile: nil)
             }
