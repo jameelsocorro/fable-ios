@@ -9,6 +9,7 @@ struct TodayView: View {
     @Environment(\.theme) private var theme
     @State private var selectedTab: TodayTab = .home
     @State private var saveError: Error?
+    @State private var isShowingSaveError = false
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -49,7 +50,7 @@ struct TodayView: View {
                                 TodayQuestCard(
                                     quest: quest,
                                     isCompleted: committed.contains(quest.id),
-                                    streakCount: currentStreak,
+                                    streakCount: streaksByQuestID[quest.id] ?? 0,
                                     onComplete: complete,
                                     onUndo: undoCompletion
                                 )
@@ -65,10 +66,7 @@ struct TodayView: View {
             TodayFloatingTabBar(selectedTab: $selectedTab)
                 .padding(.bottom, theme.spacing.lg)
         }
-        .alert("Unable to Save", isPresented: Binding(
-            get: { saveError != nil },
-            set: { if !$0 { saveError = nil } }
-        )) {
+        .alert("Unable to Save", isPresented: $isShowingSaveError) {
             Button("OK") { saveError = nil }
         } message: {
             Text("Your progress could not be saved. Please try again.")
@@ -87,8 +85,9 @@ struct TodayView: View {
         StreakCalculator.recentDays(completionDates: completionDates)
     }
 
-    private var currentStreak: Int {
-        StreakCalculator.currentStreak(completionDates: completionDates)
+    private var streaksByQuestID: [String: Int] {
+        let grouped = Dictionary(grouping: completions, by: \.questID)
+        return grouped.mapValues { StreakCalculator.currentStreak(completionDates: $0.map(\.completedAt)) }
     }
 
     private var committedQuestIDsToday: Set<String> {
@@ -128,6 +127,7 @@ struct TodayView: View {
         } catch {
             modelContext.delete(completion)
             saveError = error
+            isShowingSaveError = true
         }
     }
 
@@ -148,6 +148,7 @@ struct TodayView: View {
             )
             modelContext.insert(restoredCompletion)
             saveError = error
+            isShowingSaveError = true
         }
     }
 }

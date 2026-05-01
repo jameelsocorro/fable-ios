@@ -13,13 +13,16 @@ struct TodayQuestCard: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) private var differentiateWithoutColor
     @State private var fillProgress: CGFloat = 0
     @State private var shouldBumpStreak = false
+    @State private var displayedStreakCount: Int = 0
     @State private var completionFeedbackTrigger = false
+    @State private var successFeedbackTrigger = false
+    @State private var undoFeedbackTrigger = false
 
     var body: some View {
         HStack(spacing: theme.spacing.lg) {
             TodayQuestStreakBadge(
                 quest: quest,
-                streakCount: displayedStreak,
+                streakCount: displayedStreakCount,
                 isCompleted: isCompleted,
                 shouldBump: shouldBumpStreak
             )
@@ -54,12 +57,6 @@ struct TodayQuestCard: View {
                         accessibilityHint: "Removes today's completion for \(quest.platform.displayName).",
                         action: { onUndo(quest) }
                     )
-                    QuestActionButton(
-                        systemImage: "ellipsis",
-                        accessibilityLabel: "More options for \(quest.title)",
-                        accessibilityHint: "Opens additional options.",
-                        action: {}
-                    )
                 } else {
                     QuestActionButton(
                         systemImage: "plus",
@@ -83,18 +80,17 @@ struct TodayQuestCard: View {
         .clipShape(.rect(cornerRadius: LeviRadius.lg))
         .accessibilityElement(children: .contain)
         .accessibilityLabel("\(quest.title), \(quest.platform.displayName)")
-        .accessibilityValue(isCompleted ? "Completed. Current streak \(displayedStreak)." : "Incomplete. Current streak \(displayedStreak).")
+        .accessibilityValue(isCompleted ? "Completed. Current streak \(streakCount)." : "Incomplete. Current streak \(streakCount).")
         .onAppear {
+            displayedStreakCount = streakCount
             fillProgress = isCompleted ? 1 : 0
         }
         .onChange(of: isCompleted) { _, newValue in
             updateCompletionState(newValue)
         }
         .sensoryFeedback(.impact(weight: .medium), trigger: completionFeedbackTrigger)
-    }
-
-    private var displayedStreak: Int {
-        max(streakCount, isCompleted ? 1 : 0)
+        .sensoryFeedback(.success, trigger: successFeedbackTrigger)
+        .sensoryFeedback(.impact(weight: .light), trigger: undoFeedbackTrigger)
     }
 
     private var titleForegroundColor: Color {
@@ -116,12 +112,15 @@ struct TodayQuestCard: View {
 
             if reduceMotion {
                 fillProgress = 1
+                displayedStreakCount = streakCount
                 return
             }
 
-            withAnimation(.easeOut(duration: 0.42)) {
+            withAnimation(.spring(response: 0.52, dampingFraction: 0.88)) {
                 fillProgress = 1
             } completion: {
+                successFeedbackTrigger.toggle()
+                displayedStreakCount = streakCount  // reveal the real count only now
                 withAnimation(.spring(response: 0.24, dampingFraction: 0.48)) {
                     shouldBumpStreak = true
                 } completion: {
@@ -131,10 +130,12 @@ struct TodayQuestCard: View {
                 }
             }
         } else {
+            undoFeedbackTrigger.toggle()
+            displayedStreakCount = streakCount  // revert immediately on undo
             if reduceMotion {
                 fillProgress = 0
             } else {
-                withAnimation(.easeOut(duration: 0.22)) {
+                withAnimation(.spring(response: 0.40, dampingFraction: 0.90)) {
                     fillProgress = 0
                 }
             }

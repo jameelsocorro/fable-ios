@@ -8,6 +8,9 @@ struct TodayQuestStreakBadge: View {
 
     @Environment(\.theme) private var theme
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    @State private var countVersion: Int = 0
 
     var body: some View {
         VStack(spacing: 0) {
@@ -17,12 +20,30 @@ struct TodayQuestStreakBadge: View {
 
             Text("\(streakCount)")
                 .font(.system(.body, design: .serif, weight: .bold))
+                .id(countVersion)
+                .transition(reduceMotion ? .opacity : .asymmetric(
+                    insertion: .offset(y: isCompleted ? 10 : -10).combined(with: .opacity),
+                    removal: .offset(y: isCompleted ? -10 : 10).combined(with: .opacity)
+                ))
         }
         .foregroundStyle(foregroundColor)
         .frame(width: 72, height: 72)
+        .clipped()
         .background(backgroundStyle, in: .rect(cornerRadius: LeviRadius.md))
         .scaleEffect(shouldBump ? 1.12 : 1)
         .accessibilityHidden(true)
+        .onChange(of: shouldBump) { _, newValue in
+            guard newValue else { return }
+            withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.65)) {
+                countVersion += 1
+            }
+        }
+        .onChange(of: isCompleted) { _, newValue in
+            guard !newValue else { return }
+            withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.75)) {
+                countVersion += 1
+            }
+        }
     }
 
     private var backgroundStyle: AnyShapeStyle {
