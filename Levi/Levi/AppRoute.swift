@@ -33,7 +33,7 @@ enum AppRoute: Equatable {
         return String(describing: lhs.persistentModelID) < String(describing: rhs.persistentModelID)
     }
 
-    private static func priorityKey(for profile: FounderProfile) -> (Int, Int, Date, String, String) {
+    private static func priorityKey(for profile: FounderProfile) -> (Int, Int, Date, String) {
         let completedFlag = profile.hasCompletedOnboarding ? 1 : 0
         let completedAt = profile.onboardingCompletedAt ?? .distantPast
         let normalizedName = profile.displayProjectName.lowercased()
@@ -42,25 +42,15 @@ enum AppRoute: Equatable {
             completedFlag,
             stepRank(profile.onboardingStep),
             completedAt,
-            normalizedName,
-            profile.firstQuestID ?? ""
+            normalizedName
         )
     }
 
     private static func stepRank(_ step: OnboardingStep) -> Int {
         switch step {
-        case .welcome:
-            0
-        case .platformPicker:
-            1
-        case .firstQuestPicker:
-            2
-        case .holdToCommit:
-            3
-        case .dayOneCelebration:
-            4
-        case .complete:
-            5
+        case .welcome:        0
+        case .platformPicker: 1
+        case .complete:       2
         }
     }
 }

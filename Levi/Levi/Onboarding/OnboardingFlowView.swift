@@ -7,15 +7,11 @@ struct OnboardingFlowView: View {
     @State private var activeProfile: FounderProfile?
     @State private var step: OnboardingStep
     @State private var selectedPlatforms: Set<SocialPlatform>
-    @State private var selectedQuest: QuestDefinition?
 
     init(existingProfile: FounderProfile?) {
         _activeProfile = State(initialValue: existingProfile)
         _step = State(initialValue: existingProfile?.onboardingStep ?? .welcome)
         _selectedPlatforms = State(initialValue: existingProfile?.selectedPlatforms ?? [])
-
-        let firstQuest = existingProfile?.firstQuestID.flatMap(QuestCatalog.quest(id:))
-        _selectedQuest = State(initialValue: firstQuest)
     }
 
     var body: some View {
@@ -25,16 +21,6 @@ struct OnboardingFlowView: View {
                 WelcomeStepView(start: start)
             case .platformPicker:
                 PlatformPickerStepView(selectedPlatforms: $selectedPlatforms, continueAction: savePlatforms)
-            case .firstQuestPicker:
-                FirstQuestPickerStepView(quests: QuestCatalog.firstSessionRecommendations(for: selectedPlatforms), selectQuest: selectQuest)
-            case .holdToCommit:
-                if let selectedQuest {
-                    HoldToCommitStepView(quest: selectedQuest, commitAction: commitSelectedQuest)
-                } else {
-                    FirstQuestPickerStepView(quests: QuestCatalog.firstSessionRecommendations(for: selectedPlatforms), selectQuest: selectQuest)
-                }
-            case .dayOneCelebration:
-                DayOneCelebrationView(viewToday: finishCelebration)
             case .complete:
                 if let activeProfile {
                     TodayView(profile: activeProfile)
@@ -67,39 +53,12 @@ struct OnboardingFlowView: View {
     }
 
     private func savePlatforms() {
-        guard !selectedPlatforms.isEmpty else {
-            return
-        }
-
-        ensureProfile().selectedPlatforms = selectedPlatforms
-        setStep(.firstQuestPicker)
-    }
-
-    private func selectQuest(_ quest: QuestDefinition) {
-        selectedQuest = quest
-        ensureProfile().firstQuestID = quest.id
-        setStep(.holdToCommit)
-    }
-
-    private func commitSelectedQuest() {
-        guard let selectedQuest else {
-            return
-        }
+        guard !selectedPlatforms.isEmpty else { return }
 
         let profile = ensureProfile()
-        profile.firstQuestID = selectedQuest.id
         profile.selectedPlatforms = selectedPlatforms
         profile.hasCompletedOnboarding = true
         profile.onboardingCompletedAt = .now
-        profile.onboardingStep = .dayOneCelebration
-
-        let completion = QuestCompletion(questID: selectedQuest.id, platform: selectedQuest.platform)
-        modelContext.insert(completion)
-
-        step = .dayOneCelebration
-    }
-
-    private func finishCelebration() {
         setStep(.complete)
     }
 }
