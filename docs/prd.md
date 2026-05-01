@@ -2,7 +2,7 @@
 
 ## What It Is
 
-Levi is a gamified accountability companion for indie founders building in public. During onboarding, you pick the social platforms you want to grow on (e.g., Instagram, Threads, TikTok). Levi then surfaces a fixed set of platform-specific daily quests — actions like "Post a Reel on Instagram" or "Post on Threads" — and rewards you for showing up. Tap-and-hold the colored quest circle to complete it. One completed quest per day keeps the streak alive. Think Duolingo for staying visible while you build.
+Levi is a gamified accountability companion for indie founders building in public. During onboarding, you pick the social platforms you want to grow on (e.g., Instagram, Threads, TikTok). Levi then surfaces a fixed set of platform-specific daily quests — actions like "Post a Reel on Instagram" or "Post on Threads" — and rewards you for showing up. Tap the plus button on a quest row to complete it; the row fills with the platform color and bumps the streak number. One completed quest per day keeps the streak alive. Think Duolingo for staying visible while you build.
 
 ## The Problem
 
@@ -28,9 +28,9 @@ One line: from nobody to noteworthy.
 
 Levi adopts Atoms' best-in-class UX principles, adapted for a founder's build-in-public journey. Both apps turn what could feel like homework into something rewarding and game-like.
 
-### Core Interaction: Quest Completion Circle
+### Core Interaction: Quest Completion Row
 
-Each quest gets a **color-coded circle** representing the social platform the quest is for:
+Each quest gets a **color-coded row state** representing the social platform the quest is for:
 - Instagram quests → vibrant magenta/pink (aligned with Instagram brand recognition)
 - TikTok quests → bold black + cyan (aligned with TikTok visual identity)
 - Threads quests → deep neutral / monochrome (aligned with Threads minimalism)
@@ -39,16 +39,16 @@ Each quest gets a **color-coded circle** representing the social platform the qu
 Exact color values are defined in `DESIGN.md` and should be visually distinct while still feeling cohesive with the Unified Glass Design System. Color must never be the only signal — every quest also has a platform name, action verb, and optional icon.
 
 **How it works:**
-1. User taps and holds on the quest circle
-2. Inner circle grows outward like an expanding atom
-3. As they hold, the circle fills the outer boundary
-4. Once full → haptic vibration + satisfying animation burst
-5. Quest marked complete, streak increases
+1. User taps the plus button on a quest row
+2. The row fills from left to right with the quest platform color
+3. Once filled → haptic vibration + subtle streak number bump
+4. Quest marked complete, title struck through, undo button appears
+5. User can undo the same-day completion from the row if needed
 
 **Why this works for Levi:**
 - **Tactile satisfaction** — completing a quest feels rewarding, not obligatory
 - **Visual clarity** — colors instantly differentiate which platform a quest is for (no reading needed)
-- **Progressive feedback** — the growing circle creates momentum and anticipation
+- **Progressive feedback** — the filling row creates momentum and anticipation
 - **Play, not drudgery** — it feels like a game, not a task tracker
 - **Haptic reward** — vibration trains the brain to come back (Pavlovian design)
 - **Differentiation** — separates Levi from generic quest/habit trackers
@@ -75,15 +75,15 @@ Steal Atoms' aesthetic:
 - **Breathing room** — don't crowd the screen with stats
 - **Focused hierarchy** — current streak is visible but doesn't dominate
 - **Typography that's readable** — no tiny text or corporate feel
-- **Color palette that's cohesive** — the quest circles set the tone
+- **Color palette that's cohesive** — the quest rows set the tone
 
 Goal: founders open the app and feel calm, not overwhelmed.
 
 ### Design Principle #3: Sensory Design (Haptic + Visual + Sound)
 
 Make completing a quest feel **good**:
-- **Haptic vibration** when the circle fills (reward sensation)
-- **Animation burst** — confetti or shapes exploding in the platform's color
+- **Haptic vibration** when the row fills (reward sensation)
+- **Animation feedback** — the row fills with the platform's color and the streak number bumps
 - **Sound cue** (optional) — satisfying sound on completion (can be disabled)
 - **Visual streak increment** — watch the streak number go up
 - **Color fills the background briefly** — momentary visual celebration
@@ -120,7 +120,7 @@ Post-MVP, AI content reframing (via Founder Notes) will turn the user's daily bu
 
 Steal Atoms' frictionless flow:
 - **No account creation required** to start first quest (free trial approach)
-- **One gesture to complete** (tap-and-hold the circle)
+- **One visible action to complete** (tap the plus button on the row)
 - **Settings are accessible but hidden** — don't clutter the today screen
 - **Settings only appear if you seek them out**
 
@@ -141,7 +141,7 @@ This reduces shame/quit cycles. Founders are human. One bad day shouldn't end ev
 Extend the platform colors (defined in Core Interaction above) across the entire app:
 - **Quest History** — colors show which platforms you've shown up on at a glance
 - **Heatmap (GitHub-style)** — daily squares on a grid. More quests completed = deeper color intensity. Light shade for 1 quest, darkest shade for all quests done. Missed days stay blank. The heatmap can optionally segment by platform in a stacked variant (post-MVP polish).
-- **Today screen** — colored circles are a quick visual inventory of which platforms have quests available today
+- **Today screen** — platform-colored badges and completed row fills are a quick visual inventory of which platforms have quests available today
 
 Over time, each founder learns their platform color mapping — it becomes muscle memory. The heatmap becomes a source of pride — founders will screenshot and share it.
 
@@ -163,7 +163,7 @@ The MVP is intentionally an **accountability layer, not a content tool**. The us
 - **MVP:** No templates. No fill-in-the-blank. No copy-to-clipboard helper. The quest tells you the action ("Post a Reel on Instagram") — you write and post the content yourself, in the platform's own app.
 - **Post-MVP:** Founder Notes (daily journaling) + AI content reframing turn what you actually did each day into draft post copy. This is a content tool, but it's *earned* — built on top of the validated habit loop.
 
-Don't force auto-posting at any stage. The MVP does not even open the platform app for you. Tap-and-hold to complete is the only thing the user does inside Levi.
+Don't force auto-posting at any stage. The MVP does not even open the platform app for you. Tapping the plus button to complete is the only thing the user does inside Levi.
 
 ### Design Principle #11: Daily Lessons + Academy (Post-MVP)
 
@@ -217,13 +217,13 @@ Pro is post-MVP and unlocks the Roadmap features as they ship:
 - **Academy / Learn tab** — learning hub for novice indie founders
 - **Apple Watch app, widgets, web dashboard** — multi-surface visibility
 
-Don't gatekeep the core loop. The streak, tap-and-hold completion, platform selection, and platform-specific quests are always free.
+Don't gatekeep the core loop. The streak, plus-button completion, platform selection, and platform-specific quests are always free.
 
 ---
 
 ## The Loop
 
-Open app → see today's quests for your chosen platforms → tap-and-hold to complete at least one → streak increases → come back tomorrow.
+Open app → see today's quests for your chosen platforms → tap the plus button to complete at least one → streak increases → come back tomorrow.
 
 MVP version: Pick Platforms → Daily Quests → Complete One → Maintain Streak → Build Visibility.
 
@@ -233,7 +233,7 @@ Future version: Pick Platforms → Daily Quests → Complete → Earn Founder XP
 
 1. **Onboarding** — Project name + platform multi-select (Instagram, Threads, TikTok in V1). Under 60 seconds. The identity question ("who do you want to become as a founder?") is post-MVP, tied to Founder XP.
 2. **Daily Quests** — Fixed list of platform-specific actions, filtered to the user's selected platforms. Examples: "Post a Reel on Instagram," "Post a Story on Instagram," "Post on Threads," "Post a Reel on TikTok." Each quest has a title, the platform it belongs to, and a suggested action — that's it.
-3. **Complete/Skip** — Tap-and-hold the colored circle to complete (inner circle expands, haptic feedback). Swipe or tap a secondary button to skip. Tap-and-hold is the only completion gesture. One completed quest per day keeps the streak alive.
+3. **Complete/Undo** — Tap the plus button on a quest row to complete it. The row fills left to right with the platform color, gives haptic feedback, bumps the streak number, and switches to an undo control. One completed quest per day keeps the streak alive.
 4. **Streak** — Consecutive days with at least one completed quest across the user's chosen platforms. Main gamification mechanic. Displayed prominently. Uses "don't miss twice" grace: one missed day doesn't break the streak; two consecutive missed days resets it. Includes a GitHub-style heatmap where more quests completed per day = deeper color intensity.
 5. **Quest History** — List of past quests with date and status, color-coded by platform.
 
@@ -255,7 +255,7 @@ Not in roadmap: badges, boss battles, public profiles, social feed, auto-posting
 ## MVP Screens
 
 1. **Onboarding (one-time)** — Welcome → project name → platform multi-select (Instagram, Threads, TikTok in V1; more added over time). Under 60 seconds. No identity question in MVP.
-2. **Today Screen (primary)** — Displays the day's quests as color-coded circles (one color per platform). Each quest shows the action ("Post a Reel"), the platform name, and the tap-and-hold circle. Current streak displayed prominently. Skip is a clearly secondary action.
+2. **Today Screen (primary)** — Displays the day's quests as compact neutral rows with platform-colored streak badges. Each quest shows the action, a plus button for completion, and an undo control after completion. Current streak is displayed in the row badge and supported by the Today screen streak surfaces.
 3. **Streak Screen** — Current streak, longest streak, and a GitHub-style contribution heatmap. Each day is a square on the grid; more quests completed in a day = deeper color intensity. Empty days stay blank.
 4. **Quest History** — Past quests with date and status, color-coded by platform.
 5. **Settings** — Project name, selected platforms (add/remove), reset streak.
@@ -265,7 +265,7 @@ Not in roadmap: badges, boss battles, public profiles, social feed, auto-posting
 1. **Static quest catalog** — hardcoded list of platform-specific quest definitions (quest id, platform, action, title)
 2. **Onboarding** — project name + platform multi-select; persist to founder profile
 3. **Today screen** — render quests filtered to selected platforms, color-coded by platform
-4. **Tap-and-hold completion** — gesture, animation, haptic feedback; mark quest complete
+4. **Plus-button completion** — visible completion button, row-fill animation, haptic feedback; mark quest complete
 5. **Streak tracking** — local-calendar-day-based streak with "don't miss twice" grace logic
 6. **Quest history + heatmap** — list view + GitHub-style heatmap
 7. **Polish** — animations, visual feedback, settings screen
@@ -273,13 +273,13 @@ Not in roadmap: badges, boss battles, public profiles, social feed, auto-posting
 ## Key Risks
 
 - **Quests feel repetitive** → expand the per-platform quest catalog over time; add platforms (X, LinkedIn, YouTube, etc.) post-MVP. The MVP is intentionally narrow — variety scales with platforms added, not with quest categories.
-- **Users don't want to post daily** → tap-and-hold is an *intentional* completion gesture; the user defines what counts as "completed" (posted vs drafted is between them and reality). No external verification.
-- **App feels like homework** → tap-hold circle mechanic + haptic feedback + platform colors make it feel rewarding. Colors must be distinctive.
-- **Tap-hold interaction isn't intuitive** → teach the gesture during onboarding. Tap-and-hold is the only way to complete (skip is a separate swipe/button action).
+- **Users don't want to post daily** → plus-button completion is an *intentional* action; the user defines what counts as "completed" (posted vs drafted is between them and reality). No external verification.
+- **App feels like homework** → row-fill animation + haptic feedback + platform colors make it feel rewarding. Colors must be distinctive.
+- **Completion must stay obvious** → the plus button is visible, undo appears after completion, and completed rows use color fill plus strikethrough rather than color alone.
 - **Streak pressure causes quitting** → "don't miss twice" grace day prevents harsh resets.
 - **Users expect content help in MVP** → MVP is an accountability tool, not a content tool. Be explicit in onboarding copy: "We tell you to post; you supply the content from what you're already building."
 - **Users select too many platforms in onboarding** → recommend 1–3 for focus; allow more but signal that consistency on a few beats sprawl across many.
-- **Scope creep** → protect the core loop. Pick platforms → quests → tap-and-hold → streak. That's it for MVP. Anything else is post-MVP roadmap.
+- **Scope creep** → protect the core loop. Pick platforms → quests → tap plus → streak. That's it for MVP. Anything else is post-MVP roadmap.
 
 ---
 
@@ -318,8 +318,8 @@ Activation line: "This isn't for people who tweet about building. It's for peopl
 1. Hook (0-3s): "I spent months building my app. I launched it. Nobody cared."
 2. Pain (3-10s): Built the whole thing in private. No posts, no audience, no momentum. Launched into silence.
 3. Turning point (10-18s): What if something told you exactly what to share every day while you were building?
-4. Reveal (18-30s): I built Levi. Duolingo for marketing your app. Pick the platforms you want to grow on. Get a quest a day. Post a Reel on Instagram. Post on Threads. Tap-and-hold to complete. Keep the streak alive.
-5. Proof (30-45s): Show the app — today screen with platform-colored quest circles, tap-and-hold a circle (inner circle expands), haptic feedback, streak goes up. Visual satisfaction.
+4. Reveal (18-30s): I built Levi. Duolingo for marketing your app. Pick the platforms you want to grow on. Get a quest a day. Post a Reel on Instagram. Post on Threads. Tap plus to complete. Keep the streak alive.
+5. Proof (30-45s): Show the app — today screen with platform-colored quest rows, tap the plus button, the row fills, haptic feedback, streak goes up. Visual satisfaction.
 6. Close (45-55s): Your next app doesn't need better features. It needs people who watched you build it.
 7. CTA (55-60s): Link in bio. First quest is free.
 

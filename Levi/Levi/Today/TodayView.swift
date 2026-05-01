@@ -8,7 +8,7 @@ struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.theme) private var theme
     @State private var selectedTab: TodayTab = .home
-    @State private var completionContext: QuestCompletionContext?
+    @State private var saveError: Error?
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -50,7 +50,8 @@ struct TodayView: View {
                                     quest: quest,
                                     isCompleted: committed.contains(quest.id),
                                     streakCount: currentStreak,
-                                    onComplete: complete
+                                    onComplete: complete,
+                                    onUndo: undoCompletion
                                 )
                             }
                         }
@@ -64,11 +65,13 @@ struct TodayView: View {
             TodayFloatingTabBar(selectedTab: $selectedTab)
                 .padding(.bottom, theme.spacing.lg)
         }
-        .fullScreenCover(item: $completionContext) { context in
-            QuestCompletionCelebrationView(context: context) {
-                completionContext = nil
-            }
-            .environment(\.theme, theme)
+        .alert("Unable to Save", isPresented: Binding(
+            get: { saveError != nil },
+            set: { if !$0 { saveError = nil } }
+        )) {
+            Button("OK") { saveError = nil }
+        } message: {
+            Text("Your progress could not be saved. Please try again.")
         }
     }
 
@@ -101,32 +104,50 @@ struct TodayView: View {
         committedQuestIDsToday.contains(quest.id)
     }
 
+    private func completionForToday(_ quest: QuestDefinition) -> QuestCompletion? {
+        let calendar = Calendar.current
+
+        return completions.first { completion in
+            completion.questID == quest.id && calendar.isDateInToday(completion.completedAt)
+        }
+    }
+
     private func complete(_ quest: QuestDefinition) {
         guard !isCommitted(quest) else { return }
 
-        let completedAt = Date()
-        let previousCompletionDates = completionDates
         let completion = QuestCompletion(
             questID: quest.id,
             platform: quest.platform,
-            completedAt: completedAt
+            completedAt: Date()
         )
 
         modelContext.insert(completion)
 
         do {
             try modelContext.save()
-
-            let projectedDates = previousCompletionDates + [completedAt]
-            completionContext = QuestCompletionContext(
-                quest: quest,
-                projectName: profile.displayProjectName,
-                completedAt: completedAt,
-                streakCount: StreakCalculator.currentStreak(completionDates: projectedDates, now: completedAt),
-                recentDays: StreakCalculator.recentDays(completionDates: projectedDates, now: completedAt)
-            )
         } catch {
             modelContext.delete(completion)
+            saveError = error
+        }
+    }
+
+    private func undoCompletion(_ quest: QuestDefinition) {
+        guard let completion = completionForToday(quest) else { return }
+
+        modelContext.delete(completion)
+
+        do {
+            try modelContext.save()
+        } catch {
+            let restoredCompletion = QuestCompletion(
+                id: completion.id,
+                questID: completion.questID,
+                platform: completion.platform ?? quest.platform,
+                completedAt: completion.completedAt,
+                completionKind: completion.completionKind
+            )
+            modelContext.insert(restoredCompletion)
+            saveError = error
         }
     }
 }

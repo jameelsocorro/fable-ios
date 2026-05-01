@@ -5,138 +5,140 @@ struct TodayQuestCard: View {
     let isCompleted: Bool
     let streakCount: Int
     let onComplete: (QuestDefinition) -> Void
+    let onUndo: (QuestDefinition) -> Void
 
     @Environment(\.theme) private var theme
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityDifferentiateWithoutColor) private var differentiateWithoutColor
-    @State private var holdProgress: CGFloat = 0
-    @State private var fillOrigin: CGPoint?
-    @State private var isHolding = false
-    @State private var holdTask: Task<Void, Never>?
+    @State private var fillProgress: CGFloat = 0
+    @State private var shouldBumpStreak = false
     @State private var completionFeedbackTrigger = false
 
-    private let holdDuration: TimeInterval = 1.2
-    private let tickCount = 60
-
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            QuestCardBody(
+        HStack(spacing: theme.spacing.lg) {
+            TodayQuestStreakBadge(
                 quest: quest,
+                streakCount: displayedStreak,
                 isCompleted: isCompleted,
-                differentiateWithoutColor: differentiateWithoutColor
+                shouldBump: shouldBumpStreak
             )
-            .frame(maxWidth: .infinity)
-            .frame(minHeight: 300)
-            .background {
-                QuestCardBackground(
-                    quest: quest,
-                    isCompleted: isCompleted,
-                    holdProgress: holdProgress,
-                    fillOrigin: fillOrigin,
-                    reduceMotion: reduceMotion
-                )
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(quest.title)
+                    .font(.system(.title2, design: .serif, weight: .semibold))
+                    .foregroundStyle(titleForegroundColor)
+                    .strikethrough(isCompleted, color: titleForegroundColor)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(nil)
+
+                Text(quest.platform.displayName)
+                    .font(.system(.subheadline))
+                    .foregroundStyle(titleForegroundColor.opacity(0.5))
             }
-            .clipShape(cardShape)
-            .overlay {
-                cardShape.strokeBorder(
-                    isCompleted ? quest.platform.accentColor.opacity(0.65) : theme.colors.border.opacity(0.65),
-                    lineWidth: isCompleted ? 1.5 : 1
-                )
-            }
-            .scaleEffect(isHolding && !reduceMotion ? 0.985 : 1)
-            .animation(.spring(response: 0.28, dampingFraction: 0.86), value: isHolding)
-            .contentShape(cardShape)
-            .gesture(holdGesture)
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel("\(quest.title), \(quest.platform.displayName)")
-            .accessibilityValue(isCompleted ? "Completed" : "Incomplete")
-            .accessibilityHint(isCompleted ? "" : "Press and hold to complete")
-            .accessibilityAddTraits(.isButton)
-            .accessibilityAction(named: "Complete quest") {
-                completeFromAccessibility()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityHidden(true)
+
+            if differentiateWithoutColor && isCompleted {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.title2)
+                    .foregroundStyle(titleForegroundColor)
+                    .accessibilityHidden(true)
             }
 
-            QuestCardStatusBadge(
+            HStack(spacing: theme.spacing.sm) {
+                if isCompleted {
+                    QuestActionButton(
+                        systemImage: "arrow.uturn.backward",
+                        accessibilityLabel: "Undo \(quest.title)",
+                        accessibilityHint: "Removes today's completion for \(quest.platform.displayName).",
+                        action: { onUndo(quest) }
+                    )
+                    QuestActionButton(
+                        systemImage: "ellipsis",
+                        accessibilityLabel: "More options for \(quest.title)",
+                        accessibilityHint: "Opens additional options.",
+                        action: {}
+                    )
+                } else {
+                    QuestActionButton(
+                        systemImage: "plus",
+                        accessibilityLabel: "Complete \(quest.title)",
+                        accessibilityHint: "Marks this \(quest.platform.displayName) quest complete.",
+                        action: { onComplete(quest) }
+                    )
+                }
+            }
+        }
+        .padding(.horizontal, theme.spacing.lg)
+        .padding(.vertical, theme.spacing.lg)
+        .frame(maxWidth: .infinity, minHeight: 100, alignment: .center)
+        .background {
+            TodayQuestFillBackground(
                 quest: quest,
                 isCompleted: isCompleted,
-                streakCount: streakCount
+                fillProgress: fillProgress
             )
-            .offset(x: -theme.spacing.lg, y: theme.spacing.lg)
         }
-        .onDisappear(perform: cancelHold)
+        .clipShape(.rect(cornerRadius: LeviRadius.lg))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(quest.title), \(quest.platform.displayName)")
+        .accessibilityValue(isCompleted ? "Completed. Current streak \(displayedStreak)." : "Incomplete. Current streak \(displayedStreak).")
+        .onAppear {
+            fillProgress = isCompleted ? 1 : 0
+        }
+        .onChange(of: isCompleted) { _, newValue in
+            updateCompletionState(newValue)
+        }
         .sensoryFeedback(.impact(weight: .medium), trigger: completionFeedbackTrigger)
     }
 
-    private var cardShape: RoundedRectangle {
-        RoundedRectangle(cornerRadius: LeviRadius.xl)
+    private var displayedStreak: Int {
+        max(streakCount, isCompleted ? 1 : 0)
     }
 
-    private var holdGesture: some Gesture {
-        DragGesture(minimumDistance: 0)
-            .onChanged { value in
-                guard !isCompleted else { return }
-
-                fillOrigin = value.location
-
-                if !isHolding {
-                    beginHold()
-                }
-            }
-            .onEnded { _ in
-                guard !isCompleted else { return }
-
-                if holdProgress < 1 {
-                    cancelHold()
-                }
-            }
-    }
-
-    private func beginHold() {
-        isHolding = true
-        holdTask?.cancel()
-
-        holdTask = Task { @MainActor in
-            for tick in 1...tickCount {
-                guard !Task.isCancelled else { return }
-
-                try? await Task.sleep(nanoseconds: UInt64(holdDuration * 1_000_000_000 / Double(tickCount)))
-
-                guard !Task.isCancelled else { return }
-
-                let progress = CGFloat(tick) / CGFloat(tickCount)
-                withAnimation(reduceMotion ? .linear(duration: 0.01) : .linear(duration: holdDuration / Double(tickCount))) {
-                    holdProgress = progress
-                }
-            }
-
-            completeHold()
+    private var titleForegroundColor: Color {
+        guard isCompleted else { return theme.colors.textPrimary }
+        return switch quest.platform {
+        case .threads, .x: colorScheme == .dark ? theme.colors.textInverse : .white
+        case .linkedin, .youtube, .pinterest, .mastodon, .facebook: .white
+        case .instagram: theme.colors.textPrimary
+        case .tiktok, .reddit, .bluesky, .snapchat: theme.colors.textInverse
         }
     }
 
-    private func completeHold() {
-        holdTask?.cancel()
-        holdTask = nil
-        isHolding = false
-        holdProgress = 1
-        completionFeedbackTrigger.toggle()
-        onComplete(quest)
-    }
+    private func updateCompletionState(_ completed: Bool) {
+        shouldBumpStreak = false
 
-    private func cancelHold() {
-        holdTask?.cancel()
-        holdTask = nil
-        isHolding = false
+        if completed {
+            fillProgress = 0
+            completionFeedbackTrigger.toggle()
 
-        withAnimation(reduceMotion ? .easeOut(duration: 0.01) : .spring(response: 0.28, dampingFraction: 0.86)) {
-            holdProgress = 0
+            if reduceMotion {
+                fillProgress = 1
+                return
+            }
+
+            withAnimation(.easeOut(duration: 0.42)) {
+                fillProgress = 1
+            } completion: {
+                withAnimation(.spring(response: 0.24, dampingFraction: 0.48)) {
+                    shouldBumpStreak = true
+                } completion: {
+                    withAnimation(.spring(response: 0.22, dampingFraction: 0.82)) {
+                        shouldBumpStreak = false
+                    }
+                }
+            }
+        } else {
+            if reduceMotion {
+                fillProgress = 0
+            } else {
+                withAnimation(.easeOut(duration: 0.22)) {
+                    fillProgress = 0
+                }
+            }
         }
-    }
-
-    private func completeFromAccessibility() {
-        guard !isCompleted else { return }
-        fillOrigin = nil
-        holdProgress = 1
-        onComplete(quest)
     }
 }
 
@@ -146,15 +148,17 @@ struct TodayQuestCard: View {
             TodayQuestCard(
                 quest: QuestCatalog.all[0],
                 isCompleted: false,
-                streakCount: 2,
-                onComplete: { _ in }
+                streakCount: 0,
+                onComplete: { _ in },
+                onUndo: { _ in }
             )
 
             TodayQuestCard(
                 quest: QuestCatalog.all[3],
                 isCompleted: true,
                 streakCount: 3,
-                onComplete: { _ in }
+                onComplete: { _ in },
+                onUndo: { _ in }
             )
         }
         .padding()
