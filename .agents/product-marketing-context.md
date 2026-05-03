@@ -1,10 +1,10 @@
-# Product Marketing Context: Levi
+# Product Marketing Context: Shoyo
 
-*Last updated: 2026-04-28*
+*Last updated: 2026-05-03*
 
 > ## ⚠️ Validation Status
 >
-> Levi is **pre-launch**. No users, no beta testers, no validated metrics yet.
+> Shoyo is **pre-launch**. No users, no beta testers, no validated metrics yet.
 >
 > **What is verified:**
 > - Founder's own story and lived experience (multiple app launches, distribution lessons, the silence-on-launch pattern)
@@ -31,7 +31,7 @@ I've built multiple apps over the years. Most of them failed — not because the
 
 The pattern was always the same: I'd get excited building, then never share the app until it was finished. By the time it was done, the excitement was gone — making content for it felt hard, I didn't know where to start with marketing, and the momentum I had while building had already died.
 
-So I'm building Levi for myself first. It's the app I wish I'd had during every previous launch: something that nudges me to post about what I'm building, *while* I'm building it. No content strategy, no overthinking — just "here's a quest, post on the platform you said you'd grow on, keep your streak alive."
+So I'm building Shoyo for myself first. It's the app I wish I'd had during every previous launch: something that nudges me to post about what I'm building, *while* I'm building it. No content strategy, no overthinking — just "here's a quest, post on the platform you said you'd grow on, keep your streak alive."
 
 If it works for me — someone who's launched and learned this lesson the hard way — it'll work for other indie founders like me.
 
@@ -42,9 +42,12 @@ If it works for me — someone who's launched and learned this lesson the hard w
 **One-liner:**
 A gamified habit tracker for indie founders to stay visible while they build. Pick the platforms you want to grow on, get fixed daily quests, tap-and-hold to complete, build a streak.
 
+**Brand name:**
+Shoyo is short for "show your work" / "showyowork" — a compact name that makes the product promise explicit: keep showing the work while you build, not after the launch is already over.
+
 **What it does:**
 
-During onboarding, the user picks the social platforms they want to grow on (e.g., Threads, Instagram, TikTok). Levi then surfaces a fixed set of platform-specific quests every day — concrete actions like:
+During onboarding, the user picks the social platforms they want to grow on (e.g., Threads, Instagram, TikTok). Shoyo then surfaces a fixed set of platform-specific quests every day — concrete actions like:
 
 - "Post on Threads"
 - "Post a Reel on Instagram"
@@ -68,7 +71,7 @@ Freemium (intent — exact tier split TBD). Free covers the core loop (platform 
 
 ## Target Audience
 
-**Who Levi is for:**
+**Who Shoyo is for:**
 Indie founders / solo app builders who are great at building and bad at being visible while they build. They've usually launched something before and learned the hard way that distribution beats product. They want to grow on a small number of social platforms (typically 1–3) but lack the discipline, structure, or daily push to actually post.
 
 **Decision-maker:**
@@ -166,7 +169,7 @@ Building great apps but launching them to silence — because you didn't share *
 ## Differentiation
 
 **The core insight:**
-Most "build in public" tools are content tools. Levi isn't a content tool — it's an **accountability tool**. The hard part isn't writing the post; it's *deciding to post today*, on the platform you chose, when you'd rather just keep building. Levi handles that decision for you.
+Most "build in public" tools are content tools. Shoyo isn't a content tool — it's an **accountability tool**. The hard part isn't writing the post; it's *deciding to post today*, on the platform you chose, when you'd rather just keep building. Shoyo handles that decision for you.
 
 **Key differentiators:**
 
@@ -178,7 +181,7 @@ Most "build in public" tools are content tools. Levi isn't a content tool — it
 
 4. **Streaks with grace ("don't miss twice").** One missed day doesn't reset the streak — only two consecutive misses do. Built around the reality that founders are human, but consistency is the unlock.
 
-5. **Built BY a founder FOR founders.** Not a productivity company chasing a market — an app the founder himself uses daily on his own apps, dogfooding it through Levi's own launch.
+5. **Built BY a founder FOR founders.** Not a productivity company chasing a market — an app the founder himself uses daily on his own apps, dogfooding it through Shoyo's own launch.
 
 6. **Accountability over content help (in MVP).** No AI writing, no auto-posting, no calendars. Just: did you post today on the platform you said you'd grow? Yes / no. Streak / no streak. Post-MVP layers on Founder Notes + AI content reframing once the core habit is validated.
 
@@ -191,17 +194,17 @@ You get one thing: a daily nudge to post on the platforms you committed to growi
 
 ## Roadmap Vision (Post-MVP)
 
-> ⚠️ Captured here because it shapes long-term positioning. **Don't market features that don't exist yet** — but the trajectory is part of the story when talking about Levi's depth.
+> ⚠️ Captured here because it shapes long-term positioning. **Don't market features that don't exist yet** — but the trajectory is part of the story when talking about Shoyo's depth.
 
-The MVP is intentionally narrow: pick platforms → daily fixed quests → tap-and-hold → streak. Once that habit loop is validated, Levi layers on:
+The MVP is intentionally narrow: pick platforms → daily fixed quests → tap-and-hold → streak. Once that habit loop is validated, Shoyo layers on:
 
 - **Founder XP** — XP tied not to "quests as a game" but to *you-as-a-founder* leveling up. Streak depth, platforms grown, days shown up. Treats the founder identity as the protagonist, not the app.
 - **Founder Notes** — short daily journal of what you did on your build today. A second habit, anchored to the same streak.
 - **AI content reframing** — the AI reads your Founder Notes and reframes them into draft posts, articles, or threads that are actually content-worthy. So journaling itself becomes raw material for what you share next.
-- **Academy / Learn tab** — a learning hub for novice indie founders who want to learn how to build apps. Tutorials, fundamentals, founder stories. Widens Levi's audience funnel from "experienced builders who already ship" to "people just starting the indie founder journey" — with Levi's habit loop waiting for them when they begin building.
+- **Academy / Learn tab** — a learning hub for novice indie founders who want to learn how to build apps. Tutorials, fundamentals, founder stories. Widens Shoyo's audience funnel from "experienced builders who already ship" to "people just starting the indie founder journey" — with Shoyo's habit loop waiting for them when they begin building.
 - **Apple Watch app, widgets, web dashboard** — visibility for the streak across surfaces.
 
-Together, this turns Levi from "habit tracker for posting" into a full-funnel founder companion — **learning** for novices, **accountability** for builders, and *what you did today → what becomes content tomorrow* for those shipping in public. That's the long-term vision. The MVP doesn't promise any of it.
+Together, this turns Shoyo from "habit tracker for posting" into a full-funnel founder companion — **learning** for novices, **accountability** for builders, and *what you did today → what becomes content tomorrow* for those shipping in public. That's the long-term vision. The MVP doesn't promise any of it.
 
 ---
 
@@ -211,12 +214,12 @@ Together, this turns Levi from "habit tracker for posting" into a full-funnel fo
 
 | Objection (hypothesized) | Response |
 |-----------|----------|
-| "Isn't this just performative build-in-public?" | Levi only works if you're actually building. The quest is "post about your build," not "post anything." Fakes break the loop fast. |
+| "Isn't this just performative build-in-public?" | Shoyo only works if you're actually building. The quest is "post about your build," not "post anything." Fakes break the loop fast. |
 | "I don't have time to post daily." | Quests are 5 minutes or less, including the post. You only need one quest per day to keep the streak alive. |
 | "What if I miss a day?" | One grace day. Two consecutive misses break it. Built for humans. |
 | "I don't know what to actually post." | The quest tells you the *action* ("Post a Reel on Instagram") — the content comes from what you're already building. Post-MVP, AI will reframe your daily Founder Notes into draft posts. |
-| "Will this actually grow my audience?" | If you're building something real and you show up consistently on the platforms you committed to, the math works. Levi removes the friction of *whether* to post today. |
-| "Why not just use Buffer or Later?" | Different problem. Schedulers help when you've already decided to write a post. Levi's job is making sure you decide to in the first place. |
+| "Will this actually grow my audience?" | If you're building something real and you show up consistently on the platforms you committed to, the math works. Shoyo removes the friction of *whether* to post today. |
+| "Why not just use Buffer or Later?" | Different problem. Schedulers help when you've already decided to write a post. Shoyo's job is making sure you decide to in the first place. |
 
 **Anti-persona:**
 **NOT a good fit:**
@@ -237,7 +240,7 @@ Together, this turns Levi from "habit tracker for posting" into a full-funnel fo
 - "I keep telling myself I'll start posting tomorrow"
 - "I picked Threads / IG / TikTok — and I post on none of them"
 
-**Pull (what attracts them to Levi):**
+**Pull (what attracts them to Shoyo):**
 - "It just tells me to post on Instagram today. I can do that."
 - "The tap-and-hold actually feels good"
 - "The streak makes me show up without thinking about it"
@@ -299,11 +302,11 @@ Together, this turns Levi from "habit tracker for posting" into a full-funnel fo
 - "Personal branding" (off-putting)
 - "Engage your audience" (corporate)
 - "Content strategy" (too formal)
-- Generic "habit tracker" framing (Levi is about visibility, not habits in the abstract)
+- Generic "habit tracker" framing (Shoyo is about visibility, not habits in the abstract)
 
 **Glossary:**
 
-| Term | Meaning (in Levi context) |
+| Term | Meaning (in Shoyo context) |
 |------|---------------------------|
 | **Quest** | A platform-specific daily action ("Post a Reel on Instagram", "Post on Threads"). Fixed list per platform. |
 | **Platform** | A social network the user committed to growing on during onboarding (e.g., Threads, Instagram, TikTok). Quests filter to selected platforms. |
@@ -338,7 +341,7 @@ Short, punchy, direct. No corporate fluff. Empathetic about the hard parts (sile
 > ⚠️ **No proof points yet — pre-launch.** Below is a list of what to gather, not what exists. Do not put any "results" claims into marketing copy until they're real.
 
 **Strongest available proof point right now:**
-The founder's own story. Multiple apps shipped, mostly to silence, one truly making money — and the lesson learned about distribution. The dogfooding case study (Levi used on Levi's own launch) becomes the second proof point as soon as it's running.
+The founder's own story. Multiple apps shipped, mostly to silence, one truly making money — and the lesson learned about distribution. The dogfooding case study (Shoyo used on Shoyo's own launch) becomes the second proof point as soon as it's running.
 
 **Metrics to collect post-launch:**
 - Daily quest completion rate
@@ -376,14 +379,14 @@ The founder's own story. Multiple apps shipped, mostly to silence, one truly mak
 ## Goals
 
 **Primary business goal:**
-Make Levi the default app indie founders open every morning before they start building. "If you're shipping in public, you have Levi open."
+Make Shoyo the default app indie founders open every morning before they start building. "If you're shipping in public, you have Shoyo open."
 
 **Dual-purpose secondary goal:**
-Use building Levi as the founder's own case study + content engine. Document the journey. Stay accountable. Grow Levi's audience using Levi.
+Use building Shoyo as the founder's own case study + content engine. Document the journey. Stay accountable. Grow Shoyo's audience using Shoyo.
 
 **Conversion actions:**
 1. **For users:** Download → pick platforms → complete first quest → feel the haptic reward → come back tomorrow.
-2. **For the founder:** Use Levi daily on Levi's own launch → produce content about the journey → grow Levi's audience using Levi.
+2. **For the founder:** Use Shoyo daily on Shoyo's own launch → produce content about the journey → grow Shoyo's audience using Shoyo.
 
 **Key metrics to track:**
 - **Day-1 return rate** (install → next day open) — #1 metric

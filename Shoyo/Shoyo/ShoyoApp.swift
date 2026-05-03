@@ -1,0 +1,40 @@
+//
+//  ShoyoApp.swift
+//  Shoyo
+//
+//  Created by Jameel Socorro on 4/28/26.
+//
+
+import SwiftUI
+import SwiftData
+
+@main
+struct ShoyoApp: App {
+    @AppStorage(ShoyoTheme.storageKey) private var selectedThemeRawValue = ShoyoTheme.system.rawValue
+
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            FounderProfile.self,
+            QuestCompletion.self,
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environment(\.theme, ShoyoAppTheme(selection: selectedTheme))
+        }
+        .modelContainer(sharedModelContainer)
+    }
+
+    private var selectedTheme: ShoyoTheme {
+        ShoyoTheme(storedValue: selectedThemeRawValue)
+    }
+}
