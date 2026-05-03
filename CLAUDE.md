@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project State
 
-Shoyo is a **pre-launch, very early-stage iOS app**. The Xcode project currently contains only the default SwiftUI + SwiftData template scaffolding (`Item` model, list-based `ContentView`). None of the actual product features (quests, streaks, tap-and-hold completion, heatmap, etc.) have been built yet. When implementing features, expect to replace template code rather than extend it.
+Shoyo is a **pre-launch iOS app** for indie founders who want to show their work while building. The app is no longer default SwiftUI template scaffolding. It already includes onboarding, platform selection, a static quest catalog, Today and Streaks tabs, SwiftData persistence, and a Shoyo-native visual direction.
 
-The PRD (`docs/prd.md`) is the source of truth for what gets built. Read it before designing features — the product has strong opinions (tap-and-hold as the only completion gesture, "don't miss twice" grace day for streaks, platform-first onboarding, platform-specific fixed quests color-coded by social platform) that should not be silently dropped or generalized.
+The PRD (`docs/prd.md`) is the source of truth for product direction. Read it before making product or UX decisions. The old Atoms-inspired direction and tap-and-hold completion requirement are no longer current.
 
 ## Tech Stack
 
@@ -15,7 +15,7 @@ The PRD (`docs/prd.md`) is the source of truth for what gets built. Read it befo
 - **Persistence:** SwiftData (single `ModelContainer` set up in `ShoyoApp.swift`, injected via `.modelContainer` modifier)
 - **Deployment target:** iOS 26.4
 - **Test frameworks:** Swift Testing (`ShoyoTests`) for unit tests, XCTest (`ShoyoUITests`) for UI tests
-- **Device family:** Universal in the project file, but the PRD scopes MVP to iPhone only — design and test for iPhone first
+- **Device family:** Universal in the project file, but product work should design and test iPhone first
 
 ## Build, Run, and Test
 
@@ -44,34 +44,43 @@ For day-to-day work, opening `Shoyo/Shoyo.xcodeproj` in Xcode and using ⌘R / �
 
 ## Architecture
 
-**Entry point:** `Shoyo/Shoyo/ShoyoApp.swift` constructs a `ModelContainer` with the app's SwiftData schema (currently just `Item`) and injects it into the SwiftUI environment. As the data model grows (quests, streaks, completions, identity), add new `@Model` types to the `Schema([...])` array there.
+**Entry point:** `Shoyo/Shoyo/ShoyoApp.swift` constructs a `ModelContainer` with the SwiftData schema (`FounderProfile`, `QuestCompletion`) and injects it into the SwiftUI environment.
 
-**Data flow pattern:** Views read SwiftData via `@Environment(\.modelContext)` + `@Query` (see `ContentView.swift` for the canonical pattern). Mutations go through `modelContext.insert` / `modelContext.delete`. Stick to this pattern — do not introduce a separate ViewModel/store layer unless something in the PRD genuinely requires it.
+**Routing:** `ContentView` uses `@Query` to load profiles, then `AppRoute` chooses onboarding or the main Today experience.
 
-**Where new code goes:** Source files live flat under `Shoyo/Shoyo/`. No feature-folder structure exists yet. When the codebase grows beyond a handful of files, organize by feature (e.g., `Quests/`, `Streak/`, `Onboarding/`) rather than by type (`Views/`, `Models/`).
+**Data flow pattern:** Views read SwiftData via `@Environment(\.modelContext)` + `@Query`. Mutations go through `modelContext.insert`, `modelContext.delete`, and `modelContext.save()`. Stick to this pattern unless the PRD creates a real need for a separate state layer.
+
+**Feature structure:** Source is organized by feature under `Shoyo/Shoyo/`: `Onboarding/`, `Quests/`, `Today/`, `Streak/`, and `Design/`.
 
 ## Reference Documents
 
-These are the load-bearing docs for understanding the product. Read them before making design or product decisions:
-
-- **`docs/prd.md`** — Product requirements. Defines MVP scope, the 14 design principles (tap-and-hold mechanic, platform-first onboarding, platform-specific fixed quests, grace-day streaks, etc.), the build order, and what is explicitly out of scope. Treat the design principles as constraints, not suggestions.
-- **`DESIGN.md`** — Design system tokens (colors, typography, spacing, radii, components, motion). Uses a "Unified Glass Design System" with warm sage / sand / earthy brown brand colors and dual-theme (light/dark) support. Brand colors are constant across themes; only environmental tokens (backgrounds, surfaces, text, borders) adapt.
-- **`docs/references/atoms/`** — Screenshots of the Atoms app, which is the primary UX inspiration for Shoyo (per the PRD). When unsure how an interaction should feel, consult these.
-- **`.agents/product-marketing-context.md`** — Positioning, target audience, brand voice, customer language. Used by marketing skills (`/copywriting`, `/launch-strategy`, etc.). Note: it is explicitly marked pre-launch and most sections are hypothesized — do not treat its testimonials, metrics, or persona quotes as validated facts.
+- **`docs/prd.md`** — Product requirements and current MVP state. Treat this as the primary source of truth.
+- **`.agents/product-marketing-context.md`** — Positioning, target audience, brand voice, and customer language for marketing skills. It is pre-launch context; do not treat hypothesized personas, objections, testimonials, or metrics as validated facts.
+- **`Shoyo/Shoyo/Design/`** — Current design tokens and shared SwiftUI modifiers. Use these instead of assuming a separate `DESIGN.md` exists.
+- **`docs/references/atoms/`** — Historical screenshots only. Do not use Atoms as the current UX foundation unless the user explicitly revives that direction.
 
 ## Product Principles That Shape Implementation
 
-A few PRD principles are easy to violate without realizing it:
+- **Show the work while building.** The product exists to help founders become visible before launch.
+- **Platform commitment comes first.** The user chooses the social platforms they want to grow on; quests filter from those choices.
+- **Completion is a manual plus-button commit.** The current app uses a visible plus button, animated fill, haptics, and undo. Do not reintroduce tap-and-hold as a requirement unless explicitly requested.
+- **One completed quest per day keeps the overall streak alive.** Optional extra quests add depth but should not feel like punishment.
+- **"Don't miss twice."** One missed day is forgiven; two consecutive misses reset the streak.
+- **No auto-posting or external verification.** Shoyo trusts the user and avoids deep platform integrations for MVP.
+- **Quests must feel completable in roughly five minutes,** including writing or recording the post.
+- **Design is Shoyo-native.** Mascot-led onboarding, floating platform orbs, glassy native surfaces, warm orange accent, and accessible platform signals define the current direction.
 
-- **Tap-and-hold is the only completion gesture.** Skip is a separate swipe/button. Do not add a tap-to-complete shortcut.
-- **One completed quest per day keeps the streak alive.** The other 2-5 quests on screen are optional variety, not a checklist.
-- **"Don't miss twice."** One missed day uses the grace day; only two consecutive misses reset the streak. This is a deliberate anti-shame design — do not "fix" it to be stricter.
-- **No auto-posting.** The draft helper copies to clipboard and the user posts manually. Platform integrations are out of scope for MVP.
-- **Quests must feel completable in 5 minutes or less,** including writing the post.
+## Current Gaps To Respect
 
-## What's Out of Scope (per PRD)
+- Settings is still a placeholder.
+- `FounderProfile.projectName` exists, but onboarding does not currently ask for project name.
+- Supported social platforms are intentionally limited to Instagram, TikTok, Threads, YouTube, Facebook, LinkedIn, X, Bluesky, and Reddit.
+- Today currently allows selecting recent days; decide deliberately whether this is backfill or should become view-only history.
+- Streak UI contains both overall streak and per-quest streak concepts; be explicit about which one a change affects.
 
-The following are explicit post-MVP features (do not accidentally start building them in MVP work): Founder XP, Founder Notes (daily journaling), AI content reframing, draft helper / templates, identity-first onboarding question, Academy / Learn tab, Apple Watch app, widgets, web dashboard, Pro / freemium tier. Also out of roadmap entirely: badges, boss battles, public profiles, social feed, auto-posting, calendar scheduling, markdown vault, team features, deep platform integrations.
+## What's Out of Scope
+
+Do not build these into MVP without explicit direction: auto-posting, deep social integrations, AI-written posts, draft generation, content calendar, Founder XP, Academy / Learn tab, Apple Watch app, widgets, web dashboard, paid Pro gates, badges, boss battles, public profiles, team features, markdown vault, or long-form content management.
 
 ## Tool & Git Workflow (Superpowers Override)
 

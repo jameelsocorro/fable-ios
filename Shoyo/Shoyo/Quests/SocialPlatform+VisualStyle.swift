@@ -3,59 +3,47 @@ import SwiftUI
 extension SocialPlatform {
     var accentColor: Color {
         switch self {
-        case .threads:
-            .primary
-        case .x:
-            .primary
-        case .linkedin:
-            .blue
         case .instagram:
             .pink
         case .tiktok:
             .cyan
+        case .threads:
+            .primary
         case .youtube:
             .red
-        case .reddit:
-            .orange
         case .facebook:
             .blue
+        case .linkedin:
+            .blue
+        case .x:
+            .primary
         case .bluesky:
             .cyan
-        case .pinterest:
-            .red
-        case .snapchat:
-            .yellow
-        case .mastodon:
-            .purple
+        case .reddit:
+            .orange
         }
     }
 
     var symbolName: String {
         switch self {
-        case .threads:
-            "at"
-        case .x:
-            "xmark"
-        case .linkedin:
-            "briefcase"
         case .instagram:
             "camera"
         case .tiktok:
             "music.note"
+        case .threads:
+            "at"
         case .youtube:
             "play.rectangle"
-        case .reddit:
-            "bubble.left.and.bubble.right"
         case .facebook:
             "person.2"
+        case .linkedin:
+            "briefcase"
+        case .x:
+            "xmark"
         case .bluesky:
             "cloud"
-        case .pinterest:
-            "pin"
-        case .snapchat:
-            "bolt"
-        case .mastodon:
-            "megaphone"
+        case .reddit:
+            "bubble.left.and.bubble.right"
         }
     }
 
@@ -70,7 +58,6 @@ extension SocialPlatform {
         case .reddit:    "Social.Reddit"
         case .bluesky:   "Social.Bluesky"
         case .facebook:  "Social.Facebook"
-        default:         nil
         }
     }
 }

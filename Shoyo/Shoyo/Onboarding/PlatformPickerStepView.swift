@@ -119,8 +119,8 @@ struct PlatformPickerStepView: View {
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
 
     private let orbPlatforms: [SocialPlatform] = [
-        .instagram, .threads, .x, .linkedin, .reddit,
-        .youtube, .tiktok, .bluesky, .facebook
+        .instagram, .tiktok, .threads, .youtube, .facebook,
+        .linkedin, .x, .bluesky, .reddit
     ]
 
     var body: some View {
@@ -305,31 +305,29 @@ struct PlatformPickerStepView: View {
 
     private func orbOffset(_ platform: SocialPlatform) -> CGSize {
         switch platform {
+        case .instagram: CGSize(width:  -40, height:   72)
+        case .tiktok:    CGSize(width: -148, height:  -14)
         case .threads:   CGSize(width:    0, height: -146)
+        case .youtube:   CGSize(width:  145, height:  -78)
+        case .facebook:  CGSize(width:  112, height:   46)
         case .linkedin:  CGSize(width:  -80, height: -126)
         case .x:         CGSize(width:   80, height: -126)
-        case .reddit:    CGSize(width: -145, height:  -78)
-        case .youtube:   CGSize(width:  145, height:  -78)
-        case .tiktok:    CGSize(width: -148, height:  -14)
         case .bluesky:   CGSize(width:  148, height:  -14)
-        case .facebook:  CGSize(width:  112, height:   46)
-        case .instagram: CGSize(width:  -40, height:   72)
-        default:         .zero
+        case .reddit:    CGSize(width: -145, height:  -78)
         }
     }
 
     private func floatConfig(_ platform: SocialPlatform) -> (amplitude: CGFloat, delay: Double, duration: Double) {
         switch platform {
         case .instagram: (7,  0.40, 2.1)
-        case .x:         (10, 0.50, 2.4)
         case .tiktok:    (8,  0.60, 1.9)
-        case .youtube:   (9,  0.70, 2.7)
-        case .linkedin:  (6,  0.45, 2.2)
         case .threads:   (8,  0.55, 2.5)
-        case .bluesky:   (9,  0.75, 1.8)
+        case .youtube:   (9,  0.70, 2.7)
         case .facebook:  (6,  0.80, 2.3)
+        case .linkedin:  (6,  0.45, 2.2)
+        case .x:         (10, 0.50, 2.4)
+        case .bluesky:   (9,  0.75, 1.8)
         case .reddit:    (7,  0.65, 2.6)
-        default:         (8,  0.50, 2.2)
         }
     }
 

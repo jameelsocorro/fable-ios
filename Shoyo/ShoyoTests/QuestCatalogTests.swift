@@ -4,18 +4,15 @@ import Testing
 struct QuestCatalogTests {
     @Test func allV1PlatformsArePresent() {
         #expect(SocialPlatform.allCases.map(\.id) == [
-            "threads",
-            "x",
-            "linkedin",
             "instagram",
             "tiktok",
+            "threads",
             "youtube",
-            "reddit",
             "facebook",
+            "linkedin",
+            "x",
             "bluesky",
-            "pinterest",
-            "snapchat",
-            "mastodon",
+            "reddit",
         ])
     }
 
@@ -39,6 +36,6 @@ struct QuestCatalogTests {
 
         let recommendations = QuestCatalog.firstSessionRecommendations(for: selected)
 
-        #expect(recommendations.map(\.platform) == [.threads, .instagram, .youtube])
+        #expect(recommendations.map(\.platform) == [.instagram, .threads, .youtube])
     }
 }

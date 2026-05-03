@@ -1,16 +1,13 @@
 nonisolated enum SocialPlatform: String, CaseIterable, Codable, Hashable, Identifiable {
-    case threads
-    case x
-    case linkedin
     case instagram
     case tiktok
+    case threads
     case youtube
-    case reddit
     case facebook
+    case linkedin
+    case x
     case bluesky
-    case pinterest
-    case snapchat
-    case mastodon
+    case reddit
 
     var id: String { rawValue }
 
@@ -20,38 +17,32 @@ nonisolated enum SocialPlatform: String, CaseIterable, Codable, Hashable, Identi
 
     var displayName: String {
         switch self {
-        case .threads:
-            "Threads"
-        case .x:
-            "X"
-        case .linkedin:
-            "LinkedIn"
         case .instagram:
             "Instagram"
         case .tiktok:
             "TikTok"
+        case .threads:
+            "Threads"
         case .youtube:
             "YouTube"
-        case .reddit:
-            "Reddit"
         case .facebook:
             "Facebook"
+        case .linkedin:
+            "LinkedIn"
+        case .x:
+            "X"
         case .bluesky:
             "Bluesky"
-        case .pinterest:
-            "Pinterest"
-        case .snapchat:
-            "Snapchat"
-        case .mastodon:
-            "Mastodon"
+        case .reddit:
+            "Reddit"
         }
     }
 
     var group: SocialPlatformGroup {
         switch self {
-        case .threads, .x, .linkedin, .instagram, .tiktok, .youtube, .reddit:
+        case .instagram, .tiktok, .threads, .youtube, .facebook, .linkedin, .x:
             .recommended
-        case .facebook, .bluesky, .pinterest, .snapchat, .mastodon:
+        case .bluesky, .reddit:
             .more
         }
     }

@@ -67,9 +67,9 @@ struct TodayQuestStreakBadge: View {
         if isCompleted { return theme.colors.textPrimary }
         return switch quest.platform {
         case .threads, .x: colorScheme == .dark ? theme.colors.textInverse : .white
-        case .linkedin, .youtube, .pinterest, .mastodon, .facebook: .white
+        case .linkedin, .youtube, .facebook: .white
         case .instagram: theme.colors.textPrimary
-        case .tiktok, .reddit, .bluesky, .snapchat: theme.colors.textInverse
+        case .tiktok, .reddit, .bluesky: theme.colors.textInverse
         }
     }
 }
