@@ -13,13 +13,15 @@ struct TodayQuestStreakBadge: View {
     @State private var countVersion: Int = 0
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: theme.spacing.xs) {
             Image(systemName: "flame.fill")
                 .font(.system(.title3, weight: .bold))
                 .accessibilityHidden(true)
 
             Text("\(streakCount)")
-                .font(.system(.body, design: .serif, weight: .bold))
+                .font(ShoyoFont.subwayTickerGrid(size: 14, relativeTo: .callout))
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
                 .id(countVersion)
                 .transition(reduceMotion ? .opacity : .asymmetric(
                     insertion: .offset(y: isCompleted ? 10 : -10).combined(with: .opacity),

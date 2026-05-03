@@ -1,0 +1,143 @@
+{
+  "fill" : {
+    "linear-gradient" : [
+      "srgb:0.95537,0.95537,0.95537,1.00000",
+      "srgb:0.78777,0.78777,0.78777,1.00000"
+    ],
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 0
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0.7
+      }
+    }
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "glass-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : true
+            }
+          ],
+          "hidden" : false,
+          "image-name" : "oreo-portrait-face.png",
+          "name" : "oreo-portrait-face",
+          "position" : {
+            "scale" : 0.77,
+            "translation-in-points" : [
+              0,
+              33
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material-specializations" : [
+        {
+          "appearance" : "tinted",
+          "value" : null
+        }
+      ],
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill" : "automatic",
+          "glass-specializations" : [
+            {
+              "value" : false
+            },
+            {
+              "appearance" : "dark",
+              "value" : true
+            },
+            {
+              "appearance" : "tinted",
+              "value" : true
+            }
+          ],
+          "hidden" : false,
+          "image-name" : "oreo-portrait-body.png",
+          "name" : "oreo-portrait-body",
+          "position" : {
+            "scale" : 0.77,
+            "translation-in-points" : [
+              0,
+              33
+            ]
+          }
+        }
+      ],
+      "lighting-specializations" : [
+        {
+          "appearance" : "dark",
+          "value" : "individual"
+        }
+      ],
+      "shadow-specializations" : [
+        {
+          "value" : {
+            "kind" : "neutral",
+            "opacity" : 0.5
+          }
+        },
+        {
+          "appearance" : "dark",
+          "value" : {
+            "kind" : "neutral",
+            "opacity" : 0.67
+          }
+        },
+        {
+          "appearance" : "tinted",
+          "value" : {
+            "kind" : "neutral",
+            "opacity" : 0.5
+          }
+        }
+      ],
+      "translucency-specializations" : [
+        {
+          "value" : {
+            "enabled" : true,
+            "value" : 0.5
+          }
+        },
+        {
+          "appearance" : "dark",
+          "value" : {
+            "enabled" : true,
+            "value" : 0.5
+          }
+        },
+        {
+          "appearance" : "tinted",
+          "value" : {
+            "enabled" : true,
+            "value" : 0
+          }
+        }
+      ]
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

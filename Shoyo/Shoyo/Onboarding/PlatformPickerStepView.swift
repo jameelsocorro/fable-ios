@@ -305,7 +305,7 @@ struct PlatformPickerStepView: View {
 
     private func orbOffset(_ platform: SocialPlatform) -> CGSize {
         switch platform {
-        case .instagram: CGSize(width:  -40, height:   72)
+        case .instagram: CGSize(width: -108, height:   60)
         case .tiktok:    CGSize(width: -148, height:  -14)
         case .threads:   CGSize(width:    0, height: -146)
         case .youtube:   CGSize(width:  145, height:  -78)
