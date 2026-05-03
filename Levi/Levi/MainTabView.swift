@@ -14,10 +14,7 @@ struct MainTabView: View {
             }
 
             Tab(AppTab.streaks.title, systemImage: AppTab.streaks.symbolName, value: AppTab.streaks) {
-                TabPlaceholderView(
-                    tab: .streaks,
-                    description: "Your streak heatmap and history will live here."
-                )
+                StreakView(profile: profile)
             }
 
             Tab(AppTab.settings.title, systemImage: AppTab.settings.symbolName, value: AppTab.settings) {
