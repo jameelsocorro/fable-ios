@@ -34,6 +34,6 @@ enum ShoyoTheme: String, CaseIterable, Identifiable {
     }
 
     var accentColor: Color {
-        Color(hex: "#F07820")
+        Color.primary
     }
 }

@@ -31,7 +31,7 @@ struct TodayStickyHeader: View {
             )
 
             Rectangle()
-                .fill(theme.colors.border)
+                .fill(theme.colors.border.opacity(0.25))
                 .frame(height: 1)
                 .padding(.horizontal, -theme.spacing.xl)
         }

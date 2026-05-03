@@ -9,7 +9,7 @@
 > **What is verified:**
 > - Founder's own story and lived experience: multiple app launches, distribution lessons, and the silence-on-launch pattern.
 > - Current app implementation: onboarding, platform picker, static quest catalog, Today tab, plus-button completion, Streaks tab, SwiftData persistence.
-> - Current product direction: Shoyo-native mascot-led onboarding, platform orbs, glassy/native iOS surfaces, warm orange primary accent.
+> - Current product direction: Shoyo-native mascot-led onboarding, platform orbs, glassy/native iOS surfaces, monochrome primary action color.
 > - Brand name rationale: Shoyo is short for "show your work" / "showyowork."
 >
 > **What is hypothesized and must be validated before use as proof:**
@@ -205,7 +205,7 @@ Most build-in-public tools are content tools. Shoyo isn't a content tool — it'
 
 6. **Built by a founder for founders.** Not a generic productivity company chasing a market — an app the founder is dogfooding through Shoyo's own launch.
 
-7. **Shoyo-native brand experience.** Oreo, platform orbs, glass surfaces, haptics, warm orange accent, and polished native iOS motion make the habit feel supportive instead of corporate. This reinforces the loop, but the core differentiation is still platform-specific accountability.
+7. **Shoyo-native brand experience.** Oreo, platform orbs, glass surfaces, haptics, monochrome primary actions, and polished native iOS motion make the habit feel supportive instead of corporate. This reinforces the loop, but the core differentiation is still platform-specific accountability.
 
 **Why founders choose it:**
 You get one thing: a daily nudge to post on the platforms you committed to growing on, gamified enough that you actually do it. Not "be more productive." Not "build a personal brand." Just: "Pick your platforms. Show your work today. Keep the streak alive."

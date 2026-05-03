@@ -24,7 +24,7 @@ The current app direction is:
 - **Platform orbs** — users choose where they want to build audience by tapping floating social platform orbs.
 - **Glass and native iOS surfaces** — light/dark-aware cards, translucent materials where appropriate, radial warmth, and iOS-native motion.
 - **Serif-led editorial moments** — large serif headlines give the app a founder-story tone instead of a generic productivity tone.
-- **Orange primary accent** — Shoyo uses a warm orange action color, while platform colors are used as contextual feedback.
+- **Monochrome primary action color** — Shoyo uses black in Light Mode and white in Dark Mode for primary actions, while platform colors are used as contextual feedback.
 
 Design work should follow the SwiftUI components in `Shoyo/Shoyo/Design/` and the current app screens before inventing a new visual system.
 
@@ -53,7 +53,7 @@ The app is no longer template scaffolding. Current implemented pieces include:
 - **Today tab** with a sticky recent-day strip, quest cards filtered to selected platforms, plus-button completion, undo, animated fill, and haptic feedback.
 - **Streaks tab** with total completions, current streak, monthly completion rate, a 12-month activity board, and per-quest seven-day strips.
 - **Settings tab placeholder** for project, platform, and theme settings.
-- **Theme infrastructure** with system/sage/sand/earth/sky/ruby options in code, though the current accent color is still shared.
+- **Theme infrastructure** with system/sage/sand/earth/sky/ruby options in code, though the current primary action color is still shared and adapts black/white by appearance.
 
 ## MVP Scope
 

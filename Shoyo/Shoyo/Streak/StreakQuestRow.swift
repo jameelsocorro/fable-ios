@@ -19,11 +19,12 @@ struct StreakQuestRow: View {
 
             Spacer()
 
-            HStack(spacing: 3) {
+            HStack(spacing: StreakCommitGridBox.defaultSpacing) {
                 ForEach(strip) { day in
-                    RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .fill(dayFillStyle(for: day))
-                        .frame(width: 12, height: 12)
+                    StreakCommitGridBox(
+                        intensity: day.isCompleted ? 3 : 0,
+                        activeFillStyle: quest.platform.accentFillStyle
+                    )
                 }
             }
         }
@@ -39,14 +40,6 @@ struct StreakQuestRow: View {
                 .scaledToFit()
         } else {
             Image(systemName: quest.platform.symbolName)
-        }
-    }
-
-    private func dayFillStyle(for day: StreakDayState) -> AnyShapeStyle {
-        if day.isCompleted {
-            quest.platform.accentFillStyle
-        } else {
-            AnyShapeStyle(theme.colors.border.opacity(0.5))
         }
     }
 }

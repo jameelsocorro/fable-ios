@@ -74,7 +74,7 @@ struct ShoyoPalette {
     }
 
     var actionPrimaryForeground: Color {
-        .white
+        .adaptive(light: "#FFFFFF", dark: "#000000")
     }
 
     var actionSecondaryBackground: Color {

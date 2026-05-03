@@ -137,7 +137,7 @@ struct StreakView: View {
                 )
 
             Text(value)
-                .font(.system(.title2, design: .default, weight: .bold))
+                .font(ShoyoFont.subwayTickerGrid(size: 22, relativeTo: .body))
                 .foregroundStyle(
                     isAccented
                         ? theme.colors.primaryForeground

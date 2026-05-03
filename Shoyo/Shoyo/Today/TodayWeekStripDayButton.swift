@@ -60,7 +60,7 @@ struct TodayWeekStripDayButton: View {
 
     private var dayForeground: Color {
         if day.isToday {
-            return theme.colors.textInverse
+            return theme.colors.primaryForeground
         }
 
         if isSelected {

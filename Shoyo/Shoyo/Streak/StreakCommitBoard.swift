@@ -5,8 +5,8 @@ struct StreakCommitBoard: View {
 
     @Environment(\.theme) private var theme
 
-    private let cellSize: CGFloat = 10
-    private let cellSpacing: CGFloat = 3
+    private let cellSize = StreakCommitGridBox.defaultSize
+    private let cellSpacing = StreakCommitGridBox.defaultSpacing
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -17,7 +17,7 @@ struct StreakCommitBoard: View {
                             VStack(spacing: cellSpacing) {
                                 ForEach(Array(week.enumerated()), id: \.offset) { _, cell in
                                     if let cell = cell {
-                                        gridCell(intensity: cell.intensity)
+                                        StreakCommitGridBox(intensity: cell.intensity)
                                     } else {
                                         Color.clear.frame(width: cellSize, height: cellSize)
                                     }
@@ -40,9 +40,9 @@ struct StreakCommitBoard: View {
                 Text("Less")
                     .font(.system(.caption2, design: .monospaced))
                     .foregroundStyle(theme.colors.textTertiary)
-                HStack(spacing: theme.spacing.xs) {
+                HStack(spacing: cellSpacing) {
                     ForEach(0..<4, id: \.self) { level in
-                        legendCell(intensity: level)
+                        StreakCommitGridBox(intensity: level)
                     }
                 }
                 Text("More")
@@ -53,29 +53,6 @@ struct StreakCommitBoard: View {
             .padding(.bottom, theme.spacing.md)
         }
         .card()
-    }
-
-    // MARK: - Helpers
-
-    private func cellOpacity(for intensity: Int) -> Double {
-        switch intensity {
-        case 1: return 0.3
-        case 2: return 0.6
-        default: return 1.0
-        }
-    }
-
-    @ViewBuilder
-    private func gridCell(intensity: Int) -> some View {
-        RoundedRectangle(cornerRadius: 2, style: .continuous)
-            .fill(intensity > 0 ? theme.colors.primary.opacity(cellOpacity(for: intensity)) : theme.colors.surfaceTertiary)
-            .frame(width: cellSize, height: cellSize)
-    }
-
-    private func legendCell(intensity: Int) -> some View {
-        RoundedRectangle(cornerRadius: 2, style: .continuous)
-            .fill(intensity > 0 ? theme.colors.primary.opacity(cellOpacity(for: intensity)) : theme.colors.surfaceTertiary)
-            .frame(width: cellSize, height: cellSize)
     }
 }
 
@@ -88,7 +65,15 @@ struct StreakCommitBoard: View {
     } + Array(repeating: .now, count: 3)
     let grid = StreakCalculator.grid(for: DateInterval(start: start, end: end), completionDates: sampleDates)
 
-    StreakCommitBoard(grid: grid)
-        .padding()
-        .environment(\.theme, ShoyoAppTheme(selection: .system))
+    VStack(spacing: 24) {
+        StreakCommitBoard(grid: grid)
+
+        HStack(spacing: StreakCommitGridBox.defaultSpacing) {
+            ForEach(0..<4, id: \.self) { intensity in
+                StreakCommitGridBox(intensity: intensity)
+            }
+        }
+    }
+    .padding()
+    .environment(\.theme, ShoyoAppTheme(selection: .system))
 }
