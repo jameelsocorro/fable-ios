@@ -42,7 +42,7 @@ struct StreakView: View {
     // MARK: - Sections
 
     private var statsRow: some View {
-        HStack(spacing: theme.spacing.sm) {
+        HStack(spacing: theme.spacing.md) {
             statCard(label: "TOTAL", value: "\(completions.count)", isAccented: true)
             statCard(label: "STREAK", value: "\(currentStreak)d", isAccented: false)
             statCard(label: "RATE", value: "\(Int(completionRate * 100))%", isAccented: false)

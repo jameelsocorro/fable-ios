@@ -10,7 +10,7 @@ struct StreakQuestRow: View {
         HStack(spacing: theme.spacing.sm) {
             platformIcon
                 .frame(width: 18, height: 18)
-                .foregroundStyle(quest.platform.accentColor)
+                .foregroundStyle(quest.platform.accentFillStyle)
 
             Text(quest.title)
                 .font(.system(.subheadline, design: .default, weight: .medium))
@@ -22,9 +22,7 @@ struct StreakQuestRow: View {
             HStack(spacing: 3) {
                 ForEach(strip) { day in
                     RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .fill(day.isCompleted
-                              ? quest.platform.accentColor
-                              : theme.colors.border.opacity(0.5))
+                        .fill(dayFillStyle(for: day))
                         .frame(width: 12, height: 12)
                 }
             }
@@ -41,6 +39,14 @@ struct StreakQuestRow: View {
                 .scaledToFit()
         } else {
             Image(systemName: quest.platform.symbolName)
+        }
+    }
+
+    private func dayFillStyle(for day: StreakDayState) -> AnyShapeStyle {
+        if day.isCompleted {
+            quest.platform.accentFillStyle
+        } else {
+            AnyShapeStyle(theme.colors.border.opacity(0.5))
         }
     }
 }

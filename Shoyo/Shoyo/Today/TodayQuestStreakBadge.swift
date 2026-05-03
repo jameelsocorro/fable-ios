@@ -50,28 +50,21 @@ struct TodayQuestStreakBadge: View {
 
     private var backgroundStyle: AnyShapeStyle {
         if isCompleted {
-            AnyShapeStyle(theme.colors.surface.opacity(0.96))
-        } else {
-            AnyShapeStyle(
-                LinearGradient(
-                    colors: [
-                        quest.platform.accentColor.opacity(0.72),
-                        quest.platform.accentColor
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
+            return AnyShapeStyle(theme.colors.surface.opacity(0.96))
         }
+
+        return AnyShapeStyle(quest.platform.accentGradient)
     }
 
     private var foregroundColor: Color {
-        if isCompleted { return theme.colors.textPrimary }
+        if isCompleted {
+            return quest.platform == .tiktok ? .white : theme.colors.textPrimary
+        }
         return switch quest.platform {
         case .threads, .x: colorScheme == .dark ? theme.colors.textInverse : .white
-        case .linkedin, .youtube, .facebook: .white
-        case .instagram: theme.colors.textPrimary
-        case .tiktok, .reddit, .bluesky: theme.colors.textInverse
+        case .linkedin, .youtube, .facebook, .tiktok: .white
+        case .instagram: .black
+        case .reddit, .bluesky: theme.colors.textInverse
         }
     }
 }

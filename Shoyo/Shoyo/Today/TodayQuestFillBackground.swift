@@ -13,10 +13,19 @@ struct TodayQuestFillBackground: View {
         shape
             .fill(theme.colors.surfacePrimary)
             .overlay(alignment: .leading) {
-                quest.platform.accentColor
+                shape
+                    .fill(fillStyle)
                     .containerRelativeFrame(.horizontal) { length, _ in length * fillProgress }
                     .frame(maxHeight: .infinity)
                     .opacity(isCompleted || fillProgress > 0 ? 1 : 0)
             }
+    }
+
+    private var fillStyle: AnyShapeStyle {
+        if isCompleted && quest.platform == .tiktok {
+            AnyShapeStyle(Color.white)
+        } else {
+            quest.platform.accentFillStyle
+        }
     }
 }

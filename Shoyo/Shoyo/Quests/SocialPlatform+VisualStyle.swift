@@ -4,9 +4,9 @@ extension SocialPlatform {
     var accentColor: Color {
         switch self {
         case .instagram:
-            .pink
+            Color(hex: "#C84393")
         case .tiktok:
-            .cyan
+            .black
         case .threads:
             .primary
         case .youtube:
@@ -22,6 +22,42 @@ extension SocialPlatform {
         case .reddit:
             .orange
         }
+    }
+
+    var accentFillStyle: AnyShapeStyle {
+        switch self {
+        case .instagram:
+            AnyShapeStyle(instagramGradient)
+        default:
+            AnyShapeStyle(accentColor)
+        }
+    }
+
+    var accentGradient: LinearGradient {
+        switch self {
+        case .instagram:
+            instagramGradient
+        default:
+            LinearGradient(
+                colors: [
+                    accentColor.opacity(0.72),
+                    accentColor
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+    }
+
+    private var instagramGradient: LinearGradient {
+        LinearGradient(
+            colors: [
+                Color(hex: "#C84393"),
+                Color(hex: "#FB7A4F")
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 
     var symbolName: String {

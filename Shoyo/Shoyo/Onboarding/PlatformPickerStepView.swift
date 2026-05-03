@@ -44,7 +44,7 @@ private struct PlatformOrb: View {
             } else {
                 Image(systemName: platform.symbolName)
                     .font(.system(size: size * 0.36, weight: .semibold))
-                    .foregroundStyle(platform.accentColor)
+                    .foregroundStyle(platform.accentFillStyle)
                     .accessibilityHidden(true)
             }
         }

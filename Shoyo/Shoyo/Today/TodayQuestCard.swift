@@ -98,8 +98,9 @@ struct TodayQuestCard: View {
         return switch quest.platform {
         case .threads, .x: colorScheme == .dark ? theme.colors.textInverse : .white
         case .linkedin, .youtube, .facebook: .white
-        case .instagram: theme.colors.textPrimary
-        case .tiktok, .reddit, .bluesky: theme.colors.textInverse
+        case .tiktok: .black
+        case .instagram: .black
+        case .reddit, .bluesky: theme.colors.textInverse
         }
     }
 
