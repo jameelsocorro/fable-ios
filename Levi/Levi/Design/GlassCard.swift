@@ -52,7 +52,7 @@ struct GlassCardModifier: ViewModifier {
     func body(content: Content) -> some View {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
 
-        return content
+        content
             .background {
                 shape
                     .fill(backgroundFill)
@@ -112,7 +112,7 @@ struct GlassPlatformCardModifier: ViewModifier {
     func body(content: Content) -> some View {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
 
-        return content
+        content
             .background {
                 shape
                     .fill(backgroundFill)

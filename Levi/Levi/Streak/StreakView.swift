@@ -8,36 +8,34 @@ struct StreakView: View {
     @Environment(\.theme) private var theme
 
     var body: some View {
-        ZStack {
-            theme.colors.background.ignoresSafeArea()
-            PageGradientBackground(center: UnitPoint(x: 0.75, y: 0.2))
+        NavigationStack {
+            ZStack {
+                theme.colors.background.ignoresSafeArea()
 
-            if completions.isEmpty {
-                ContentUnavailableView(
-                    "No streaks yet",
-                    systemImage: "flame.fill",
-                    description: Text("Complete your first quest to start tracking.")
-                )
-                .foregroundStyle(theme.colors.textSecondary)
-            } else {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: theme.spacing.xl) {
-                        Text("Streaks")
-                            .font(.system(.largeTitle, design: .serif, weight: .bold))
-                            .foregroundStyle(theme.colors.textPrimary)
-                            .padding(.horizontal, theme.spacing.xl)
+                if completions.isEmpty {
+                    ContentUnavailableView(
+                        "No streaks yet",
+                        systemImage: "flame.fill",
+                        description: Text("Complete your first quest to start tracking.")
+                    )
+                    .foregroundStyle(theme.colors.textSecondary)
+                } else {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: theme.spacing.lg) {
+                            statsRow
 
-                        statsRow
+                            StreakCommitBoard(grid: yearGrid)
+                                .padding(.horizontal, theme.spacing.xl)
 
-                        StreakCommitBoard(grid: yearGrid)
-                        .padding(.horizontal, theme.spacing.xl)
-
-                        perQuestSection
+                            perQuestSection
+                        }
+                        .padding(.top, theme.spacing.sm)
+                        .padding(.bottom, theme.spacing.xxl)
                     }
-                    .padding(.top, theme.spacing.xl)
-                    .padding(.bottom, theme.spacing.xxl)
                 }
             }
+            .navigationTitle("Streaks")
+            .navigationBarTitleDisplayMode(.large)
         }
     }
 
@@ -54,11 +52,6 @@ struct StreakView: View {
 
     private var perQuestSection: some View {
         VStack(alignment: .leading, spacing: theme.spacing.sm) {
-            Text("// PER_QUEST")
-                .font(.system(.caption, design: .monospaced, weight: .semibold))
-                .foregroundStyle(theme.colors.textSecondary)
-                .padding(.horizontal, theme.spacing.xl)
-
             VStack(spacing: 0) {
                 ForEach(quests) { quest in
                     StreakQuestRow(
@@ -75,7 +68,7 @@ struct StreakView: View {
                     }
                 }
             }
-            .glassCard()
+            .card()
             .padding(.horizontal, theme.spacing.xl)
         }
     }
@@ -129,7 +122,7 @@ struct StreakView: View {
                 }
         } else {
             statCardContent(label: label, value: value, isAccented: false)
-                .glassCard()
+                .card()
         }
     }
 
@@ -164,7 +157,26 @@ struct StreakView: View {
         onboardingStep: .complete
     )
 
-    StreakView(profile: profile)
-        .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
+    let container = try! ModelContainer(
+        for: FounderProfile.self, QuestCompletion.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
+
+    let quests = QuestCatalog.quests(for: profile.selectedPlatforms)
+    let calendar = Calendar.current
+    let today = calendar.startOfDay(for: .now)
+
+    for dayOffset in stride(from: -30, through: 0, by: 1) {
+        guard let date = calendar.date(byAdding: .day, value: dayOffset, to: today) else { continue }
+        guard dayOffset.isMultiple(of: 2) || dayOffset > -3 else { continue }
+        for quest in quests.prefix(2) {
+            container.mainContext.insert(
+                QuestCompletion(questID: quest.id, platform: quest.platform, completedAt: date)
+            )
+        }
+    }
+
+    return StreakView(profile: profile)
+        .modelContainer(container)
         .environment(\.theme, LeviAppTheme(selection: .system))
 }

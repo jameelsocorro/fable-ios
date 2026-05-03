@@ -52,7 +52,7 @@ struct StreakCommitBoard: View {
             .padding(.horizontal, theme.spacing.lg)
             .padding(.bottom, theme.spacing.md)
         }
-        .glassCard()
+        .card()
     }
 
     // MARK: - Helpers
@@ -68,25 +68,13 @@ struct StreakCommitBoard: View {
     @ViewBuilder
     private func gridCell(intensity: Int) -> some View {
         RoundedRectangle(cornerRadius: 2, style: .continuous)
-            .fill(intensity > 0 ? theme.colors.primary.opacity(cellOpacity(for: intensity)) : Color.clear)
-            .overlay {
-                if intensity == 0 {
-                    RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .strokeBorder(theme.colors.border.opacity(0.4), lineWidth: 0.5)
-                }
-            }
+            .fill(intensity > 0 ? theme.colors.primary.opacity(cellOpacity(for: intensity)) : theme.colors.surfaceTertiary)
             .frame(width: cellSize, height: cellSize)
     }
 
     private func legendCell(intensity: Int) -> some View {
         RoundedRectangle(cornerRadius: 2, style: .continuous)
-            .fill(intensity > 0 ? theme.colors.primary.opacity(cellOpacity(for: intensity)) : Color.clear)
-            .overlay {
-                if intensity == 0 {
-                    RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .strokeBorder(theme.colors.border.opacity(0.4), lineWidth: 0.5)
-                }
-            }
+            .fill(intensity > 0 ? theme.colors.primary.opacity(cellOpacity(for: intensity)) : theme.colors.surfaceTertiary)
             .frame(width: cellSize, height: cellSize)
     }
 }

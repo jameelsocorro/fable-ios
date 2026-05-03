@@ -16,8 +16,6 @@ struct TodayView: View {
             theme.colors.background
                 .ignoresSafeArea()
 
-            PageGradientBackground(center: UnitPoint(x: 0.25, y: 0.15))
-
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
                     Section {

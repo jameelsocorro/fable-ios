@@ -6,65 +6,65 @@ struct LeviPalette {
     // MARK: - Foreground
 
     var foregroundPrimary: Color {
-        .adaptive(light: "#1A1210", dark: "#FFFFFF")
+        .adaptive(light: "#1C1C1E", dark: "#FFFFFF")
     }
 
     var foregroundSecondary: Color {
-        .adaptive(light: "#6B5244", dark: "#A09080")
+        .adaptive(light: "#6C6C70", dark: "#8E8E93")
     }
 
     var foregroundTertiary: Color {
-        .adaptive(light: "#9B8B7E", dark: "#5C4E44")
+        .adaptive(light: "#8E8E93", dark: "#636366")
     }
 
     var invertedForegroundPrimary: Color {
-        .adaptive(light: "#FFFFFF", dark: "#1A1210")
+        .adaptive(light: "#FFFFFF", dark: "#1C1C1E")
     }
 
     var invertedForegroundSecondary: Color {
-        .adaptive(light: "#F5EDE2", dark: "#252118")
+        .adaptive(light: "#F2F2F7", dark: "#111111")
     }
 
     // MARK: - Background
 
     var backgroundPrimary: Color {
-        .adaptive(light: "#F1EBE4", dark: "#111110")
+        .adaptive(light: "#F2F2F7", dark: "#000000")
     }
 
     var backgroundSecondary: Color {
-        .adaptive(light: "#F0E8DC", dark: "#1A1614")
+        .adaptive(light: "#EBEBF0", dark: "#1C1C1E")
     }
 
     var backgroundTertiary: Color {
-        .adaptive(light: "#E8DDD0", dark: "#221E1B")
+        .adaptive(light: "#E5E5EA", dark: "#2C2C2E")
     }
 
     // MARK: - Surface
 
     var surfacePrimary: Color {
-        .adaptive(light: "#FFFFFF", dark: "#1E1A17")
+        .adaptive(light: "#FFFFFF", dark: "#1C1C1E")
     }
 
     var surfaceSecondary: Color {
-        .adaptive(light: "#F5EDE2", dark: "#252118")
+        .adaptive(light: "#F2F2F7", dark: "#2C2C2E")
     }
 
     var surfaceTertiary: Color {
-        .adaptive(light: "#EDE2D4", dark: "#2C2620")
+        .adaptive(light: "#E9E9EF", dark: "#3A3A3C")
     }
 
     // MARK: - Outline
 
     var outlinePrimary: Color {
-        .adaptive(light: "#E2D4C4", dark: "#302A24")
+        .adaptive(light: "#E5E5EA", dark: "#2C2C2E")
     }
 
     var outlineSecondary: Color {
-        .adaptive(light: "#C8B5A4", dark: "#3D3530")
+        .adaptive(light: "#C7C7CC", dark: "#3A3A3C")
     }
 
     var outlineTertiary: Color {
-        .adaptive(light: "#D4C4B4", dark: "#2A2420")
+        .adaptive(light: "#D1D1D6", dark: "#242426")
     }
 
     // MARK: - Actions
@@ -78,11 +78,11 @@ struct LeviPalette {
     }
 
     var actionSecondaryBackground: Color {
-        .adaptive(light: "#EDE2D4", dark: "#2A2420")
+        .adaptive(light: "#EBEBF0", dark: "#2C2C2E")
     }
 
     var actionSecondaryForeground: Color {
-        .adaptive(light: "#3D2A1E", dark: "#FFFFFF")
+        .adaptive(light: "#1C1C1E", dark: "#FFFFFF")
     }
 
     // MARK: - Semantic

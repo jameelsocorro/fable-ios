@@ -48,7 +48,7 @@ struct CompanionBubbleView: View {
             // Text card in VStack so it physically follows the dog when floatOffset changes
             if !animateTyping || typingStarted {
                 Text(displayText)
-                    .font(.subheadline)
+                    .font(.system(.subheadline, design: .monospaced))
                     .foregroundStyle(theme.colors.textPrimary)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)

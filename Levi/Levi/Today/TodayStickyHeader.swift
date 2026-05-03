@@ -6,7 +6,6 @@ struct TodayStickyHeader: View {
     let onSelectDay: (StreakDayState) -> Void
 
     @Environment(\.theme) private var theme
-    @Environment(\.colorScheme) private var colorScheme
 
     init(
         days: [StreakDayState],
@@ -39,20 +38,8 @@ struct TodayStickyHeader: View {
         .padding(.horizontal, theme.spacing.xl)
         .padding(.top, theme.spacing.xl)
         .background {
-            ZStack {
-                theme.colors.background
-
-                RadialGradient(
-                    colors: [
-                        theme.colors.primary.opacity(colorScheme == .dark ? 0.20 : 0.12),
-                        Color.clear
-                    ],
-                    center: UnitPoint(x: 0.25, y: 0.15),
-                    startRadius: 10,
-                    endRadius: 300
-                )
-            }
-            .ignoresSafeArea(edges: .top)
+            theme.colors.background
+                .ignoresSafeArea(edges: .top)
         }
     }
 }
