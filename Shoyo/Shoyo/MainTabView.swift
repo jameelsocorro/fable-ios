@@ -18,10 +18,7 @@ struct MainTabView: View {
             }
 
             Tab(AppTab.settings.title, systemImage: AppTab.settings.symbolName, value: AppTab.settings) {
-                TabPlaceholderView(
-                    tab: .settings,
-                    description: "Project, platform, and theme settings will live here."
-                )
+                SettingsView(profile: profile)
             }
         }
         .tint(theme.colors.primary)

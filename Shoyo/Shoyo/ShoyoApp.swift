@@ -10,7 +10,7 @@ import SwiftData
 
 @main
 struct ShoyoApp: App {
-    @AppStorage(ShoyoTheme.storageKey) private var selectedThemeRawValue = ShoyoTheme.system.rawValue
+    @AppStorage(AppAppearance.storageKey) private var selectedAppearanceRawValue = AppAppearance.system.rawValue
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -29,12 +29,13 @@ struct ShoyoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.theme, ShoyoAppTheme(selection: selectedTheme))
+                .environment(\.theme, ShoyoAppTheme(selection: .system))
+                .preferredColorScheme(selectedAppearance.colorScheme)
         }
         .modelContainer(sharedModelContainer)
     }
 
-    private var selectedTheme: ShoyoTheme {
-        ShoyoTheme(storedValue: selectedThemeRawValue)
+    private var selectedAppearance: AppAppearance {
+        AppAppearance(storedValue: selectedAppearanceRawValue)
     }
 }

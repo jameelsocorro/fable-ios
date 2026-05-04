@@ -6,11 +6,12 @@ struct StreakView: View {
 
     @Query(sort: \QuestCompletion.completedAt) private var completions: [QuestCompletion]
     @Environment(\.theme) private var theme
+    @State private var scrollOffset: CGFloat = 0
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                theme.colors.background.ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 0) {
+                ShoyoScreenTitle("Streaks", scrollOffset: scrollOffset)
 
                 if completions.isEmpty {
                     ContentUnavailableView(
@@ -19,6 +20,7 @@ struct StreakView: View {
                         description: Text("Complete your first quest to start tracking.")
                     )
                     .foregroundStyle(theme.colors.textSecondary)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     ScrollView {
                         VStack(alignment: .leading, spacing: theme.spacing.lg) {
@@ -32,10 +34,16 @@ struct StreakView: View {
                         .padding(.top, theme.spacing.sm)
                         .padding(.bottom, theme.spacing.xxl)
                     }
+                    .scrollIndicators(.hidden)
+                    .onScrollGeometryChange(for: CGFloat.self) { geometry in
+                        max(geometry.contentOffset.y, 0)
+                    } action: { _, newValue in
+                        scrollOffset = newValue
+                    }
                 }
             }
-            .navigationTitle("Streaks")
-            .navigationBarTitleDisplayMode(.large)
+            .background(theme.colors.background.ignoresSafeArea())
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
 
