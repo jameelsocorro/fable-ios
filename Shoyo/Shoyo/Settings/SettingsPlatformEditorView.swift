@@ -39,7 +39,7 @@ struct SettingsPlatformEditorView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityValue(draftPlatforms.contains(platform) ? "Selected" : "Not Selected")
-                    .accessibilityAddTraits(draftPlatforms.contains(platform) ? .isSelected : [])
+                    .accessibilityAddTraits(accessibilityTraits(for: platform))
                 }
             } footer: {
                 Text("Keep at least one platform selected so Shoyo can keep your quest list focused.")
@@ -66,6 +66,10 @@ struct SettingsPlatformEditorView: View {
 
     private func toggle(_ platform: SocialPlatform) {
         draftPlatforms = SettingsPlatformSelection.toggled(platform, in: draftPlatforms)
+    }
+
+    private func accessibilityTraits(for platform: SocialPlatform) -> AccessibilityTraits {
+        draftPlatforms.contains(platform) ? .isSelected : AccessibilityTraits()
     }
 
     private func save() {

@@ -7,6 +7,7 @@ struct SettingsView: View {
     let profile: FounderProfile
 
     @AppStorage(AppAppearance.storageKey) private var selectedAppearanceRawValue = AppAppearance.system.rawValue
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.openURL) private var openExternalURL
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.theme) private var theme
@@ -17,101 +18,10 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                Section("Appearance") {
-                    ForEach(AppAppearance.allCases) { appearance in
-                        Button {
-                            selectAppearance(appearance)
-                        } label: {
-                            HStack(spacing: theme.spacing.md) {
-                                Label(appearance.displayName, systemImage: appearance.symbolName)
-
-                                Spacer()
-
-                                if selectedAppearance == appearance {
-                                    Image(systemName: "checkmark")
-                                        .bold()
-                                        .foregroundStyle(theme.colors.primary)
-                                        .accessibilityHidden(true)
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityValue(selectedAppearance == appearance ? "Selected" : "Not Selected")
-                        .accessibilityAddTraits(selectedAppearance == appearance ? .isSelected : [])
-                    }
-                }
-
-                Section("Platforms") {
-                    NavigationLink {
-                        SettingsPlatformEditorView(profile: profile)
-                    } label: {
-                        HStack {
-                            Label("Manage Platforms", systemImage: "circle.grid.3x3.fill")
-
-                            Spacer()
-
-                            Text(platformSummary)
-                                .foregroundStyle(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
-                    }
-                }
-
-                Section("Billing") {
-                    Button {
-                        open(SettingsLinks.manageSubscription, label: "Manage Subscription")
-                    } label: {
-                        HStack {
-                            Label("Manage Subscription", systemImage: "creditcard")
-
-                            Spacer()
-
-                            Image(systemName: "arrow.up.forward.square")
-                                .foregroundStyle(.secondary)
-                                .accessibilityHidden(true)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                }
-
-                Section("Permissions") {
-                    Button(action: handleNotificationTap) {
-                        HStack {
-                            Label("Notifications", systemImage: "bell.badge")
-
-                            Spacer()
-
-                            Text(notificationStatus.displayName)
-                                .foregroundStyle(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityValue(notificationStatus.displayName)
-                }
-
-                Section("Support") {
-                    supportRow(title: "Rate Shoyo", systemImage: "star", url: SettingsLinks.rateShoyo)
-                    supportRow(title: "Support", systemImage: "questionmark.circle", url: SettingsLinks.support)
-                    supportRow(title: "Privacy Policy", systemImage: "lock.shield", url: SettingsLinks.privacyPolicy)
-                    supportRow(title: "Terms of Service", systemImage: "doc.text", url: SettingsLinks.termsOfService)
-                }
-
-                Section {
-                } footer: {
-                    Text(versionFooter)
-                }
-            }
+            settingsList
             .scrollIndicators(.hidden)
             .safeAreaInset(edge: .top, spacing: 0) {
-                ShoyoScreenTitle("Settings", scrollOffset: scrollOffset)
+                screenTitle
             }
             .toolbar(.hidden, for: .navigationBar)
             .tint(theme.colors.primary)
@@ -137,6 +47,110 @@ struct SettingsView: View {
         }
     }
 
+    private var settingsList: some View {
+        List {
+            appearanceSection
+            platformSection
+            billingSection
+            notificationSection
+            supportSection
+            versionFooterSection
+        }
+    }
+
+    private var screenTitle: some View {
+        HStack {
+            Text("Settings")
+                .font(.system(.largeTitle, design: .serif, weight: .bold))
+                .foregroundStyle(theme.colors.textPrimary)
+                .scaleEffect(titleScale, anchor: .leading)
+                .accessibilityAddTraits(.isHeader)
+
+            Spacer()
+        }
+        .padding(.horizontal, theme.spacing.xl)
+        .padding(.top, titleTopPadding)
+        .padding(.bottom, titleBottomPadding)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+            theme.colors.background
+                .ignoresSafeArea(edges: .top)
+        }
+        .animation(reduceMotion ? nil : .spring(response: 0.22, dampingFraction: 0.86), value: isTitleCollapsed)
+    }
+
+    private var appearanceSection: some View {
+        Section("Appearance") {
+            ForEach(AppAppearance.allCases) { appearance in
+                appearanceRow(for: appearance)
+            }
+        }
+    }
+
+    private var platformSection: some View {
+        Section("Platforms") {
+            NavigationLink {
+                SettingsPlatformEditorView(profile: profile)
+            } label: {
+                HStack {
+                    Label("Manage Platforms", systemImage: "circle.grid.3x3.fill")
+
+                    Spacer()
+
+                    Text(platformSummary)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+        }
+    }
+
+    private var billingSection: some View {
+        Section("Billing") {
+            externalLinkRow(
+                title: "Manage Subscription",
+                systemImage: "creditcard",
+                url: SettingsLinks.manageSubscription
+            )
+        }
+    }
+
+    private var notificationSection: some View {
+        Section("Permissions") {
+            Button(action: handleNotificationTap) {
+                HStack {
+                    Label("Notifications", systemImage: "bell.badge")
+
+                    Spacer()
+
+                    Text(notificationStatus.displayName)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityValue(notificationStatus.displayName)
+        }
+    }
+
+    private var supportSection: some View {
+        Section("Support") {
+            externalLinkRow(title: "Rate Shoyo", systemImage: "star", url: SettingsLinks.rateShoyo)
+            externalLinkRow(title: "Support", systemImage: "questionmark.circle", url: SettingsLinks.support)
+            externalLinkRow(title: "Privacy Policy", systemImage: "lock.shield", url: SettingsLinks.privacyPolicy)
+            externalLinkRow(title: "Terms of Service", systemImage: "doc.text", url: SettingsLinks.termsOfService)
+        }
+    }
+
+    private var versionFooterSection: some View {
+        Section {
+        } footer: {
+            Text(versionFooter)
+        }
+    }
+
     private var selectedAppearance: AppAppearance {
         AppAppearance(storedValue: selectedAppearanceRawValue)
     }
@@ -152,12 +166,56 @@ struct SettingsView: View {
         return "Version \(version) (\(build))"
     }
 
+    private var titleProgress: CGFloat {
+        min(max(scrollOffset / 56, 0), 1)
+    }
+
+    private var isTitleCollapsed: Bool {
+        titleProgress > 0.5
+    }
+
+    private var titleScale: CGFloat {
+        1 - (0.22 * titleProgress)
+    }
+
+    private var titleTopPadding: CGFloat {
+        theme.spacing.lg - (theme.spacing.sm * titleProgress)
+    }
+
+    private var titleBottomPadding: CGFloat {
+        theme.spacing.sm - (theme.spacing.xs * titleProgress)
+    }
+
     private func selectAppearance(_ appearance: AppAppearance) {
         selectedAppearanceRawValue = appearance.rawValue
     }
 
+    private func appearanceRow(for appearance: AppAppearance) -> some View {
+        Button {
+            selectAppearance(appearance)
+        } label: {
+            HStack(spacing: theme.spacing.md) {
+                Label(appearance.displayName, systemImage: appearance.symbolName)
+
+                Spacer()
+
+                if selectedAppearance == appearance {
+                    Image(systemName: "checkmark")
+                        .bold()
+                        .foregroundStyle(theme.colors.primary)
+                        .accessibilityHidden(true)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityValue(selectedAppearance == appearance ? "Selected" : "Not Selected")
+        .accessibilityAddTraits(accessibilityTraits(for: appearance))
+    }
+
     @ViewBuilder
-    private func supportRow(title: String, systemImage: String, url: URL?) -> some View {
+    private func externalLinkRow(title: String, systemImage: String, url: URL?) -> some View {
         if let url {
             Button {
                 open(url, label: title)
@@ -183,6 +241,10 @@ struct SettingsView: View {
                 Label(title, systemImage: systemImage)
             }
         }
+    }
+
+    private func accessibilityTraits(for appearance: AppAppearance) -> AccessibilityTraits {
+        selectedAppearance == appearance ? .isSelected : AccessibilityTraits()
     }
 
     private func open(_ url: URL, label: String) {
