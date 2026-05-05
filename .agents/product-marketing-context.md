@@ -1,16 +1,16 @@
-# Product Marketing Context: Shoyo
+# Product Marketing Context: Orion
 
-*Last updated: 2026-05-03*
+*Last updated: 2026-05-05*
 
 > ## Validation Status
 >
-> Shoyo is **pre-launch**. No users, no beta testers, no validated metrics, and no testimonials yet.
+> Orion is **pre-launch**. No users, no beta testers, no validated metrics, and no testimonials yet.
 >
 > **What is verified:**
 > - Founder's own story and lived experience: multiple app launches, distribution lessons, and the silence-on-launch pattern.
 > - Current app implementation: onboarding, platform picker, static quest catalog, Today tab, plus-button completion, Streaks tab, SwiftData persistence.
-> - Current product direction: Shoyo-native mascot-led onboarding, platform orbs, glassy/native iOS surfaces, monochrome primary action color.
-> - Brand name rationale: Shoyo is short for "show your work" / "showyowork."
+> - Current product direction: Orion-native guide-led onboarding, platform orbs, glassy/native iOS surfaces, monochrome primary action color.
+> - Brand name rationale: Orion should feel like a guide: direction, consistency, visibility, ambition, becoming known, and following a path.
 >
 > **What is hypothesized and must be validated before use as proof:**
 > - Personas beyond the founder himself.
@@ -31,23 +31,26 @@ I've built multiple apps over the years. Most of them failed — not because the
 
 The pattern was always the same: I'd get excited building, then never share the app until it was finished. By the time it was done, the excitement was gone — making content for it felt hard, I didn't know where to start with marketing, and the momentum I had while building had already died.
 
-So I'm building Shoyo for myself first. It's the app I wish I'd had during every previous launch: something that nudges me to post about what I'm building, *while* I'm building it. No content strategy, no overthinking — just "here's a quest, post on the platform you said you'd grow on, keep your streak alive."
+So I'm building Orion for myself first. It's the app I wish I'd had during every previous launch: something that guides me to post about what I'm building, *while* I'm building it. No content strategy, no overthinking — just "here's a quest, post on the platform you said you'd grow on, keep your streak alive."
 
-If it works for me — someone who's launched and learned this lesson the hard way — it'll work for other indie founders like me.
+If it works for me — someone who's launched and learned this lesson the hard way — it'll work for other builders trying to become visible while they build.
 
 ---
 
 ## Product Overview
 
 **One-liner:**
-Shoyo helps indie founders show their work before launch with daily platform-specific quests and forgiving streaks.
+Orion helps founders, creators, indie hackers, and solopreneurs build a personal brand by showing their work consistently through daily platform-specific quests and forgiving streaks.
 
 **Brand name:**
-Shoyo is short for "show your work" / "showyowork" — a compact name that makes the product promise explicit: keep showing the work while you build, not after launch momentum has already died.
+Orion feels like a guide. It connects to direction, consistency, visibility, ambition, becoming known, and following a path. The brand promise: Orion helps you build your personal brand by guiding you to show up, post your progress, and turn your work into proof.
+
+**Domain:**
+`buildwithorion.com`
 
 **What it does:**
 
-During onboarding, the user picks the social platforms they want to grow on. Shoyo then surfaces fixed platform-specific quests — concrete actions like:
+During onboarding, the user picks the social platforms they want to grow on. Orion then surfaces fixed platform-specific quests — concrete actions like:
 
 - "Post on Threads"
 - "Post a Reel on Instagram"
@@ -60,7 +63,7 @@ The user completes a quest manually with the visible plus button after they do t
 It's not a content tool. It's not a scheduler. It's not an auto-posting app. It's an **accountability layer** — the part most founders are missing.
 
 **Product category:**
-Founder accountability tool / build-in-public companion app / gamified visibility habit tracker.
+Personal branding companion / founder accountability tool / build-in-public companion app / gamified visibility habit tracker.
 
 **Product type:**
 Mobile app (iOS MVP, iPhone-first).
@@ -74,7 +77,7 @@ Pricing is TBD. Treat the core MVP as free during validation. Avoid promising Pr
 
 The app is no longer default SwiftUI scaffolding. Current implemented surfaces include:
 
-- Mascot-led welcome screen with Oreo.
+- Guide-led welcome screen with Oreo.
 - Floating social platform orb picker.
 - SwiftData profile and quest completion persistence.
 - Static quest catalog covering Instagram, TikTok, Threads, YouTube, Facebook, LinkedIn, X, Bluesky, and Reddit.
@@ -84,14 +87,14 @@ The app is no longer default SwiftUI scaffolding. Current implemented surfaces i
 - Streaks tab with total completions, current streak, completion rate, 12-month activity board, and per-quest seven-day strips.
 - Settings tab placeholder.
 
-The product has moved away from the old Atoms-inspired UI/UX direction. Marketing and product copy should describe Shoyo's own mascot-led, glassy, native iOS direction instead of old Atoms-derived patterns.
+The product has moved away from the old Atoms-inspired UI/UX direction. Marketing and product copy should describe Orion's own guide-led, glassy, native iOS direction instead of old Atoms-derived patterns.
 
 ---
 
 ## Target Audience
 
-**Who Shoyo is for:**
-Solo builders and indie founders actively working on a product they intend to launch. They are good at building, understand distribution matters, and want to grow on a small number of social platforms — but they do not consistently share progress while building.
+**Who Orion is for:**
+Founders, creators, indie hackers, and solopreneurs actively working on something they want people to know about. They are good at building or creating, understand visibility matters, and want to grow on a small number of social platforms — but they do not consistently share progress while building.
 
 **Decision-maker:**
 The founder themselves. Single user, no procurement cycle, impulse download.
@@ -189,7 +192,7 @@ Building great apps but launching them to silence — because you didn't share *
 ## Differentiation
 
 **The core insight:**
-Most build-in-public tools are content tools. Shoyo isn't a content tool — it's an **accountability tool**. The hard part isn't always writing the post; it's deciding to show up today, on the platform you chose, when you'd rather just keep building. Shoyo handles that decision for you.
+Most build-in-public tools are content tools. Orion isn't a content tool — it's a **personal branding accountability companion**. The hard part isn't always writing the post; it's deciding to show up today, on the platform you chose, when you'd rather just keep building. Orion handles that decision for you.
 
 **Key differentiators:**
 
@@ -197,18 +200,18 @@ Most build-in-public tools are content tools. Shoyo isn't a content tool — it'
 
 2. **You commit to platforms; the streak rewards consistency on them.** Not "post anywhere today" — show up on the platforms you picked. This forces focus instead of spraying across seven networks badly.
 
-3. **Manual completion, not automation.** The user taps the plus button after doing the action. The card fills, haptics fire, and undo appears. Shoyo does not verify, auto-post, or pretend it knows whether the post was good.
+3. **Manual completion, not automation.** The user taps the plus button after doing the action. The card fills, haptics fire, and undo appears. Orion does not verify, auto-post, or pretend it knows whether the post was good.
 
 4. **Forgiving streaks with grace ("don't miss twice").** One missed day doesn't reset the streak. Two consecutive misses do. This creates accountability without turning one human day into a quit trigger.
 
 5. **Visible consistency history.** Streaks, per-quest strips, and the activity board make showing up tangible over time. The user can see the habit forming.
 
-6. **Built by a founder for founders.** Not a generic productivity company chasing a market — an app the founder is dogfooding through Shoyo's own launch.
+6. **Built by a founder for founders.** Not a generic productivity company chasing a market — an app the founder is dogfooding through Orion's own launch.
 
-7. **Shoyo-native brand experience.** Oreo, platform orbs, glass surfaces, haptics, monochrome primary actions, and polished native iOS motion make the habit feel supportive instead of corporate. This reinforces the loop, but the core differentiation is still platform-specific accountability.
+7. **Orion-native brand experience.** Oreo, platform orbs, glass surfaces, haptics, monochrome primary actions, and polished native iOS motion make the habit feel supportive instead of corporate. This reinforces the loop, but the core differentiation is still platform-specific accountability.
 
 **Why founders choose it:**
-You get one thing: a daily nudge to post on the platforms you committed to growing on, gamified enough that you actually do it. Not "be more productive." Not "build a personal brand." Just: "Pick your platforms. Show your work today. Keep the streak alive."
+You get one thing: a daily nudge to post on the platforms you committed to growing on, gamified enough that you actually do it. Orion makes personal branding practical: pick your platforms, show your work today, and keep the streak alive.
 
 ---
 
@@ -233,7 +236,7 @@ Possible post-MVP directions:
 - **Deeper analytics** — once users have meaningful completion and audience history.
 - **Founder XP / Academy / Pro packaging** — only if intentionally revived. These should not be central to current positioning.
 
-Together, these could eventually turn Shoyo from "daily accountability for showing your work" into a broader founder visibility companion. The MVP does not promise any of it.
+Together, these could eventually turn Orion from "daily accountability for showing your work" into a broader personal branding companion. The MVP does not promise any of it.
 
 ---
 
@@ -243,15 +246,15 @@ Together, these could eventually turn Shoyo from "daily accountability for showi
 
 | Objection | Response |
 | --- | --- |
-| "Isn't this just performative build-in-public?" | Shoyo works best if you're actually building. The quest is to show the work, not invent fake progress. |
+| "Isn't this just performative build-in-public?" | Orion works best if you're actually building. The quest is to show the work, not invent fake progress. |
 | "I don't have time to post daily." | Quests are meant to be small and concrete. You only need one completion per day to keep the streak alive. |
 | "What if I miss a day?" | One missed day is forgiven. Two consecutive missed days reset the streak. Built for humans. |
-| "I don't know what to actually post." | Shoyo tells you the platform action. The content comes from what you're already building. |
-| "Will this actually grow my audience?" | If you're building something real and you show up consistently on the platforms you committed to, Shoyo removes the friction of whether to show up today. Audience growth still has to be validated. |
-| "Why not just use Buffer or Later?" | Different problem. Schedulers help when you've already decided to write a post. Shoyo's job is making sure you decide to show up in the first place. |
+| "I don't know what to actually post." | Orion tells you the platform action. The content comes from what you're already building. |
+| "Will this actually grow my audience?" | If you're building something real and you show up consistently on the platforms you committed to, Orion removes the friction of whether to show up today. Audience growth still has to be validated. |
+| "Why not just use Buffer or Later?" | Different problem. Schedulers help when you've already decided to write a post. Orion's job is making sure you decide to show up in the first place. |
 
 **Anti-persona:**
-Shoyo is not a good fit for:
+Orion is not a good fit for:
 
 - Founders who are not actually building anything.
 - Social media managers or teams needing approval workflows.
@@ -272,7 +275,7 @@ Shoyo is not a good fit for:
 - "I keep telling myself I'll start posting tomorrow."
 - "I picked Threads / Instagram / TikTok / X — and I post on none of them."
 
-**Pull (what attracts them to Shoyo):**
+**Pull (what attracts them to Orion):**
 - "It tells me where to show up today."
 - "I can do one platform-specific action."
 - "The streak makes me show up without thinking about it."
@@ -331,17 +334,20 @@ Shoyo is not a good fit for:
 - "Show up"
 - "While you build"
 - "Before launch"
-- "Indie founder" / "solo builder"
+- "Build your personal brand"
+- "Turn work into proof"
+- "Follow the path"
+- "Founder" / "creator" / "indie hacker" / "solopreneur"
 
 **Words to avoid or use carefully:**
 - "Marketing" (honest in the problem, but can sound like overhead in benefits)
 - "Content creation" (chore framing)
 - "Growth hacks" (shallow)
-- "Personal branding" (off-putting)
+- "Personal branding" as vague vanity language; use it only when tied to showing real work and proof
 - "Engage your audience" (corporate)
 - "Content strategy" (too formal)
 - "Scheduler" (wrong category)
-- Generic "habit tracker" framing (Shoyo is about visibility, not habits in the abstract)
+- Generic "habit tracker" framing (Orion is about visibility and personal branding, not habits in the abstract)
 
 **Glossary:**
 
@@ -353,7 +359,7 @@ Shoyo is not a good fit for:
 | **Streak** | Consecutive days with at least one completed quest across the user's chosen platforms. |
 | **Don't miss twice** | The forgiving streak rule: one missed day is allowed; two consecutive missed days reset the streak. |
 | **Activity board** | GitHub-style grid showing completion intensity over time. |
-| **Oreo** | Shoyo's companion character in onboarding. |
+| **Oreo** | Orion's companion character in onboarding. |
 
 ---
 
@@ -379,7 +385,7 @@ Short, punchy, direct. No corporate fluff. Empathetic about the hard parts — s
 > No proof points yet — pre-launch. Below is what to gather, not what exists. Do not put any results claims into marketing copy until they're real.
 
 **Strongest available proof point right now:**
-The founder's own story. Multiple apps shipped, mostly to silence, one truly making money, and the lesson learned about distribution. The dogfooding case study — Shoyo used on Shoyo's own launch — becomes the second proof point once it exists.
+The founder's own story. Multiple apps shipped, mostly to silence, one truly making money, and the lesson learned about distribution. The dogfooding case study — Orion used on Orion's own launch — becomes the second proof point once it exists.
 
 **Metrics to collect post-launch:**
 - Daily quest completion rate.
@@ -421,17 +427,17 @@ The founder's own story. Multiple apps shipped, mostly to silence, one truly mak
 ## Goals
 
 **Primary product goal:**
-Make Shoyo the app indie founders open before they start building, so showing the work becomes part of the build routine.
+Make Orion the app founders, creators, indie hackers, and solopreneurs open before they start building, so showing the work becomes part of the build routine.
 
 **Primary business goal:**
 Validate that a platform-specific quest loop can create durable daily visibility behavior before deciding packaging or pricing.
 
 **Dual-purpose secondary goal:**
-Use building Shoyo as the founder's own case study + content engine. Document the journey. Stay accountable. Grow Shoyo's audience using Shoyo.
+Use building Orion as the founder's own case study + content engine. Document the journey. Stay accountable. Grow Orion's audience using Orion.
 
 **Conversion actions:**
 1. **For users:** Download → choose platforms → complete first quest → feel the feedback → come back tomorrow.
-2. **For the founder:** Use Shoyo daily on Shoyo's own launch → produce content about the journey → grow Shoyo's audience using Shoyo.
+2. **For the founder:** Use Orion daily on Orion's own launch → produce content about the journey → grow Orion's audience using Orion.
 
 **Key metrics to track:**
 - Day-1 return rate.
@@ -440,5 +446,5 @@ Use building Shoyo as the founder's own case study + content engine. Document th
 - Average session length.
 - Platform selection mix.
 - Missed-day recovery rate.
-- User feedback on whether Shoyo helped them stay visible.
+- User feedback on whether Orion helped them stay visible.
 - Founder's own audience growth as a dogfooding proof point.

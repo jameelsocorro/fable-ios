@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project State
 
-Shoyo is a **pre-launch iOS app** for indie founders who want to show their work while building. The app is no longer default SwiftUI template scaffolding. It already includes onboarding, platform selection, a static quest catalog, Today and Streaks tabs, SwiftData persistence, and a Shoyo-native visual direction.
+Orion is a **pre-launch iOS app** for founders, creators, indie hackers, and solopreneurs who want to build an online presence by consistently showing their work. The app is no longer default SwiftUI template scaffolding. It already includes onboarding, platform selection, a static quest catalog, Today and Streaks tabs, SwiftData persistence, and an Orion-native visual direction.
 
 The PRD (`docs/prd.md`) is the source of truth for product direction. Read it before making product or UX decisions. The old Atoms-inspired direction and tap-and-hold completion requirement are no longer current.
 
@@ -12,63 +12,63 @@ The PRD (`docs/prd.md`) is the source of truth for product direction. Read it be
 
 - **Language:** Swift 5
 - **UI:** SwiftUI
-- **Persistence:** SwiftData (single `ModelContainer` set up in `ShoyoApp.swift`, injected via `.modelContainer` modifier)
+- **Persistence:** SwiftData (single `ModelContainer` set up in `OrionApp.swift`, injected via `.modelContainer` modifier)
 - **Deployment target:** iOS 26.4
-- **Test frameworks:** Swift Testing (`ShoyoTests`) for unit tests, XCTest (`ShoyoUITests`) for UI tests
+- **Test frameworks:** Swift Testing (`OrionTests`) for unit tests, XCTest (`OrionUITests`) for UI tests
 - **Device family:** Universal in the project file, but product work should design and test iPhone first
 
 ## Build, Run, and Test
 
-The project lives at `Shoyo/Shoyo.xcodeproj`. There is no Swift Package Manager manifest, no fastlane, no CI config — Xcode is the build system.
+The project lives at `Orion/Orion.xcodeproj`. There is no Swift Package Manager manifest, no fastlane, no CI config — Xcode is the build system.
 
 ```bash
 # Build for iOS Simulator (replace destination as needed)
-xcodebuild -project Shoyo/Shoyo.xcodeproj -scheme Shoyo \
+xcodebuild -project Orion/Orion.xcodeproj -scheme Orion \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build
 
 # Run unit tests (Swift Testing framework)
-xcodebuild -project Shoyo/Shoyo.xcodeproj -scheme Shoyo \
+xcodebuild -project Orion/Orion.xcodeproj -scheme Orion \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test \
-  -only-testing:ShoyoTests
+  -only-testing:OrionTests
 
 # Run UI tests (XCTest)
-xcodebuild -project Shoyo/Shoyo.xcodeproj -scheme Shoyo \
+xcodebuild -project Orion/Orion.xcodeproj -scheme Orion \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test \
-  -only-testing:ShoyoUITests
+  -only-testing:OrionUITests
 
 # Run a single Swift Testing test
-xcodebuild ... -only-testing:ShoyoTests/ShoyoTests/example
+xcodebuild ... -only-testing:OrionTests/OrionTests/example
 ```
 
-For day-to-day work, opening `Shoyo/Shoyo.xcodeproj` in Xcode and using ⌘R / ⌘U is the expected workflow.
+For day-to-day work, opening `Orion/Orion.xcodeproj` in Xcode and using ⌘R / ⌘U is the expected workflow.
 
 ## Architecture
 
-**Entry point:** `Shoyo/Shoyo/ShoyoApp.swift` constructs a `ModelContainer` with the SwiftData schema (`FounderProfile`, `QuestCompletion`) and injects it into the SwiftUI environment.
+**Entry point:** `Orion/Orion/OrionApp.swift` constructs a `ModelContainer` with the SwiftData schema (`FounderProfile`, `QuestCompletion`) and injects it into the SwiftUI environment.
 
 **Routing:** `ContentView` uses `@Query` to load profiles, then `AppRoute` chooses onboarding or the main Today experience.
 
 **Data flow pattern:** Views read SwiftData via `@Environment(\.modelContext)` + `@Query`. Mutations go through `modelContext.insert`, `modelContext.delete`, and `modelContext.save()`. Stick to this pattern unless the PRD creates a real need for a separate state layer.
 
-**Feature structure:** Source is organized by feature under `Shoyo/Shoyo/`: `Onboarding/`, `Quests/`, `Today/`, `Streak/`, and `Design/`.
+**Feature structure:** Source is organized by feature under `Orion/Orion/`: `Onboarding/`, `Quests/`, `Today/`, `Streak/`, and `Design/`.
 
 ## Reference Documents
 
 - **`docs/prd.md`** — Product requirements and current MVP state. Treat this as the primary source of truth.
 - **`.agents/product-marketing-context.md`** — Positioning, target audience, brand voice, and customer language for marketing skills. It is pre-launch context; do not treat hypothesized personas, objections, testimonials, or metrics as validated facts.
-- **`Shoyo/Shoyo/Design/`** — Current design tokens and shared SwiftUI modifiers. Use these instead of assuming a separate `DESIGN.md` exists.
+- **`Orion/Orion/Design/`** — Current design tokens and shared SwiftUI modifiers. Use these instead of assuming a separate `DESIGN.md` exists.
 - **`docs/references/atoms/`** — Historical screenshots only. Do not use Atoms as the current UX foundation unless the user explicitly revives that direction.
 
 ## Product Principles That Shape Implementation
 
-- **Show the work while building.** The product exists to help founders become visible before launch.
+- **Show the work while building.** The product exists to help founders, creators, indie hackers, and solopreneurs become visible before launch.
 - **Platform commitment comes first.** The user chooses the social platforms they want to grow on; quests filter from those choices.
 - **Completion is a manual plus-button commit.** The current app uses a visible plus button, animated fill, haptics, and undo. Do not reintroduce tap-and-hold as a requirement unless explicitly requested.
 - **One completed quest per day keeps the overall streak alive.** Optional extra quests add depth but should not feel like punishment.
 - **"Don't miss twice."** One missed day is forgiven; two consecutive misses reset the streak.
-- **No auto-posting or external verification.** Shoyo trusts the user and avoids deep platform integrations for MVP.
+- **No auto-posting or external verification.** Orion trusts the user and avoids deep platform integrations for MVP.
 - **Quests must feel completable in roughly five minutes,** including writing or recording the post.
-- **Design is Shoyo-native.** Mascot-led onboarding, floating platform orbs, glassy native surfaces, warm orange accent, and accessible platform signals define the current direction.
+- **Design is Orion-native.** Guide-led onboarding, floating platform orbs, glassy native surfaces, warm orange accent, and accessible platform signals define the current direction.
 
 ## Current Gaps To Respect
 

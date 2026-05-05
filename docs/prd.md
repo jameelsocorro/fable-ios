@@ -1,42 +1,44 @@
-# Shoyo PRD
+# Orion PRD
 
-*Last updated: 2026-05-03*
+*Last updated: 2026-05-05*
 
 ## Product Summary
 
-Shoyo is an iPhone-first visibility companion for indie founders and solo builders. It helps them show their work while they build by turning posting into a small daily commitment: choose the social platforms you want to grow on, get concrete platform-specific quests, complete one or more with an intentional plus-button action, and build a streak.
+Orion is an iPhone-first personal branding companion for founders, creators, indie hackers, and solopreneurs who want to build an online presence by consistently showing their work. It turns visibility into a small daily commitment: choose the social platforms you want to grow on, get concrete platform-specific quests, complete one or more with an intentional plus-button action, and build a streak.
 
-The name is short for "show your work" / "showyowork." That phrase is the product promise: do not wait until launch day to become visible.
+The name should feel like a guide: directional, consistent, visible, ambitious, and path-driven. Orion helps users build their personal brand by guiding them to show up, post their progress, and turn their work into proof.
+
+Primary domain: `buildwithorion.com`.
 
 ## Problem
 
-Indie founders often build privately, postpone distribution until launch, and then ship to silence. They know they should post while building, but daily sharing feels vague, awkward, and easy to delay.
+Founders, creators, indie hackers, and solopreneurs often build privately, postpone visibility until launch, and then ship to silence. They know they should post while building, but daily sharing feels vague, awkward, and easy to delay.
 
-Shoyo does not try to become a full marketing suite. It removes one decision: "Should I show up today, and where?"
+Orion does not try to become a full marketing suite. It removes one decision: "Should I show up today, and where?"
 
 ## Current Product Direction
 
-Shoyo has moved away from the old Atoms-inspired UX direction. Atoms screenshots can remain historical reference material, but they are no longer the design foundation or source of truth.
+Orion has moved away from the old Atoms-inspired UX direction. Atoms screenshots can remain historical reference material, but they are no longer the design foundation or source of truth.
 
 The current app direction is:
 
-- **Mascot-led onboarding** — Oreo introduces the habit with a friendly, companion-like feel.
+- **Guide-led onboarding** — Oreo introduces the habit with a friendly, companion-like feel that supports Orion's "guide on the path" brand meaning.
 - **Platform orbs** — users choose where they want to build audience by tapping floating social platform orbs.
 - **Glass and native iOS surfaces** — light/dark-aware cards, translucent materials where appropriate, radial warmth, and iOS-native motion.
 - **Serif-led editorial moments** — large serif headlines give the app a founder-story tone instead of a generic productivity tone.
-- **Monochrome primary action color** — Shoyo uses black in Light Mode and white in Dark Mode for primary actions, while platform colors are used as contextual feedback.
+- **Monochrome primary action color** — Orion uses black in Light Mode and white in Dark Mode for primary actions, while platform colors are used as contextual feedback.
 
-Design work should follow the SwiftUI components in `Shoyo/Shoyo/Design/` and the current app screens before inventing a new visual system.
+Design work should follow the SwiftUI components in `Orion/Orion/Design/` and the current app screens before inventing a new visual system.
 
 ## Core Product Principles
 
-1. **Show the work while building.** Shoyo exists to create visibility before launch, not after momentum is gone.
+1. **Show the work while building.** Orion exists to create visibility before launch, not after momentum is gone.
 2. **Platform commitment comes first.** The user chooses social platforms first; quests are filtered from those choices.
 3. **Quests are concrete publish actions.** "Post a Reel" is better than "share progress." The app should minimize interpretation.
 4. **Completion is an intentional manual commit.** The current interaction is a visible plus button that fills the quest card, triggers haptic feedback, and switches to undo. Do not describe or rebuild tap-and-hold as the required mechanic unless the product direction changes again.
 5. **One completed quest per day keeps the overall streak alive.** More quests are useful, but the app should not feel like a checklist that punishes users for skipping optional variety.
 6. **Don't miss twice.** One missed day is forgiven; two consecutive misses reset the streak. This is an anti-shame retention mechanic.
-7. **No auto-posting or external verification.** Shoyo trusts the user. It does not connect to social APIs, verify posts, or publish on the user's behalf.
+7. **No auto-posting or external verification.** Orion trusts the user. It does not connect to social APIs, verify posts, or publish on the user's behalf.
 8. **Fast enough for a busy builder.** A quest should feel doable in about five minutes, including the post itself.
 9. **Color supports meaning but is never the only signal.** Platform name, icon, title, and accessibility labels must carry the same information.
 10. **iPhone first.** Watch, widgets, and web are post-MVP surfaces.
@@ -148,19 +150,20 @@ Do not build these into the MVP without an explicit product decision:
 
 ### Core Promise
 
-Pick the platforms you want to grow on. Get one clear posting quest. Show your work today. Keep the streak alive.
+Orion helps you build your personal brand by guiding you to show up, post your progress, and turn your work into proof.
 
 ### Best Hooks
 
 - "Your app does not have a product problem. It has a silence problem."
 - "Build in public before launch day, one quest at a time."
 - "A tiny daily commitment to show your work."
+- "Follow the path from building quietly to becoming known."
 
 ### 60-Second Launch Script Outline
 
 1. Hook: "I spent months building my app. I launched it. Nobody cared."
 2. Pain: Built in private, no posts, no audience, no momentum.
 3. Turning point: What if something told you where to show up today while you were still building?
-4. Reveal: Shoyo. Pick the platforms you want to grow on. Get simple daily quests. Tap plus when you show up. Keep the streak alive.
+4. Reveal: Orion. Pick the platforms you want to grow on. Get simple daily quests. Tap plus when you show up. Follow the path until your work becomes proof.
 5. Proof: Show onboarding platform orbs, Today quest cards, a completion fill, haptic feedback, and the Streaks board.
 6. Close: Your next app does not need to launch to silence.
