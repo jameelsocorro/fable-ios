@@ -239,7 +239,7 @@ struct PlatformPickerStepView: View {
 
             if selectedOrdered.isEmpty {
                 HStack(spacing: 16) {
-                    ForEach(0..<3, id: \.self) { _ in
+                    ForEach(0..<2, id: \.self) { _ in
                         Circle()
                             .strokeBorder(
                                 .secondary.opacity(0.20),
@@ -252,33 +252,35 @@ struct PlatformPickerStepView: View {
                 .frame(height: 74)
                 .transition(.opacity)
             } else {
-                ScrollView(.horizontal) {
-                    HStack(spacing: 14) {
-                        ForEach(selectedOrdered) { platform in
-                            Button(action: { deselect(platform) }) {
-                                PlatformOrb(platform: platform, size: 58)
-                                    .overlay(alignment: .topTrailing) {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .font(.subheadline.weight(.semibold))
-                                            .foregroundStyle(.secondary)
-                                            .offset(x: 5, y: -5)
-                                    }
-                                    .contentShape(Circle())
+                GeometryReader { geo in
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 14) {
+                            ForEach(selectedOrdered) { platform in
+                                Button(action: { deselect(platform) }) {
+                                    PlatformOrb(platform: platform, size: 58)
+                                        .overlay(alignment: .topTrailing) {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .font(.subheadline.weight(.semibold))
+                                                .foregroundStyle(.secondary)
+                                                .offset(x: 5, y: -5)
+                                        }
+                                        .contentShape(Circle())
+                                }
+                                .buttonStyle(.plain)
+                                .transition(.asymmetric(
+                                    insertion: .scale(scale: 0.2).combined(with: .opacity),
+                                    removal: .scale(scale: 0.2).combined(with: .opacity)
+                                ))
+                                .accessibilityLabel(platform.displayName)
+                                .accessibilityHint("Tap to remove")
+                                .accessibilityAddTraits(.isSelected)
                             }
-                            .buttonStyle(.plain)
-                            .transition(.asymmetric(
-                                insertion: .scale(scale: 0.2).combined(with: .opacity),
-                                removal: .scale(scale: 0.2).combined(with: .opacity)
-                            ))
-                            .accessibilityLabel(platform.displayName)
-                            .accessibilityHint("Tap to remove")
-                            .accessibilityAddTraits(.isSelected)
                         }
+                        .padding(.vertical, 4)
+                        .frame(minWidth: geo.size.width, alignment: .center)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 4)
+                    .scrollIndicators(.hidden)
                 }
-                .scrollIndicators(.hidden)
                 .frame(height: 74)
                 .transition(.opacity)
             }
