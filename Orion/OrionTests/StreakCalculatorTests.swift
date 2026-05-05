@@ -217,4 +217,26 @@ struct StreakCalculatorTests {
         )
         #expect(abs(rate - 0.5) < 0.001)
     }
+
+    // MARK: - longestStreak()
+
+    @Test func longestStreakCountsBestRunWithGraceDay() {
+        let streak = StreakCalculator.longestStreak(
+            completionDates: [day(-8), day(-7), day(-5), day(-4), day(-1), day(0)],
+            now: now,
+            calendar: calendar
+        )
+
+        #expect(streak == 4)
+    }
+
+    @Test func longestStreakIsZeroWithNoCompletions() {
+        let streak = StreakCalculator.longestStreak(
+            completionDates: [],
+            now: now,
+            calendar: calendar
+        )
+
+        #expect(streak == 0)
+    }
 }

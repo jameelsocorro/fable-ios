@@ -1,0 +1,7 @@
+// Shared app build settings that may be overridden locally.
+// Keep real secret values in ../Secrets.xcconfig.
+
+REVENUECAT_API_KEY =
+REVENUECAT_DEBUG_APP_USER_ID =
+
+#include? "../Secrets.xcconfig"

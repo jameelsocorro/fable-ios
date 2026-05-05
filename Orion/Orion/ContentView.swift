@@ -25,4 +25,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
+        .environment(SubscriptionManager())
 }

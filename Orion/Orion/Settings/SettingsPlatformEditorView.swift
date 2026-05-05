@@ -6,9 +6,12 @@ struct SettingsPlatformEditorView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     @Environment(\.theme) private var theme
     @State private var draftPlatforms: Set<SocialPlatform>
     @State private var isShowingSaveError = false
+    @State private var activePaywallTrigger: OrionPaywallTrigger?
+    @State private var pendingPlatformAfterPurchase: SocialPlatform?
 
     init(profile: FounderProfile) {
         self.profile = profile
@@ -42,7 +45,9 @@ struct SettingsPlatformEditorView: View {
                     .accessibilityAddTraits(accessibilityTraits(for: platform))
                 }
             } footer: {
-                Text("Keep at least one platform selected so Orion can keep your quest list focused.")
+                Text(subscriptionManager.hasOrionPro
+                    ? "Keep at least one platform selected so Orion can keep your quest list focused."
+                    : "Free keeps you focused on 2 platforms. Orion Pro unlocks every supported platform.")
             }
         }
         .scrollIndicators(.hidden)
@@ -58,6 +63,11 @@ struct SettingsPlatformEditorView: View {
         } message: {
             Text("Your platform changes could not be saved. Please try again.")
         }
+        .sheet(item: $activePaywallTrigger) { trigger in
+            OrionPaywallSheet(trigger: trigger) {
+                applyPendingPlatformIfPro()
+            }
+        }
     }
 
     private var canSave: Bool {
@@ -65,7 +75,24 @@ struct SettingsPlatformEditorView: View {
     }
 
     private func toggle(_ platform: SocialPlatform) {
-        draftPlatforms = SettingsPlatformSelection.toggled(platform, in: draftPlatforms)
+        switch SettingsPlatformSelection.toggled(
+            platform,
+            in: draftPlatforms,
+            hasOrionPro: subscriptionManager.hasOrionPro
+        ) {
+        case .updated(let updatedPlatforms):
+            draftPlatforms = updatedPlatforms
+        case .requiresPro:
+            pendingPlatformAfterPurchase = platform
+            activePaywallTrigger = .platformLimit
+        }
+    }
+
+    private func applyPendingPlatformIfPro() {
+        guard subscriptionManager.hasOrionPro, let pendingPlatformAfterPurchase else { return }
+
+        draftPlatforms.insert(pendingPlatformAfterPurchase)
+        self.pendingPlatformAfterPurchase = nil
     }
 
     private func accessibilityTraits(for platform: SocialPlatform) -> AccessibilityTraits {
@@ -100,4 +127,5 @@ struct SettingsPlatformEditorView: View {
     }
     .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
     .environment(\.theme, OrionAppTheme(selection: .system))
+    .environment(SubscriptionManager())
 }

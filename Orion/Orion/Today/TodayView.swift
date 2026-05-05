@@ -6,6 +6,7 @@ struct TodayView: View {
 
     @Query(sort: \QuestCompletion.completedAt, order: .reverse) private var completions: [QuestCompletion]
     @Environment(\.modelContext) private var modelContext
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     @Environment(\.theme) private var theme
     @State private var saveError: Error?
     @State private var isShowingSaveError = false
@@ -66,7 +67,14 @@ struct TodayView: View {
     }
 
     private var todayQuests: [QuestDefinition] {
-        QuestCatalog.quests(for: profile.selectedPlatforms)
+        QuestCatalog.quests(for: effectiveSelectedPlatforms)
+    }
+
+    private var effectiveSelectedPlatforms: Set<SocialPlatform> {
+        ProAccess.effectivePlatforms(
+            from: profile.selectedPlatforms,
+            hasOrionPro: subscriptionManager.hasOrionPro
+        )
     }
 
     private var completionDates: [Date] {
@@ -180,4 +188,5 @@ struct TodayView: View {
     TodayView(profile: profile)
         .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
         .environment(\.theme, OrionAppTheme(selection: .system))
+        .environment(SubscriptionManager())
 }

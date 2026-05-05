@@ -36,4 +36,5 @@ struct MainTabView: View {
     MainTabView(profile: profile)
         .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
         .environment(\.theme, OrionAppTheme(selection: .system))
+        .environment(SubscriptionManager())
 }

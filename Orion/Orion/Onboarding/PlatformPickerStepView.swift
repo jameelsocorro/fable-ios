@@ -111,12 +111,16 @@ private struct FloatingOrbButtonStyle: ButtonStyle {
 
 struct PlatformPickerStepView: View {
     @Binding var selectedPlatforms: Set<SocialPlatform>
+    let hasOrionPro: Bool
     let continueAction: () -> Void
 
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     @Environment(\.theme) private var theme
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    @State private var activePaywallTrigger: OrionPaywallTrigger?
+    @State private var pendingPlatformAfterPurchase: SocialPlatform?
 
     private let orbPlatforms: [SocialPlatform] = [
         .instagram, .tiktok, .threads, .youtube, .facebook,
@@ -157,6 +161,11 @@ struct PlatformPickerStepView: View {
         .animation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.8), value: selectedPlatforms.isEmpty)
         .sensoryFeedback(.success, trigger: selectedPlatforms.count) { old, new in new > old }
         .sensoryFeedback(.impact(weight: .light), trigger: selectedPlatforms.count) { old, new in new < old }
+        .sheet(item: $activePaywallTrigger) { trigger in
+            OrionPaywallSheet(trigger: trigger) {
+                applyPendingPlatformIfPro()
+            }
+        }
     }
 
     // MARK: – Hero zone
@@ -202,11 +211,21 @@ struct PlatformPickerStepView: View {
     }
 
     private var trayLabel: String {
+        if hasOrionPro {
+            switch selectedOrdered.count {
+            case 0: return "Tap a platform above to choose"
+            case 1: return "1 platform selected"
+            default: return "\(selectedOrdered.count) platforms selected"
+            }
+        }
+
         switch selectedOrdered.count {
-        case 0:      return "Tap a platform above to choose"
-        case 1:      return "1 platform · tap more to add"
-        case 2, 3:   return "\(selectedOrdered.count) platforms · looking good"
-        default:     return "\(selectedOrdered.count) selected · 1–3 is easier to stay consistent"
+        case 0:
+            return "Start focused with up to 2 platforms"
+        case 1:
+            return "1 platform selected · add one more"
+        default:
+            return "2 platforms selected · Pro unlocks every platform"
         }
     }
 
@@ -332,6 +351,20 @@ struct PlatformPickerStepView: View {
     }
 
     private func select(_ platform: SocialPlatform) {
+        guard ProAccess.canSelect(
+            platform,
+            selectedPlatforms: selectedPlatforms,
+            hasOrionPro: hasOrionPro
+        ) else {
+            pendingPlatformAfterPurchase = platform
+            activePaywallTrigger = .platformLimit
+            return
+        }
+
+        insert(platform)
+    }
+
+    private func insert(_ platform: SocialPlatform) {
         withAnimation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.72)) {
             _ = selectedPlatforms.insert(platform)
         }
@@ -342,8 +375,20 @@ struct PlatformPickerStepView: View {
             _ = selectedPlatforms.remove(platform)
         }
     }
+
+    private func applyPendingPlatformIfPro() {
+        guard subscriptionManager.hasOrionPro, let pendingPlatformAfterPurchase else { return }
+
+        insert(pendingPlatformAfterPurchase)
+        self.pendingPlatformAfterPurchase = nil
+    }
 }
 
 #Preview {
-    PlatformPickerStepView(selectedPlatforms: .constant([.instagram]), continueAction: {})
+    PlatformPickerStepView(
+        selectedPlatforms: .constant([.instagram]),
+        hasOrionPro: false,
+        continueAction: {}
+    )
+    .environment(SubscriptionManager())
 }

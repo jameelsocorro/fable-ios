@@ -3,27 +3,43 @@ import Testing
 
 struct SettingsPlatformSelectionTests {
     @Test
-    func togglingUnselectedPlatformAddsIt() {
+    func togglingUnselectedPlatformAddsItWhenWithinFreeLimit() {
         let selected: Set<SocialPlatform> = [.threads]
-        let result = SettingsPlatformSelection.toggled(.instagram, in: selected)
+        let result = SettingsPlatformSelection.toggled(.instagram, in: selected, hasOrionPro: false)
 
-        #expect(result == [.threads, .instagram])
+        #expect(result == .updated([.threads, .instagram]))
+    }
+
+    @Test
+    func togglingThirdPlatformRequiresProForFreeUsers() {
+        let selected: Set<SocialPlatform> = [.threads, .instagram]
+        let result = SettingsPlatformSelection.toggled(.youtube, in: selected, hasOrionPro: false)
+
+        #expect(result == .requiresPro)
+    }
+
+    @Test
+    func togglingThirdPlatformAddsItForProUsers() {
+        let selected: Set<SocialPlatform> = [.threads, .instagram]
+        let result = SettingsPlatformSelection.toggled(.youtube, in: selected, hasOrionPro: true)
+
+        #expect(result == .updated([.threads, .instagram, .youtube]))
     }
 
     @Test
     func togglingSelectedPlatformRemovesItWhenMoreThanOneRemains() {
         let selected: Set<SocialPlatform> = [.threads, .instagram]
-        let result = SettingsPlatformSelection.toggled(.instagram, in: selected)
+        let result = SettingsPlatformSelection.toggled(.instagram, in: selected, hasOrionPro: false)
 
-        #expect(result == [.threads])
+        #expect(result == .updated([.threads]))
     }
 
     @Test
     func togglingLastSelectedPlatformKeepsOneSelected() {
         let selected: Set<SocialPlatform> = [.threads]
-        let result = SettingsPlatformSelection.toggled(.threads, in: selected)
+        let result = SettingsPlatformSelection.toggled(.threads, in: selected, hasOrionPro: false)
 
-        #expect(result == [.threads])
+        #expect(result == .updated([.threads]))
     }
 
     @Test

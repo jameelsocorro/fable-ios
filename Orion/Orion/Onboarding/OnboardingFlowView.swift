@@ -3,6 +3,7 @@ import SwiftData
 
 struct OnboardingFlowView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(SubscriptionManager.self) private var subscriptionManager
 
     @State private var activeProfile: FounderProfile?
     @State private var step: OnboardingStep
@@ -20,7 +21,11 @@ struct OnboardingFlowView: View {
             case .welcome:
                 WelcomeStepView(start: start)
             case .platformPicker:
-                PlatformPickerStepView(selectedPlatforms: $selectedPlatforms, continueAction: savePlatforms)
+                PlatformPickerStepView(
+                    selectedPlatforms: $selectedPlatforms,
+                    hasOrionPro: subscriptionManager.hasOrionPro,
+                    continueAction: savePlatforms
+                )
             case .complete:
                 if let activeProfile {
                     TodayView(profile: activeProfile)
@@ -66,4 +71,5 @@ struct OnboardingFlowView: View {
 #Preview {
     OnboardingFlowView(existingProfile: nil)
         .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
+        .environment(SubscriptionManager())
 }

@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import RevenueCatUI
 import UIKit
 import UserNotifications
 
@@ -7,6 +8,7 @@ struct SettingsView: View {
     let profile: FounderProfile
 
     @AppStorage(AppAppearance.storageKey) private var selectedAppearanceRawValue = AppAppearance.system.rawValue
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.openURL) private var openExternalURL
     @Environment(\.scenePhase) private var scenePhase
@@ -15,6 +17,8 @@ struct SettingsView: View {
     @State private var isShowingLinkError = false
     @State private var linkErrorMessage = ""
     @State private var scrollOffset: CGFloat = 0
+    @State private var activePaywallTrigger: OrionPaywallTrigger?
+    @State private var isShowingCustomerCenter = false
 
     var body: some View {
         NavigationStack {
@@ -43,6 +47,23 @@ struct SettingsView: View {
             .alert("Unable to Open Link", isPresented: $isShowingLinkError) {
             } message: {
                 Text(linkErrorMessage)
+            }
+            .sheet(item: $activePaywallTrigger) { trigger in
+                OrionPaywallSheet(trigger: trigger) {}
+            }
+            .sheet(isPresented: $isShowingCustomerCenter, onDismiss: {
+                Task {
+                    await subscriptionManager.refreshCustomerInfo()
+                }
+            }) {
+                CustomerCenterView()
+                    .onCustomerCenterRestoreCompleted { customerInfo in
+                        subscriptionManager.updateCustomerInfo(customerInfo)
+                    }
+                    .onCustomerCenterRestoreFailed { error in
+                        linkErrorMessage = error.localizedDescription
+                        isShowingLinkError = true
+                    }
             }
         }
     }
@@ -108,11 +129,44 @@ struct SettingsView: View {
 
     private var billingSection: some View {
         Section("Billing") {
-            externalLinkRow(
-                title: "Manage Subscription",
-                systemImage: "creditcard",
-                url: SettingsLinks.manageSubscription
-            )
+            LabeledContent {
+                Text(subscriptionManager.hasOrionPro ? "Active" : "Free")
+                    .foregroundStyle(.secondary)
+            } label: {
+                Label("Orion Pro", systemImage: "sparkles")
+            }
+
+            if subscriptionManager.hasOrionPro {
+                Button {
+                    isShowingCustomerCenter = true
+                } label: {
+                    Label("Manage Subscription", systemImage: "creditcard")
+                }
+                .buttonStyle(.plain)
+            } else {
+                Button {
+                    activePaywallTrigger = .settingsUpgrade
+                } label: {
+                    Label("Upgrade to Orion Pro", systemImage: "crown")
+                }
+                .buttonStyle(.plain)
+            }
+
+            Button {
+                Task {
+                    await subscriptionManager.restorePurchases()
+                }
+            } label: {
+                Label("Restore Purchases", systemImage: "arrow.clockwise")
+            }
+            .buttonStyle(.plain)
+            .disabled(subscriptionManager.isRefreshing)
+
+            if let errorMessage = subscriptionManager.errorMessage {
+                Text(errorMessage)
+                    .font(.footnote)
+                    .foregroundStyle(.red)
+            }
         }
     }
 
@@ -156,8 +210,17 @@ struct SettingsView: View {
     }
 
     private var platformSummary: String {
-        let count = profile.selectedPlatforms.count
-        return count == 1 ? "1 platform" : "\(count) platforms"
+        let savedCount = profile.selectedPlatforms.count
+        let activeCount = ProAccess.effectivePlatforms(
+            from: profile.selectedPlatforms,
+            hasOrionPro: subscriptionManager.hasOrionPro
+        ).count
+
+        if activeCount < savedCount {
+            return "\(activeCount) active of \(savedCount) saved"
+        }
+
+        return savedCount == 1 ? "1 platform" : "\(savedCount) platforms"
     }
 
     private var versionFooter: String {
@@ -311,4 +374,5 @@ struct SettingsView: View {
     SettingsView(profile: profile)
         .modelContainer(for: [FounderProfile.self, QuestCompletion.self], inMemory: true)
         .environment(\.theme, OrionAppTheme(selection: .system))
+        .environment(SubscriptionManager())
 }

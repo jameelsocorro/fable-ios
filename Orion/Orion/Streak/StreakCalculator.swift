@@ -97,6 +97,42 @@ nonisolated enum StreakCalculator {
         return Double(completedDayCount) / Double(elapsedDays)
     }
 
+    static func longestStreak(
+        completionDates: [Date],
+        now: Date = .now,
+        calendar: Calendar = .current
+    ) -> Int {
+        let completedDays = Set(completionDates.map { calendar.startOfDay(for: $0) })
+        guard let firstCompletedDay = completedDays.min() else { return 0 }
+
+        var cursor = firstCompletedDay
+        let lastDay = calendar.startOfDay(for: now)
+        var currentRun = 0
+        var longestRun = 0
+        var consecutiveMisses = 0
+
+        while cursor <= lastDay {
+            if completedDays.contains(cursor) {
+                currentRun += 1
+                consecutiveMisses = 0
+                longestRun = max(longestRun, currentRun)
+            } else {
+                consecutiveMisses += 1
+                if consecutiveMisses >= 2 {
+                    currentRun = 0
+                    consecutiveMisses = 0
+                }
+            }
+
+            guard let nextDay = calendar.date(byAdding: .day, value: 1, to: cursor) else {
+                break
+            }
+            cursor = nextDay
+        }
+
+        return longestRun
+    }
+
     static func recentDays(
         count: Int = 7,
         completionDates: [Date],
