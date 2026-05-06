@@ -26,7 +26,9 @@ struct OnboardingFlowView: View {
                     hasOrionPro: subscriptionManager.hasOrionPro,
                     continueAction: savePlatforms
                 )
-            case .complete:
+            case .notificationPermission:
+                NotificationPermissionStepView(continueAction: continueToApp)
+            case .dayOneCelebration, .complete:
                 if let activeProfile {
                     TodayView(profile: activeProfile)
                 } else {
@@ -62,6 +64,11 @@ struct OnboardingFlowView: View {
 
         let profile = ensureProfile()
         profile.selectedPlatforms = selectedPlatforms
+        setStep(.notificationPermission)
+    }
+
+    private func continueToApp() {
+        let profile = ensureProfile()
         profile.hasCompletedOnboarding = true
         profile.onboardingCompletedAt = .now
         setStep(.complete)

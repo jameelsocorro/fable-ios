@@ -48,9 +48,11 @@ enum AppRoute: Equatable {
 
     private static func stepRank(_ step: OnboardingStep) -> Int {
         switch step {
-        case .welcome:        0
-        case .platformPicker: 1
-        case .complete:       2
+        case .welcome:                  0
+        case .platformPicker:           1
+        case .notificationPermission:   2
+        case .dayOneCelebration:        3
+        case .complete:                 4
         }
     }
 }

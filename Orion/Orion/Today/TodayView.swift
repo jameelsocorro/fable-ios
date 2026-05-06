@@ -11,6 +11,8 @@ struct TodayView: View {
     @State private var saveError: Error?
     @State private var isShowingSaveError = false
     @State private var selectedDayStart: Date?
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var scheduler = NotificationScheduler()
 
     var body: some View {
         ZStack {
@@ -63,6 +65,20 @@ struct TodayView: View {
             Button("OK") { saveError = nil }
         } message: {
             Text("Your progress could not be saved. Please try again.")
+        }
+        .task {
+            await scheduler.refreshWindow(completedDates: completionDates)
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            guard newPhase == .active else { return }
+            Task {
+                await scheduler.refreshWindow(completedDates: completionDates)
+            }
+        }
+        .onChange(of: completions) { _, _ in
+            Task {
+                await scheduler.refreshWindow(completedDates: completionDates)
+            }
         }
     }
 

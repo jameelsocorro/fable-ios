@@ -19,7 +19,7 @@
                                 <rect key="frame" x="87.5" y="233.5" width="200" height="200"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" name="LaunchBackground"/>
                         <constraints>
                             <constraint firstItem="abc-Or-eo1" firstAttribute="width" constant="200" id="oreo-w"/>
                             <constraint firstItem="abc-Or-eo1" firstAttribute="height" constant="200" id="oreo-h"/>

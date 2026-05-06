@@ -28,7 +28,7 @@ struct OrionPalette {
     // MARK: - Background
 
     var backgroundPrimary: Color {
-        .adaptive(light: "#F2F2F7", dark: "#000000")
+        .adaptive(light: "#F2F2F7", dark: "#1d1d1d")
     }
 
     var backgroundSecondary: Color {
@@ -42,11 +42,11 @@ struct OrionPalette {
     // MARK: - Surface
 
     var surfacePrimary: Color {
-        .adaptive(light: "#FFFFFF", dark: "#1C1C1E")
+        .adaptive(light: "#FFFFFF", dark: "#262628")
     }
 
     var surfaceSecondary: Color {
-        .adaptive(light: "#F2F2F7", dark: "#2C2C2E")
+        .adaptive(light: "#F2F2F7", dark: "#323234")
     }
 
     var surfaceTertiary: Color {
