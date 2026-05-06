@@ -77,6 +77,8 @@ struct SettingsView: View {
             supportSection
             versionFooterSection
         }
+        .scrollContentBackground(.hidden)
+        .background(theme.colors.background)
     }
 
     private var screenTitle: some View {
@@ -106,6 +108,7 @@ struct SettingsView: View {
                 appearanceRow(for: appearance)
             }
         }
+        .listRowBackground(theme.colors.surface)
     }
 
     private var platformSection: some View {
@@ -125,6 +128,7 @@ struct SettingsView: View {
                 .contentShape(Rectangle())
             }
         }
+        .listRowBackground(theme.colors.surface)
     }
 
     private var billingSection: some View {
@@ -168,6 +172,7 @@ struct SettingsView: View {
                     .foregroundStyle(.red)
             }
         }
+        .listRowBackground(theme.colors.surface)
     }
 
     private var notificationSection: some View {
@@ -187,6 +192,7 @@ struct SettingsView: View {
             .buttonStyle(.plain)
             .accessibilityValue(notificationStatus.displayName)
         }
+        .listRowBackground(theme.colors.surface)
     }
 
     private var supportSection: some View {
@@ -196,6 +202,7 @@ struct SettingsView: View {
             externalLinkRow(title: "Privacy Policy", systemImage: "lock.shield", url: SettingsLinks.privacyPolicy)
             externalLinkRow(title: "Terms of Service", systemImage: "doc.text", url: SettingsLinks.termsOfService)
         }
+        .listRowBackground(theme.colors.surface)
     }
 
     private var versionFooterSection: some View {

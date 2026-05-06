@@ -8,17 +8,26 @@ struct ContentView: View {
         AppRoute.preferredProfile(from: profiles)
     }
 
+    private var route: AppRoute {
+        AppRoute.route(for: activeProfile)
+    }
+
     var body: some View {
-        switch AppRoute.route(for: activeProfile) {
-        case .onboarding:
-            OnboardingFlowView(existingProfile: activeProfile)
-        case .today:
-            if let activeProfile {
-                MainTabView(profile: activeProfile)
-            } else {
-                OnboardingFlowView(existingProfile: nil)
+        ZStack {
+            switch route {
+            case .onboarding:
+                OnboardingFlowView(existingProfile: activeProfile)
+                    .transition(.asymmetric(insertion: .identity, removal: .opacity))
+            case .today:
+                if let activeProfile {
+                    MainTabView(profile: activeProfile)
+                        .transition(.asymmetric(insertion: .opacity, removal: .identity))
+                } else {
+                    OnboardingFlowView(existingProfile: nil)
+                }
             }
         }
+        .animation(.easeInOut(duration: 0.8), value: route)
     }
 }
 
