@@ -81,13 +81,13 @@ struct StreakView: View {
                 .foregroundStyle(theme.colors.textPrimary)
                 .padding(.horizontal, theme.spacing.xl)
 
-            StreakCommitBoard(grid: recentGrid)
+            StreakRecentHistoryCard(days: recentDays)
                 .padding(.horizontal, theme.spacing.xl)
         }
     }
 
     private var lockedAdvancedSection: some View {
-        VStack(alignment: .leading, spacing: theme.spacing.sm) {
+        VStack(alignment: .leading, spacing: theme.spacing.lg) {
             lockedRow(
                 title: "Unlock the full 12-month activity board",
                 subtitle: "See the complete path of your consistency.",
@@ -180,12 +180,9 @@ struct StreakView: View {
         return StreakCalculator.grid(for: DateInterval(start: start, end: end), completionDates: completionDates)
     }
 
-    private var recentGrid: [[StreakGridCell?]] {
-        let cal = Calendar.current
-        let end = cal.date(byAdding: .day, value: 1, to: cal.startOfDay(for: .now))!
+    private var recentDays: [StreakDayState] {
         let freeDays = ProAccess.recentHistoryDayLimit(hasOrionPro: false) ?? 14
-        guard let start = cal.date(byAdding: .day, value: -freeDays + 1, to: cal.startOfDay(for: .now)) else { return [] }
-        return StreakCalculator.grid(for: DateInterval(start: start, end: end), completionDates: completionDates)
+        return StreakCalculator.recentDays(count: freeDays, completionDates: completionDates)
     }
 
     private var quests: [QuestDefinition] {
